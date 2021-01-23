@@ -1,0 +1,9 @@
+{
+    "CurrencySymbol": "$",
+    "PositionCurrencySymbol": "left",
+    "Name": "Nombre",
+    "Country": "Pais",
+    "Save": "Guardar",
+    "RequestPassword": "Solicitar password",
+    "Login": "Iniciar sesión"
+}

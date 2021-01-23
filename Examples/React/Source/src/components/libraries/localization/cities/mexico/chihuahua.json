@@ -1,0 +1,270 @@
+[
+    {
+        "id": "1",
+        "name": "Ahumada"
+    },
+    {
+        "id": "2",
+        "name": "Aldama"
+    },
+    {
+        "id": "3",
+        "name": "Allende"
+    },
+    {
+        "id": "4",
+        "name": "Aquiles Serdán"
+    },
+    {
+        "id": "5",
+        "name": "Ascensión"
+    },
+    {
+        "id": "6",
+        "name": "Bachíniva"
+    },
+    {
+        "id": "7",
+        "name": "Balleza"
+    },
+    {
+        "id": "8",
+        "name": "Batopilas"
+    },
+    {
+        "id": "9",
+        "name": "Bocoyna"
+    },
+    {
+        "id": "10",
+        "name": "Buenaventura"
+    },
+    {
+        "id": "11",
+        "name": "Camargo"
+    },
+    {
+        "id": "12",
+        "name": "Carichí"
+    },
+    {
+        "id": "13",
+        "name": "Casas Grandes"
+    },
+    {
+        "id": "14",
+        "name": "Coronado"
+    },
+    {
+        "id": "15",
+        "name": "Coyame del Sotol"
+    },
+    {
+        "id": "16",
+        "name": "La Cruz"
+    },
+    {
+        "id": "17",
+        "name": "Cuauhtémoc"
+    },
+    {
+        "id": "18",
+        "name": "Cusihuiriachi"
+    },
+    {
+        "id": "19",
+        "name": "Chihuahua"
+    },
+    {
+        "id": "20",
+        "name": "Chínipas"
+    },
+    {
+        "id": "21",
+        "name": "Delicias"
+    },
+    {
+        "id": "22",
+        "name": "Dr. Belisario Domínguez"
+    },
+    {
+        "id": "23",
+        "name": "Galeana"
+    },
+    {
+        "id": "24",
+        "name": "Santa Isabel"
+    },
+    {
+        "id": "25",
+        "name": "Gómez Farías"
+    },
+    {
+        "id": "26",
+        "name": "Gran Morelos"
+    },
+    {
+        "id": "27",
+        "name": "Guachochi"
+    },
+    {
+        "id": "28",
+        "name": "Guadalupe"
+    },
+    {
+        "id": "29",
+        "name": "Guadalupe y Calvo"
+    },
+    {
+        "id": "30",
+        "name": "Guazapares"
+    },
+    {
+        "id": "31",
+        "name": "Guerrero"
+    },
+    {
+        "id": "32",
+        "name": "Hidalgo del Parral"
+    },
+    {
+        "id": "33",
+        "name": "Huejotitán"
+    },
+    {
+        "id": "34",
+        "name": "Ignacio Zaragoza"
+    },
+    {
+        "id": "35",
+        "name": "Janos"
+    },
+    {
+        "id": "36",
+        "name": "Jiménez"
+    },
+    {
+        "id": "37",
+        "name": "Juárez"
+    },
+    {
+        "id": "38",
+        "name": "Julimes"
+    },
+    {
+        "id": "39",
+        "name": "López"
+    },
+    {
+        "id": "40",
+        "name": "Madera"
+    },
+    {
+        "id": "41",
+        "name": "Maguarichi"
+    },
+    {
+        "id": "42",
+        "name": "Manuel Benavides"
+    },
+    {
+        "id": "43",
+        "name": "Matachí"
+    },
+    {
+        "id": "44",
+        "name": "Matamoros"
+    },
+    {
+        "id": "45",
+        "name": "Meoqui"
+    },
+    {
+        "id": "46",
+        "name": "Morelos"
+    },
+    {
+        "id": "47",
+        "name": "Moris"
+    },
+    {
+        "id": "48",
+        "name": "Namiquipa"
+    },
+    {
+        "id": "49",
+        "name": "Nonoava"
+    },
+    {
+        "id": "50",
+        "name": "Nuevo Casas Grandes"
+    },
+    {
+        "id": "51",
+        "name": "Ocampo"
+    },
+    {
+        "id": "52",
+        "name": "Ojinaga"
+    },
+    {
+        "id": "53",
+        "name": "Praxedis G. Guerrero"
+    },
+    {
+        "id": "54",
+        "name": "Riva Palacio"
+    },
+    {
+        "id": "55",
+        "name": "Rosales"
+    },
+    {
+        "id": "56",
+        "name": "Rosario"
+    },
+    {
+        "id": "57",
+        "name": "San Francisco de Borja"
+    },
+    {
+        "id": "58",
+        "name": "San Francisco de Conchos"
+    },
+    {
+        "id": "59",
+        "name": "San Francisco del Oro"
+    },
+    {
+        "id": "60",
+        "name": "Santa Bárbara"
+    },
+    {
+        "id": "61",
+        "name": "Satevó"
+    },
+    {
+        "id": "62",
+        "name": "Saucillo"
+    },
+    {
+        "id": "63",
+        "name": "Temósachic"
+    },
+    {
+        "id": "64",
+        "name": "El Tule"
+    },
+    {
+        "id": "65",
+        "name": "Urique"
+    },
+    {
+        "id": "66",
+        "name": "Uruachi"
+    },
+    {
+        "id": "67",
+        "name": "Valle de Zaragoza"
+    }
+]

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Proxy": {
+      "commandName": "Project",
+      "commandLineArgs": "host start --port 7070 --useHttps --cert \"cert.pfx\" --password \"123\" --pause-on-error"
+    }
+  }
+}

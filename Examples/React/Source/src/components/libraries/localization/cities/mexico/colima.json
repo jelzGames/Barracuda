@@ -1,0 +1,42 @@
+[
+    {
+        "id": "1",
+        "name": "Armería"
+    },
+    {
+        "id": "2",
+        "name": "Colima"
+    },
+    {
+        "id": "3",
+        "name": "Comala"
+    },
+    {
+        "id": "4",
+        "name": "Coquimatlán"
+    },
+    {
+        "id": "5",
+        "name": "Cuauhtémoc"
+    },
+    {
+        "id": "6",
+        "name": "Ixtlahuacán"
+    },
+    {
+        "id": "7",
+        "name": "Manzanillo"
+    },
+    {
+        "id": "8",
+        "name": "Minatitlán"
+    },
+    {
+        "id": "9",
+        "name": "Tecomán"
+    },
+    {
+        "id": "10",
+        "name": "Villa de Álvarez"
+    }
+]

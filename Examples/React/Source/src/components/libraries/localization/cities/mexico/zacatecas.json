@@ -1,0 +1,234 @@
+[
+    {
+        "id": "1",
+        "name": "Apozol"
+    },
+    {
+        "id": "2",
+        "name": "Apulco"
+    },
+    {
+        "id": "3",
+        "name": "Atolinga"
+    },
+    {
+        "id": "4",
+        "name": "Benito Juárez"
+    },
+    {
+        "id": "5",
+        "name": "Calera"
+    },
+    {
+        "id": "6",
+        "name": "Cañitas de Felipe Pescador"
+    },
+    {
+        "id": "7",
+        "name": "Concepción del Oro"
+    },
+    {
+        "id": "8",
+        "name": "Cuauhtémoc"
+    },
+    {
+        "id": "9",
+        "name": "Chalchihuites"
+    },
+    {
+        "id": "10",
+        "name": "Fresnillo"
+    },
+    {
+        "id": "11",
+        "name": "Trinidad García de la Cadena"
+    },
+    {
+        "id": "12",
+        "name": "Genaro Codina"
+    },
+    {
+        "id": "13",
+        "name": "General Enrique Estrada"
+    },
+    {
+        "id": "14",
+        "name": "General Francisco R. Murguía"
+    },
+    {
+        "id": "15",
+        "name": "El Plateado de Joaquín Amaro"
+    },
+    {
+        "id": "16",
+        "name": "General Pánfilo Natera"
+    },
+    {
+        "id": "17",
+        "name": "Guadalupe"
+    },
+    {
+        "id": "18",
+        "name": "Huanusco"
+    },
+    {
+        "id": "19",
+        "name": "Jalpa"
+    },
+    {
+        "id": "20",
+        "name": "Jerez"
+    },
+    {
+        "id": "21",
+        "name": "Jiménez del Teul"
+    },
+    {
+        "id": "22",
+        "name": "Juan Aldama"
+    },
+    {
+        "id": "23",
+        "name": "Juchipila"
+    },
+    {
+        "id": "24",
+        "name": "Loreto"
+    },
+    {
+        "id": "25",
+        "name": "Luis Moya"
+    },
+    {
+        "id": "26",
+        "name": "Mazapil"
+    },
+    {
+        "id": "27",
+        "name": "Melchor Ocampo"
+    },
+    {
+        "id": "28",
+        "name": "Mezquital del Oro"
+    },
+    {
+        "id": "29",
+        "name": "Miguel Auza"
+    },
+    {
+        "id": "30",
+        "name": "Momax"
+    },
+    {
+        "id": "31",
+        "name": "Monte Escobedo"
+    },
+    {
+        "id": "32",
+        "name": "Morelos"
+    },
+    {
+        "id": "33",
+        "name": "Moyahua de Estrada"
+    },
+    {
+        "id": "34",
+        "name": "Nochistlán de Mejía"
+    },
+    {
+        "id": "35",
+        "name": "Noria de Ángeles"
+    },
+    {
+        "id": "36",
+        "name": "Ojocaliente"
+    },
+    {
+        "id": "37",
+        "name": "Pánuco"
+    },
+    {
+        "id": "38",
+        "name": "Pinos"
+    },
+    {
+        "id": "39",
+        "name": "Río Grande"
+    },
+    {
+        "id": "40",
+        "name": "Sain Alto"
+    },
+    {
+        "id": "41",
+        "name": "El Salvador"
+    },
+    {
+        "id": "42",
+        "name": "Sombrerete"
+    },
+    {
+        "id": "43",
+        "name": "Susticacán"
+    },
+    {
+        "id": "44",
+        "name": "Tabasco"
+    },
+    {
+        "id": "45",
+        "name": "Tepechitlán"
+    },
+    {
+        "id": "46",
+        "name": "Tepetongo"
+    },
+    {
+        "id": "47",
+        "name": "Teúl de González Ortega"
+    },
+    {
+        "id": "48",
+        "name": "Tlaltenango de Sánchez Román"
+    },
+    {
+        "id": "49",
+        "name": "Valparaíso"
+    },
+    {
+        "id": "50",
+        "name": "Vetagrande"
+    },
+    {
+        "id": "51",
+        "name": "Villa de Cos"
+    },
+    {
+        "id": "52",
+        "name": "Villa García"
+    },
+    {
+        "id": "53",
+        "name": "Villa González Ortega"
+    },
+    {
+        "id": "54",
+        "name": "Villa Hidalgo"
+    },
+    {
+        "id": "55",
+        "name": "Villanueva"
+    },
+    {
+        "id": "56",
+        "name": "Zacatecas"
+    },
+    {
+        "id": "57",
+        "name": "Trancoso"
+    },
+    {
+        "id": "58",
+        "name": "Santa María de la Paz"
+    }
+]

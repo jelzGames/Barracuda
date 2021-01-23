@@ -1,0 +1,454 @@
+[
+    {
+        "id": "1",
+        "name": "Acuitzio"
+    },
+    {
+        "id": "2",
+        "name": "Aguililla"
+    },
+    {
+        "id": "3",
+        "name": "Álvaro Obregón"
+    },
+    {
+        "id": "4",
+        "name": "Angamacutiro"
+    },
+    {
+        "id": "5",
+        "name": "Angangueo"
+    },
+    {
+        "id": "6",
+        "name": "Apatzingán"
+    },
+    {
+        "id": "7",
+        "name": "Aporo"
+    },
+    {
+        "id": "8",
+        "name": "Aquila"
+    },
+    {
+        "id": "9",
+        "name": "Ario"
+    },
+    {
+        "id": "10",
+        "name": "Arteaga"
+    },
+    {
+        "id": "11",
+        "name": "Briseñas"
+    },
+    {
+        "id": "12",
+        "name": "Buenavista"
+    },
+    {
+        "id": "13",
+        "name": "Carácuaro"
+    },
+    {
+        "id": "14",
+        "name": "Coahuayana"
+    },
+    {
+        "id": "15",
+        "name": "Coalcomán de Vázquez Pallares"
+    },
+    {
+        "id": "16",
+        "name": "Coeneo"
+    },
+    {
+        "id": "17",
+        "name": "Contepec"
+    },
+    {
+        "id": "18",
+        "name": "Copándaro"
+    },
+    {
+        "id": "19",
+        "name": "Cotija"
+    },
+    {
+        "id": "20",
+        "name": "Cuitzeo"
+    },
+    {
+        "id": "21",
+        "name": "Charapan"
+    },
+    {
+        "id": "22",
+        "name": "Charo"
+    },
+    {
+        "id": "23",
+        "name": "Chavinda"
+    },
+    {
+        "id": "24",
+        "name": "Cherán"
+    },
+    {
+        "id": "25",
+        "name": "Chilchota"
+    },
+    {
+        "id": "26",
+        "name": "Chinicuila"
+    },
+    {
+        "id": "27",
+        "name": "Chucándiro"
+    },
+    {
+        "id": "28",
+        "name": "Churintzio"
+    },
+    {
+        "id": "29",
+        "name": "Churumuco"
+    },
+    {
+        "id": "30",
+        "name": "Ecuandureo"
+    },
+    {
+        "id": "31",
+        "name": "Epitacio Huerta"
+    },
+    {
+        "id": "32",
+        "name": "Erongarícuaro"
+    },
+    {
+        "id": "33",
+        "name": "Gabriel Zamora"
+    },
+    {
+        "id": "34",
+        "name": "Hidalgo"
+    },
+    {
+        "id": "35",
+        "name": "La Huacana"
+    },
+    {
+        "id": "36",
+        "name": "Huandacareo"
+    },
+    {
+        "id": "37",
+        "name": "Huaniqueo"
+    },
+    {
+        "id": "38",
+        "name": "Huetamo"
+    },
+    {
+        "id": "39",
+        "name": "Huiramba"
+    },
+    {
+        "id": "40",
+        "name": "Indaparapeo"
+    },
+    {
+        "id": "41",
+        "name": "Irimbo"
+    },
+    {
+        "id": "42",
+        "name": "Ixtlán"
+    },
+    {
+        "id": "43",
+        "name": "Jacona"
+    },
+    {
+        "id": "44",
+        "name": "Jiménez"
+    },
+    {
+        "id": "45",
+        "name": "Jiquilpan"
+    },
+    {
+        "id": "46",
+        "name": "Juárez"
+    },
+    {
+        "id": "47",
+        "name": "Jungapeo"
+    },
+    {
+        "id": "48",
+        "name": "Lagunillas"
+    },
+    {
+        "id": "49",
+        "name": "Madero"
+    },
+    {
+        "id": "50",
+        "name": "Maravatío"
+    },
+    {
+        "id": "51",
+        "name": "Marcos Castellanos"
+    },
+    {
+        "id": "52",
+        "name": "Lázaro Cárdenas"
+    },
+    {
+        "id": "53",
+        "name": "Morelia"
+    },
+    {
+        "id": "54",
+        "name": "Morelos"
+    },
+    {
+        "id": "55",
+        "name": "Múgica"
+    },
+    {
+        "id": "56",
+        "name": "Nahuatzen"
+    },
+    {
+        "id": "57",
+        "name": "Nocupétaro"
+    },
+    {
+        "id": "58",
+        "name": "Nuevo Parangaricutiro"
+    },
+    {
+        "id": "59",
+        "name": "Nuevo Urecho"
+    },
+    {
+        "id": "60",
+        "name": "Numarán"
+    },
+    {
+        "id": "61",
+        "name": "Ocampo"
+    },
+    {
+        "id": "62",
+        "name": "Pajacuarán"
+    },
+    {
+        "id": "63",
+        "name": "Panindícuaro"
+    },
+    {
+        "id": "64",
+        "name": "Parácuaro"
+    },
+    {
+        "id": "65",
+        "name": "Paracho"
+    },
+    {
+        "id": "66",
+        "name": "Pátzcuaro"
+    },
+    {
+        "id": "67",
+        "name": "Penjamillo"
+    },
+    {
+        "id": "68",
+        "name": "Peribán"
+    },
+    {
+        "id": "69",
+        "name": "La Piedad"
+    },
+    {
+        "id": "70",
+        "name": "Purépero"
+    },
+    {
+        "id": "71",
+        "name": "Puruándiro"
+    },
+    {
+        "id": "72",
+        "name": "Queréndaro"
+    },
+    {
+        "id": "73",
+        "name": "Quiroga"
+    },
+    {
+        "id": "74",
+        "name": "Cojumatlán de Régules"
+    },
+    {
+        "id": "75",
+        "name": "Los Reyes"
+    },
+    {
+        "id": "76",
+        "name": "Sahuayo"
+    },
+    {
+        "id": "77",
+        "name": "San Lucas"
+    },
+    {
+        "id": "78",
+        "name": "Santa Ana Maya"
+    },
+    {
+        "id": "79",
+        "name": "Salvador Escalante"
+    },
+    {
+        "id": "80",
+        "name": "Senguio"
+    },
+    {
+        "id": "81",
+        "name": "Susupuato"
+    },
+    {
+        "id": "82",
+        "name": "Tacámbaro"
+    },
+    {
+        "id": "83",
+        "name": "Tancítaro"
+    },
+    {
+        "id": "84",
+        "name": "Tangamandapio"
+    },
+    {
+        "id": "85",
+        "name": "Tangancícuaro"
+    },
+    {
+        "id": "86",
+        "name": "Tanhuato"
+    },
+    {
+        "id": "87",
+        "name": "Taretan"
+    },
+    {
+        "id": "88",
+        "name": "Tarímbaro"
+    },
+    {
+        "id": "89",
+        "name": "Tepalcatepec"
+    },
+    {
+        "id": "90",
+        "name": "Tingambato"
+    },
+    {
+        "id": "91",
+        "name": "Tingüindín"
+    },
+    {
+        "id": "92",
+        "name": "Tiquicheo de Nicolás Romero"
+    },
+    {
+        "id": "93",
+        "name": "Tlalpujahua"
+    },
+    {
+        "id": "94",
+        "name": "Tlazazalca"
+    },
+    {
+        "id": "95",
+        "name": "Tocumbo"
+    },
+    {
+        "id": "96",
+        "name": "Tumbiscatío"
+    },
+    {
+        "id": "97",
+        "name": "Turicato"
+    },
+    {
+        "id": "98",
+        "name": "Tuxpan"
+    },
+    {
+        "id": "99",
+        "name": "Tuzantla"
+    },
+    {
+        "id": "100",
+        "name": "Tzintzuntzan"
+    },
+    {
+        "id": "101",
+        "name": "Tzitzio"
+    },
+    {
+        "id": "102",
+        "name": "Uruapan"
+    },
+    {
+        "id": "103",
+        "name": "Venustiano Carranza"
+    },
+    {
+        "id": "104",
+        "name": "Villamar"
+    },
+    {
+        "id": "105",
+        "name": "Vista Hermosa"
+    },
+    {
+        "id": "106",
+        "name": "Yurécuaro"
+    },
+    {
+        "id": "107",
+        "name": "Zacapu"
+    },
+    {
+        "id": "108",
+        "name": "Zamora"
+    },
+    {
+        "id": "109",
+        "name": "Zináparo"
+    },
+    {
+        "id": "110",
+        "name": "Zinapécuaro"
+    },
+    {
+        "id": "111",
+        "name": "Ziracuaretiro"
+    },
+    {
+        "id": "112",
+        "name": "Zitácuaro"
+    },
+    {
+        "id": "113",
+        "name": "José Sixto Verduzco"
+    }
+]

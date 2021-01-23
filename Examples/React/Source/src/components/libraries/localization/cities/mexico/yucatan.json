@@ -1,0 +1,426 @@
+[
+    {
+        "id": "1",
+        "name": "Abalá"
+    },
+    {
+        "id": "2",
+        "name": "Acanceh"
+    },
+    {
+        "id": "3",
+        "name": "Akil"
+    },
+    {
+        "id": "4",
+        "name": "Baca"
+    },
+    {
+        "id": "5",
+        "name": "Bokobá"
+    },
+    {
+        "id": "6",
+        "name": "Buctzotz"
+    },
+    {
+        "id": "7",
+        "name": "Cacalchén"
+    },
+    {
+        "id": "8",
+        "name": "Calotmul"
+    },
+    {
+        "id": "9",
+        "name": "Cansahcab"
+    },
+    {
+        "id": "10",
+        "name": "Cantamayec"
+    },
+    {
+        "id": "11",
+        "name": "Celestún"
+    },
+    {
+        "id": "12",
+        "name": "Cenotillo"
+    },
+    {
+        "id": "13",
+        "name": "Conkal"
+    },
+    {
+        "id": "14",
+        "name": "Cuncunul"
+    },
+    {
+        "id": "15",
+        "name": "Cuzamá"
+    },
+    {
+        "id": "16",
+        "name": "Chacsinkín"
+    },
+    {
+        "id": "17",
+        "name": "Chankom"
+    },
+    {
+        "id": "18",
+        "name": "Chapab"
+    },
+    {
+        "id": "19",
+        "name": "Chemax"
+    },
+    {
+        "id": "20",
+        "name": "Chicxulub Pueblo"
+    },
+    {
+        "id": "21",
+        "name": "Chichimilá"
+    },
+    {
+        "id": "22",
+        "name": "Chikindzonot"
+    },
+    {
+        "id": "23",
+        "name": "Chocholá"
+    },
+    {
+        "id": "24",
+        "name": "Chumayel"
+    },
+    {
+        "id": "25",
+        "name": "Dzán"
+    },
+    {
+        "id": "26",
+        "name": "Dzemul"
+    },
+    {
+        "id": "27",
+        "name": "Dzidzantún"
+    },
+    {
+        "id": "28",
+        "name": "Dzilam de Bravo"
+    },
+    {
+        "id": "29",
+        "name": "Dzilam González"
+    },
+    {
+        "id": "30",
+        "name": "Dzitás"
+    },
+    {
+        "id": "31",
+        "name": "Dzoncauich"
+    },
+    {
+        "id": "32",
+        "name": "Espita"
+    },
+    {
+        "id": "33",
+        "name": "Halachó"
+    },
+    {
+        "id": "34",
+        "name": "Hocabá"
+    },
+    {
+        "id": "35",
+        "name": "Hoctún"
+    },
+    {
+        "id": "36",
+        "name": "Homún"
+    },
+    {
+        "id": "37",
+        "name": "Huhí"
+    },
+    {
+        "id": "38",
+        "name": "Hunucmá"
+    },
+    {
+        "id": "39",
+        "name": "Ixil"
+    },
+    {
+        "id": "40",
+        "name": "Izamal"
+    },
+    {
+        "id": "41",
+        "name": "Kanasín"
+    },
+    {
+        "id": "42",
+        "name": "Kantunil"
+    },
+    {
+        "id": "43",
+        "name": "Kaua"
+    },
+    {
+        "id": "44",
+        "name": "Kinchil"
+    },
+    {
+        "id": "45",
+        "name": "Kopomá"
+    },
+    {
+        "id": "46",
+        "name": "Mama"
+    },
+    {
+        "id": "47",
+        "name": "Maní"
+    },
+    {
+        "id": "48",
+        "name": "Maxcanú"
+    },
+    {
+        "id": "49",
+        "name": "Mayapán"
+    },
+    {
+        "id": "50",
+        "name": "Mérida"
+    },
+    {
+        "id": "51",
+        "name": "Mocochá"
+    },
+    {
+        "id": "52",
+        "name": "Motul"
+    },
+    {
+        "id": "53",
+        "name": "Muna"
+    },
+    {
+        "id": "54",
+        "name": "Muxupip"
+    },
+    {
+        "id": "55",
+        "name": "Opichén"
+    },
+    {
+        "id": "56",
+        "name": "Oxkutzcab"
+    },
+    {
+        "id": "57",
+        "name": "Panabá"
+    },
+    {
+        "id": "58",
+        "name": "Peto"
+    },
+    {
+        "id": "59",
+        "name": "Progreso"
+    },
+    {
+        "id": "60",
+        "name": "Quintana Roo"
+    },
+    {
+        "id": "61",
+        "name": "Río Lagartos"
+    },
+    {
+        "id": "62",
+        "name": "Sacalum"
+    },
+    {
+        "id": "63",
+        "name": "Samahil"
+    },
+    {
+        "id": "64",
+        "name": "Sanahcat"
+    },
+    {
+        "id": "65",
+        "name": "San Felipe"
+    },
+    {
+        "id": "66",
+        "name": "Santa Elena"
+    },
+    {
+        "id": "67",
+        "name": "Seyé"
+    },
+    {
+        "id": "68",
+        "name": "Sinanché"
+    },
+    {
+        "id": "69",
+        "name": "Sotuta"
+    },
+    {
+        "id": "70",
+        "name": "Sucilá"
+    },
+    {
+        "id": "71",
+        "name": "Sudzal"
+    },
+    {
+        "id": "72",
+        "name": "Suma"
+    },
+    {
+        "id": "73",
+        "name": "Tahdziú"
+    },
+    {
+        "id": "74",
+        "name": "Tahmek"
+    },
+    {
+        "id": "75",
+        "name": "Teabo"
+    },
+    {
+        "id": "76",
+        "name": "Tecoh"
+    },
+    {
+        "id": "77",
+        "name": "Tekal de Venegas"
+    },
+    {
+        "id": "78",
+        "name": "Tekantó"
+    },
+    {
+        "id": "79",
+        "name": "Tekax"
+    },
+    {
+        "id": "80",
+        "name": "Tekit"
+    },
+    {
+        "id": "81",
+        "name": "Tekom"
+    },
+    {
+        "id": "82",
+        "name": "Telchac Pueblo"
+    },
+    {
+        "id": "83",
+        "name": "Telchac Puerto"
+    },
+    {
+        "id": "84",
+        "name": "Temax"
+    },
+    {
+        "id": "85",
+        "name": "Temozón"
+    },
+    {
+        "id": "86",
+        "name": "Tepakán"
+    },
+    {
+        "id": "87",
+        "name": "Tetiz"
+    },
+    {
+        "id": "88",
+        "name": "Teya"
+    },
+    {
+        "id": "89",
+        "name": "Ticul"
+    },
+    {
+        "id": "90",
+        "name": "Timucuy"
+    },
+    {
+        "id": "91",
+        "name": "Tinum"
+    },
+    {
+        "id": "92",
+        "name": "Tixcacalcupul"
+    },
+    {
+        "id": "93",
+        "name": "Tixkokob"
+    },
+    {
+        "id": "94",
+        "name": "Tixmehuac"
+    },
+    {
+        "id": "95",
+        "name": "Tixpéhual"
+    },
+    {
+        "id": "96",
+        "name": "Tizimín"
+    },
+    {
+        "id": "97",
+        "name": "Tunkás"
+    },
+    {
+        "id": "98",
+        "name": "Tzucacab"
+    },
+    {
+        "id": "99",
+        "name": "Uayma"
+    },
+    {
+        "id": "100",
+        "name": "Ucú"
+    },
+    {
+        "id": "101",
+        "name": "Umán"
+    },
+    {
+        "id": "102",
+        "name": "Valladolid"
+    },
+    {
+        "id": "103",
+        "name": "Xocchel"
+    },
+    {
+        "id": "104",
+        "name": "Yaxcabá"
+    },
+    {
+        "id": "105",
+        "name": "Yaxkukul"
+    },
+    {
+        "id": "106",
+        "name": "Yobaín"
+    }
+]

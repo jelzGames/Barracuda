@@ -1,0 +1,60 @@
+﻿AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+
+Resources:
+
+  GetAll:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: OpenApiLambdaAws::OpenApiLambdaAws.Functions::GetAll,
+      Runtime: dotnetcore3.1,
+      Events:
+        AnyRequest:
+          Type: Api
+          Properties:
+            Path: /
+            Method: ANY
+            RestApiId:
+              Ref: GetAll
+
+  OpenAPI:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: OpenApiLambdaAws::OpenApiLambdaAws.Functions::OpenAPI,
+      Runtime: dotnetcore3.1,
+      Events:
+        AnyRequest:
+          Type: Api
+          Properties:
+            Path: /
+            Method: ANY
+            RestApiId:
+              Ref: OpenAPI 
+              
+  OpenAPIUI:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: OpenApiLambdaAws::OpenApiLambdaAws.Functions::OpenAPIUI,
+      Runtime: dotnetcore3.1,
+      Events:
+        AnyRequest:
+          Type: Api
+          Properties:
+            Path: /
+            Method: ANY
+            RestApiId:
+              Ref: OpenAPIUI 
+
+  OpenAPIAuth:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: OpenApiLambdaAws::OpenApiLambdaAws.Functions::OpenAPIAuth,
+      Runtime: dotnetcore3.1,
+      Events:
+        AnyRequest:
+          Type: Api
+          Properties:
+            Path: /
+            Method: ANY
+            RestApiId:
+              Ref: OpenAPIAuth

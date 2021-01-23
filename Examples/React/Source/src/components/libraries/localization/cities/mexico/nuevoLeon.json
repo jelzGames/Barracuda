@@ -1,0 +1,206 @@
+[
+    {
+        "id": "1",
+        "name": "Abasolo"
+    },
+    {
+        "id": "2",
+        "name": "Agualeguas"
+    },
+    {
+        "id": "3",
+        "name": "Los Aldamas"
+    },
+    {
+        "id": "4",
+        "name": "Allende"
+    },
+    {
+        "id": "5",
+        "name": "Anáhuac"
+    },
+    {
+        "id": "6",
+        "name": "Apodaca"
+    },
+    {
+        "id": "7",
+        "name": "Aramberri"
+    },
+    {
+        "id": "8",
+        "name": "Bustamante"
+    },
+    {
+        "id": "9",
+        "name": "Cadereyta Jiménez"
+    },
+    {
+        "id": "10",
+        "name": "El Carmen"
+    },
+    {
+        "id": "11",
+        "name": "Cerralvo"
+    },
+    {
+        "id": "12",
+        "name": "Ciénega de Flores"
+    },
+    {
+        "id": "13",
+        "name": "China"
+    },
+    {
+        "id": "14",
+        "name": "Doctor Arroyo"
+    },
+    {
+        "id": "15",
+        "name": "Doctor Coss"
+    },
+    {
+        "id": "16",
+        "name": "Doctor González"
+    },
+    {
+        "id": "17",
+        "name": "Galeana"
+    },
+    {
+        "id": "18",
+        "name": "García"
+    },
+    {
+        "id": "19",
+        "name": "San Pedro Garza García"
+    },
+    {
+        "id": "20",
+        "name": "General Bravo"
+    },
+    {
+        "id": "21",
+        "name": "General Escobedo"
+    },
+    {
+        "id": "22",
+        "name": "General Terán"
+    },
+    {
+        "id": "23",
+        "name": "General Treviño"
+    },
+    {
+        "id": "24",
+        "name": "General Zaragoza"
+    },
+    {
+        "id": "25",
+        "name": "General Zuazua"
+    },
+    {
+        "id": "26",
+        "name": "Guadalupe"
+    },
+    {
+        "id": "27",
+        "name": "Los Herreras"
+    },
+    {
+        "id": "28",
+        "name": "Higueras"
+    },
+    {
+        "id": "29",
+        "name": "Hualahuises"
+    },
+    {
+        "id": "30",
+        "name": "Iturbide"
+    },
+    {
+        "id": "31",
+        "name": "Juárez"
+    },
+    {
+        "id": "32",
+        "name": "Lampazos de Naranjo"
+    },
+    {
+        "id": "33",
+        "name": "Linares"
+    },
+    {
+        "id": "34",
+        "name": "Marín"
+    },
+    {
+        "id": "35",
+        "name": "Melchor Ocampo"
+    },
+    {
+        "id": "36",
+        "name": "Mier y Noriega"
+    },
+    {
+        "id": "37",
+        "name": "Mina"
+    },
+    {
+        "id": "38",
+        "name": "Montemorelos"
+    },
+    {
+        "id": "39",
+        "name": "Monterrey"
+    },
+    {
+        "id": "40",
+        "name": "Parás"
+    },
+    {
+        "id": "41",
+        "name": "Pesquería"
+    },
+    {
+        "id": "42",
+        "name": "Los Ramones"
+    },
+    {
+        "id": "43",
+        "name": "Rayones"
+    },
+    {
+        "id": "44",
+        "name": "Sabinas Hidalgo"
+    },
+    {
+        "id": "45",
+        "name": "Salinas Victoria"
+    },
+    {
+        "id": "46",
+        "name": "San Nicolás de los Garza"
+    },
+    {
+        "id": "47",
+        "name": "Hidalgo"
+    },
+    {
+        "id": "48",
+        "name": "Santa Catarina"
+    },
+    {
+        "id": "49",
+        "name": "Santiago"
+    },
+    {
+        "id": "50",
+        "name": "Vallecillo"
+    },
+    {
+        "id": "51",
+        "name": "Villaldama"
+    }
+]

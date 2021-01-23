@@ -1,0 +1,338 @@
+[
+    {
+        "id": "1",
+        "name": "Acatlán"
+    },
+    {
+        "id": "2",
+        "name": "Acaxochitlán"
+    },
+    {
+        "id": "3",
+        "name": "Actopan"
+    },
+    {
+        "id": "4",
+        "name": "Agua Blanca de Iturbide"
+    },
+    {
+        "id": "5",
+        "name": "Ajacuba"
+    },
+    {
+        "id": "6",
+        "name": "Alfajayucan"
+    },
+    {
+        "id": "7",
+        "name": "Almoloya"
+    },
+    {
+        "id": "8",
+        "name": "Apan"
+    },
+    {
+        "id": "9",
+        "name": "El Arenal"
+    },
+    {
+        "id": "10",
+        "name": "Atitalaquia"
+    },
+    {
+        "id": "11",
+        "name": "Atlapexco"
+    },
+    {
+        "id": "12",
+        "name": "Atotonilco el Grande"
+    },
+    {
+        "id": "13",
+        "name": "Atotonilco de Tula"
+    },
+    {
+        "id": "14",
+        "name": "Calnali"
+    },
+    {
+        "id": "15",
+        "name": "Cardonal"
+    },
+    {
+        "id": "16",
+        "name": "Cuautepec de Hinojosa"
+    },
+    {
+        "id": "17",
+        "name": "Chapantongo"
+    },
+    {
+        "id": "18",
+        "name": "Chapulhuacán"
+    },
+    {
+        "id": "19",
+        "name": "Chilcuautla"
+    },
+    {
+        "id": "20",
+        "name": "Eloxochitlán"
+    },
+    {
+        "id": "21",
+        "name": "Emiliano Zapata"
+    },
+    {
+        "id": "22",
+        "name": "Epazoyucan"
+    },
+    {
+        "id": "23",
+        "name": "Francisco I. Madero"
+    },
+    {
+        "id": "24",
+        "name": "Huasca de Ocampo"
+    },
+    {
+        "id": "25",
+        "name": "Huautla"
+    },
+    {
+        "id": "26",
+        "name": "Huazalingo"
+    },
+    {
+        "id": "27",
+        "name": "Huehuetla"
+    },
+    {
+        "id": "28",
+        "name": "Huejutla de Reyes"
+    },
+    {
+        "id": "29",
+        "name": "Huichapan"
+    },
+    {
+        "id": "30",
+        "name": "Ixmiquilpan"
+    },
+    {
+        "id": "31",
+        "name": "Jacala de Ledezma"
+    },
+    {
+        "id": "32",
+        "name": "Jaltocán"
+    },
+    {
+        "id": "33",
+        "name": "Juárez Hidalgo"
+    },
+    {
+        "id": "34",
+        "name": "Lolotla"
+    },
+    {
+        "id": "35",
+        "name": "Metepec"
+    },
+    {
+        "id": "36",
+        "name": "San Agustín Metzquititlán"
+    },
+    {
+        "id": "37",
+        "name": "Metztitlán"
+    },
+    {
+        "id": "38",
+        "name": "Mineral del Chico"
+    },
+    {
+        "id": "39",
+        "name": "Mineral del Monte"
+    },
+    {
+        "id": "40",
+        "name": "La Misión"
+    },
+    {
+        "id": "41",
+        "name": "Mixquiahuala de Juárez"
+    },
+    {
+        "id": "42",
+        "name": "Molango de Escamilla"
+    },
+    {
+        "id": "43",
+        "name": "Nicolás Flores"
+    },
+    {
+        "id": "44",
+        "name": "Nopala de Villagrán"
+    },
+    {
+        "id": "45",
+        "name": "Omitlán de Juárez"
+    },
+    {
+        "id": "46",
+        "name": "San Felipe Orizatlán"
+    },
+    {
+        "id": "47",
+        "name": "Pacula"
+    },
+    {
+        "id": "48",
+        "name": "Pachuca de Soto"
+    },
+    {
+        "id": "49",
+        "name": "Pisaflores"
+    },
+    {
+        "id": "50",
+        "name": "Progreso de Obregón"
+    },
+    {
+        "id": "51",
+        "name": "Mineral de la Reforma"
+    },
+    {
+        "id": "52",
+        "name": "San Agustín Tlaxiaca"
+    },
+    {
+        "id": "53",
+        "name": "San Bartolo Tutotepec"
+    },
+    {
+        "id": "54",
+        "name": "San Salvador"
+    },
+    {
+        "id": "55",
+        "name": "Santiago de Anaya"
+    },
+    {
+        "id": "56",
+        "name": "Santiago Tulantepec de Lugo Guerrero"
+    },
+    {
+        "id": "57",
+        "name": "Singuilucan"
+    },
+    {
+        "id": "58",
+        "name": "Tasquillo"
+    },
+    {
+        "id": "59",
+        "name": "Tecozautla"
+    },
+    {
+        "id": "60",
+        "name": "Tenango de Doria"
+    },
+    {
+        "id": "61",
+        "name": "Tepeapulco"
+    },
+    {
+        "id": "62",
+        "name": "Tepehuacán de Guerrero"
+    },
+    {
+        "id": "63",
+        "name": "Tepeji del Río de Ocampo"
+    },
+    {
+        "id": "64",
+        "name": "Tepetitlán"
+    },
+    {
+        "id": "65",
+        "name": "Tetepango"
+    },
+    {
+        "id": "66",
+        "name": "Villa de Tezontepec"
+    },
+    {
+        "id": "67",
+        "name": "Tezontepec de Aldama"
+    },
+    {
+        "id": "68",
+        "name": "Tianguistengo"
+    },
+    {
+        "id": "69",
+        "name": "Tizayuca"
+    },
+    {
+        "id": "70",
+        "name": "Tlahuelilpan"
+    },
+    {
+        "id": "71",
+        "name": "Tlahuiltepa"
+    },
+    {
+        "id": "72",
+        "name": "Tlanalapa"
+    },
+    {
+        "id": "73",
+        "name": "Tlanchinol"
+    },
+    {
+        "id": "74",
+        "name": "Tlaxcoapan"
+    },
+    {
+        "id": "75",
+        "name": "Tolcayuca"
+    },
+    {
+        "id": "76",
+        "name": "Tula de Allende"
+    },
+    {
+        "id": "77",
+        "name": "Tulancingo de Bravo"
+    },
+    {
+        "id": "78",
+        "name": "Xochiatipan"
+    },
+    {
+        "id": "79",
+        "name": "Xochicoatlán"
+    },
+    {
+        "id": "80",
+        "name": "Yahualica"
+    },
+    {
+        "id": "81",
+        "name": "Zacualtipán de Ángeles"
+    },
+    {
+        "id": "82",
+        "name": "Zapotlán de Juárez"
+    },
+    {
+        "id": "83",
+        "name": "Zempoala"
+    },
+    {
+        "id": "84",
+        "name": "Zimapán"
+    }
+]

@@ -1,0 +1,61 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+  "Transform" : "AWS::Serverless-2016-10-31",
+  "Description" : "Starting template for an AWS Serverless Application.",
+  "Parameters" : {
+  },
+  "Resources" : {
+    "GetAll" : {
+      "Type" : "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "OpenApiLambdaAws::OpenApiLambdaAws.Functions::GetAll",
+        "Runtime": "dotnetcore3.1",
+        "CodeUri": "",
+        "Description": "GetAll function",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [ "AWSLambdaFullAccess" ]
+      }
+    },
+	"OpenAPI" : {
+      "Type" : "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "OpenApiLambdaAws::OpenApiLambdaAws.Functions::OpenAPI",
+        "Runtime": "dotnetcore3.1",
+        "CodeUri": "",
+        "Description": "OpenAPI function",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [ "AWSLambdaFullAccess" ]
+      }
+    },
+    "OpenAPIUI" : {
+      "Type" : "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "OpenApiLambdaAws::OpenApiLambdaAws.Functions::OpenAPIUI",
+        "Runtime": "dotnetcore3.1",
+        "CodeUri": "",
+        "Description": "OpenAPI function",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [ "AWSLambdaFullAccess" ]
+      }
+    },
+    "OpenAPIAuth" : {
+      "Type" : "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "OpenApiLambdaAws::OpenApiLambdaAws.Functions::OpenAPIAuth",
+        "Runtime": "dotnetcore3.1",
+        "CodeUri": "",
+        "Description": "OpenAPI function",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [ "AWSLambdaFullAccess" ]
+      }
+    }
+  }
+}

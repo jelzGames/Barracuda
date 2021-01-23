@@ -1,0 +1,42 @@
+[
+    {
+        "id": "1",
+        "name": "Cozumel"
+    },
+    {
+        "id": "2",
+        "name": "Felipe Carrillo Puerto"
+    },
+    {
+        "id": "3",
+        "name": "Isla Mujeres"
+    },
+    {
+        "id": "4",
+        "name": "Othón P. Blanco"
+    },
+    {
+        "id": "5",
+        "name": "Benito Juárez"
+    },
+    {
+        "id": "6",
+        "name": "José María Morelos"
+    },
+    {
+        "id": "7",
+        "name": "Lázaro Cárdenas"
+    },
+    {
+        "id": "8",
+        "name": "Solidaridad"
+    },
+    {
+        "id": "9",
+        "name": "Tulum"
+    },
+    {
+        "id": "10",
+        "name": "Bacalar"
+    }
+]

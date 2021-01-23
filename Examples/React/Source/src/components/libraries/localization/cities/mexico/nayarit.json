@@ -1,0 +1,82 @@
+[
+    {
+        "id": "1",
+        "name": "Acaponeta"
+    },
+    {
+        "id": "2",
+        "name": "Ahuacatlán"
+    },
+    {
+        "id": "3",
+        "name": "Amatlán de Cañas"
+    },
+    {
+        "id": "4",
+        "name": "Compostela"
+    },
+    {
+        "id": "5",
+        "name": "Huajicori"
+    },
+    {
+        "id": "6",
+        "name": "Ixtlán del Río"
+    },
+    {
+        "id": "7",
+        "name": "Jala"
+    },
+    {
+        "id": "8",
+        "name": "Xalisco"
+    },
+    {
+        "id": "9",
+        "name": "Del Nayar"
+    },
+    {
+        "id": "10",
+        "name": "Rosamorada"
+    },
+    {
+        "id": "11",
+        "name": "Ruíz"
+    },
+    {
+        "id": "12",
+        "name": "San Blas"
+    },
+    {
+        "id": "13",
+        "name": "San Pedro Lagunillas"
+    },
+    {
+        "id": "14",
+        "name": "Santa María del Oro"
+    },
+    {
+        "id": "15",
+        "name": "Santiago Ixcuintla"
+    },
+    {
+        "id": "16",
+        "name": "Tecuala"
+    },
+    {
+        "id": "17",
+        "name": "Tepic"
+    },
+    {
+        "id": "18",
+        "name": "Tuxpan"
+    },
+    {
+        "id": "19",
+        "name": "La Yesca"
+    },
+    {
+        "id": "20",
+        "name": "Bahía de Banderas"
+    }
+]

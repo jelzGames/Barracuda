@@ -1,0 +1,46 @@
+[
+    {
+        "id": "1",
+        "name": "Aguascalientes"
+    },
+    {
+        "id": "2",
+        "name": "Asientos"
+    },
+    {
+        "id": "3",
+        "name": "Calvillo"
+    },
+    {
+        "id": "4",
+        "name": "Cosío"
+    },
+    {
+        "id": "5",
+        "name": "Jesús María"
+    },
+    {
+        "id": "6",
+        "name": "Pabellón de Arteaga"
+    },
+    {
+        "id": "7",
+        "name": "Rincón de Romos"
+    },
+    {
+        "id": "8",
+        "name": "San José de Gracia"
+    },
+    {
+        "id": "9",
+        "name": "Tepezalá"
+    },
+    {
+        "id": "10",
+        "name": "El Llano"
+    },
+    {
+        "id": "11",
+        "name": "San Francisco de los Romo"
+    }
+]

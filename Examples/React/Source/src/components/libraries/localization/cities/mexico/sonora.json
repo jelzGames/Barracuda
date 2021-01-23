@@ -1,0 +1,290 @@
+[
+    {
+        "id": "1",
+        "name": "Aconchi"
+    },
+    {
+        "id": "2",
+        "name": "Agua Prieta"
+    },
+    {
+        "id": "3",
+        "name": "Alamos"
+    },
+    {
+        "id": "4",
+        "name": "Altar"
+    },
+    {
+        "id": "5",
+        "name": "Arivechi"
+    },
+    {
+        "id": "6",
+        "name": "Arizpe"
+    },
+    {
+        "id": "7",
+        "name": "Atil"
+    },
+    {
+        "id": "8",
+        "name": "Bacadéhuachi"
+    },
+    {
+        "id": "9",
+        "name": "Bacanora"
+    },
+    {
+        "id": "10",
+        "name": "Bacerac"
+    },
+    {
+        "id": "11",
+        "name": "Bacoachi"
+    },
+    {
+        "id": "12",
+        "name": "Bácum"
+    },
+    {
+        "id": "13",
+        "name": "Banámichi"
+    },
+    {
+        "id": "14",
+        "name": "Baviácora"
+    },
+    {
+        "id": "15",
+        "name": "Bavispe"
+    },
+    {
+        "id": "16",
+        "name": "Benjamín Hill"
+    },
+    {
+        "id": "17",
+        "name": "Caborca"
+    },
+    {
+        "id": "18",
+        "name": "Cajeme"
+    },
+    {
+        "id": "19",
+        "name": "Cananea"
+    },
+    {
+        "id": "20",
+        "name": "Carbó"
+    },
+    {
+        "id": "21",
+        "name": "La Colorada"
+    },
+    {
+        "id": "22",
+        "name": "Cucurpe"
+    },
+    {
+        "id": "23",
+        "name": "Cumpas"
+    },
+    {
+        "id": "24",
+        "name": "Divisaderos"
+    },
+    {
+        "id": "25",
+        "name": "Empalme"
+    },
+    {
+        "id": "26",
+        "name": "Etchojoa"
+    },
+    {
+        "id": "27",
+        "name": "Fronteras"
+    },
+    {
+        "id": "28",
+        "name": "Granados"
+    },
+    {
+        "id": "29",
+        "name": "Guaymas"
+    },
+    {
+        "id": "30",
+        "name": "Hermosillo"
+    },
+    {
+        "id": "31",
+        "name": "Huachinera"
+    },
+    {
+        "id": "32",
+        "name": "Huásabas"
+    },
+    {
+        "id": "33",
+        "name": "Huatabampo"
+    },
+    {
+        "id": "34",
+        "name": "Huépac"
+    },
+    {
+        "id": "35",
+        "name": "Imuris"
+    },
+    {
+        "id": "36",
+        "name": "Magdalena"
+    },
+    {
+        "id": "37",
+        "name": "Mazatán"
+    },
+    {
+        "id": "38",
+        "name": "Moctezuma"
+    },
+    {
+        "id": "39",
+        "name": "Naco"
+    },
+    {
+        "id": "40",
+        "name": "Nácori Chico"
+    },
+    {
+        "id": "41",
+        "name": "Nacozari de García"
+    },
+    {
+        "id": "42",
+        "name": "Navojoa"
+    },
+    {
+        "id": "43",
+        "name": "Nogales"
+    },
+    {
+        "id": "44",
+        "name": "Onavas"
+    },
+    {
+        "id": "45",
+        "name": "Opodepe"
+    },
+    {
+        "id": "46",
+        "name": "Oquitoa"
+    },
+    {
+        "id": "47",
+        "name": "Pitiquito"
+    },
+    {
+        "id": "48",
+        "name": "Puerto Peñasco"
+    },
+    {
+        "id": "49",
+        "name": "Quiriego"
+    },
+    {
+        "id": "50",
+        "name": "Rayón"
+    },
+    {
+        "id": "51",
+        "name": "Rosario"
+    },
+    {
+        "id": "52",
+        "name": "Sahuaripa"
+    },
+    {
+        "id": "53",
+        "name": "San Felipe de Jesús"
+    },
+    {
+        "id": "54",
+        "name": "San Javier"
+    },
+    {
+        "id": "55",
+        "name": "San Luis Río Colorado"
+    },
+    {
+        "id": "56",
+        "name": "San Miguel de Horcasitas"
+    },
+    {
+        "id": "57",
+        "name": "San Pedro de la Cueva"
+    },
+    {
+        "id": "58",
+        "name": "Santa Ana"
+    },
+    {
+        "id": "59",
+        "name": "Santa Cruz"
+    },
+    {
+        "id": "60",
+        "name": "Sáric"
+    },
+    {
+        "id": "61",
+        "name": "Soyopa"
+    },
+    {
+        "id": "62",
+        "name": "Suaqui Grande"
+    },
+    {
+        "id": "63",
+        "name": "Tepache"
+    },
+    {
+        "id": "64",
+        "name": "Trincheras"
+    },
+    {
+        "id": "65",
+        "name": "Tubutama"
+    },
+    {
+        "id": "66",
+        "name": "Ures"
+    },
+    {
+        "id": "67",
+        "name": "Villa Hidalgo"
+    },
+    {
+        "id": "68",
+        "name": "Villa Pesqueira"
+    },
+    {
+        "id": "69",
+        "name": "Yécora"
+    },
+    {
+        "id": "70",
+        "name": "General Plutarco Elías Calles"
+    },
+    {
+        "id": "71",
+        "name": "Benito Juárez"
+    },
+    {
+        "id": "72",
+        "name": "San Ignacio Río Muerto"
+    }
+]

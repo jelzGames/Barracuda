@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Demo.Azure.Functions": {
+      "commandName": "Project",
+      "commandLineArgs": "host start --port 3000"
+    }
+  }
+}

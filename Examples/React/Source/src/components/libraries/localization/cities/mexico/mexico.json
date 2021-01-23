@@ -1,0 +1,502 @@
+[
+    {
+        "id": "1",
+        "name": "Acambay de Ruíz Castañeda"
+    },
+    {
+        "id": "2",
+        "name": "Acolman"
+    },
+    {
+        "id": "3",
+        "name": "Aculco"
+    },
+    {
+        "id": "4",
+        "name": "Almoloya de Alquisiras"
+    },
+    {
+        "id": "5",
+        "name": "Almoloya de Juárez"
+    },
+    {
+        "id": "6",
+        "name": "Almoloya del Río"
+    },
+    {
+        "id": "7",
+        "name": "Amanalco"
+    },
+    {
+        "id": "8",
+        "name": "Amatepec"
+    },
+    {
+        "id": "9",
+        "name": "Amecameca"
+    },
+    {
+        "id": "10",
+        "name": "Apaxco"
+    },
+    {
+        "id": "11",
+        "name": "Atenco"
+    },
+    {
+        "id": "12",
+        "name": "Atizapán"
+    },
+    {
+        "id": "13",
+        "name": "Atizapán de Zaragoza"
+    },
+    {
+        "id": "14",
+        "name": "Atlacomulco"
+    },
+    {
+        "id": "15",
+        "name": "Atlautla"
+    },
+    {
+        "id": "16",
+        "name": "Axapusco"
+    },
+    {
+        "id": "17",
+        "name": "Ayapango"
+    },
+    {
+        "id": "18",
+        "name": "Calimaya"
+    },
+    {
+        "id": "19",
+        "name": "Capulhuac"
+    },
+    {
+        "id": "20",
+        "name": "Coacalco de Berriozábal"
+    },
+    {
+        "id": "21",
+        "name": "Coatepec Harinas"
+    },
+    {
+        "id": "22",
+        "name": "Cocotitlán"
+    },
+    {
+        "id": "23",
+        "name": "Coyotepec"
+    },
+    {
+        "id": "24",
+        "name": "Cuautitlán"
+    },
+    {
+        "id": "25",
+        "name": "Chalco"
+    },
+    {
+        "id": "26",
+        "name": "Chapa de Mota"
+    },
+    {
+        "id": "27",
+        "name": "Chapultepec"
+    },
+    {
+        "id": "28",
+        "name": "Chiautla"
+    },
+    {
+        "id": "29",
+        "name": "Chicoloapan"
+    },
+    {
+        "id": "30",
+        "name": "Chiconcuac"
+    },
+    {
+        "id": "31",
+        "name": "Chimalhuacán"
+    },
+    {
+        "id": "32",
+        "name": "Donato Guerra"
+    },
+    {
+        "id": "33",
+        "name": "Ecatepec de Morelos"
+    },
+    {
+        "id": "34",
+        "name": "Ecatzingo"
+    },
+    {
+        "id": "35",
+        "name": "Huehuetoca"
+    },
+    {
+        "id": "36",
+        "name": "Hueypoxtla"
+    },
+    {
+        "id": "37",
+        "name": "Huixquilucan"
+    },
+    {
+        "id": "38",
+        "name": "Isidro Fabela"
+    },
+    {
+        "id": "39",
+        "name": "Ixtapaluca"
+    },
+    {
+        "id": "40",
+        "name": "Ixtapan de la Sal"
+    },
+    {
+        "id": "41",
+        "name": "Ixtapan del Oro"
+    },
+    {
+        "id": "42",
+        "name": "Ixtlahuaca"
+    },
+    {
+        "id": "43",
+        "name": "Xalatlaco"
+    },
+    {
+        "id": "44",
+        "name": "Jaltenco"
+    },
+    {
+        "id": "45",
+        "name": "Jilotepec"
+    },
+    {
+        "id": "46",
+        "name": "Jilotzingo"
+    },
+    {
+        "id": "47",
+        "name": "Jiquipilco"
+    },
+    {
+        "id": "48",
+        "name": "Jocotitlán"
+    },
+    {
+        "id": "49",
+        "name": "Joquicingo"
+    },
+    {
+        "id": "50",
+        "name": "Juchitepec"
+    },
+    {
+        "id": "51",
+        "name": "Lerma"
+    },
+    {
+        "id": "52",
+        "name": "Malinalco"
+    },
+    {
+        "id": "53",
+        "name": "Melchor Ocampo"
+    },
+    {
+        "id": "54",
+        "name": "Metepec"
+    },
+    {
+        "id": "55",
+        "name": "Mexicaltzingo"
+    },
+    {
+        "id": "56",
+        "name": "Morelos"
+    },
+    {
+        "id": "57",
+        "name": "Naucalpan de Juárez"
+    },
+    {
+        "id": "58",
+        "name": "Nezahualcóyotl"
+    },
+    {
+        "id": "59",
+        "name": "Nextlalpan"
+    },
+    {
+        "id": "60",
+        "name": "Nicolás Romero"
+    },
+    {
+        "id": "61",
+        "name": "Nopaltepec"
+    },
+    {
+        "id": "62",
+        "name": "Ocoyoacac"
+    },
+    {
+        "id": "63",
+        "name": "Ocuilan"
+    },
+    {
+        "id": "64",
+        "name": "El Oro"
+    },
+    {
+        "id": "65",
+        "name": "Otumba"
+    },
+    {
+        "id": "66",
+        "name": "Otzoloapan"
+    },
+    {
+        "id": "67",
+        "name": "Otzolotepec"
+    },
+    {
+        "id": "68",
+        "name": "Ozumba"
+    },
+    {
+        "id": "69",
+        "name": "Papalotla"
+    },
+    {
+        "id": "70",
+        "name": "La Paz"
+    },
+    {
+        "id": "71",
+        "name": "Polotitlán"
+    },
+    {
+        "id": "72",
+        "name": "Rayón"
+    },
+    {
+        "id": "73",
+        "name": "San Antonio la Isla"
+    },
+    {
+        "id": "74",
+        "name": "San Felipe del Progreso"
+    },
+    {
+        "id": "75",
+        "name": "San Martín de las Pirámides"
+    },
+    {
+        "id": "76",
+        "name": "San Mateo Atenco"
+    },
+    {
+        "id": "77",
+        "name": "San Simón de Guerrero"
+    },
+    {
+        "id": "78",
+        "name": "Santo Tomás"
+    },
+    {
+        "id": "79",
+        "name": "Soyaniquilpan de Juárez"
+    },
+    {
+        "id": "80",
+        "name": "Sultepec"
+    },
+    {
+        "id": "81",
+        "name": "Tecámac"
+    },
+    {
+        "id": "82",
+        "name": "Tejupilco"
+    },
+    {
+        "id": "83",
+        "name": "Temamatla"
+    },
+    {
+        "id": "84",
+        "name": "Temascalapa"
+    },
+    {
+        "id": "85",
+        "name": "Temascalcingo"
+    },
+    {
+        "id": "86",
+        "name": "Temascaltepec"
+    },
+    {
+        "id": "87",
+        "name": "Temoaya"
+    },
+    {
+        "id": "88",
+        "name": "Tenancingo"
+    },
+    {
+        "id": "89",
+        "name": "Tenango del Aire"
+    },
+    {
+        "id": "90",
+        "name": "Tenango del Valle"
+    },
+    {
+        "id": "91",
+        "name": "Teoloyucan"
+    },
+    {
+        "id": "92",
+        "name": "Teotihuacán"
+    },
+    {
+        "id": "93",
+        "name": "Tepetlaoxtoc"
+    },
+    {
+        "id": "94",
+        "name": "Tepetlixpa"
+    },
+    {
+        "id": "95",
+        "name": "Tepotzotlán"
+    },
+    {
+        "id": "96",
+        "name": "Tequixquiac"
+    },
+    {
+        "id": "97",
+        "name": "Texcaltitlán"
+    },
+    {
+        "id": "98",
+        "name": "Texcalyacac"
+    },
+    {
+        "id": "99",
+        "name": "Texcoco"
+    },
+    {
+        "id": "100",
+        "name": "Tezoyuca"
+    },
+    {
+        "id": "101",
+        "name": "Tianguistenco"
+    },
+    {
+        "id": "102",
+        "name": "Timilpan"
+    },
+    {
+        "id": "103",
+        "name": "Tlalmanalco"
+    },
+    {
+        "id": "104",
+        "name": "Tlalnepantla de Baz"
+    },
+    {
+        "id": "105",
+        "name": "Tlatlaya"
+    },
+    {
+        "id": "106",
+        "name": "Toluca"
+    },
+    {
+        "id": "107",
+        "name": "Tonatico"
+    },
+    {
+        "id": "108",
+        "name": "Tultepec"
+    },
+    {
+        "id": "109",
+        "name": "Tultitlán"
+    },
+    {
+        "id": "110",
+        "name": "Valle de Bravo"
+    },
+    {
+        "id": "111",
+        "name": "Villa de Allende"
+    },
+    {
+        "id": "112",
+        "name": "Villa del Carbón"
+    },
+    {
+        "id": "113",
+        "name": "Villa Guerrero"
+    },
+    {
+        "id": "114",
+        "name": "Villa Victoria"
+    },
+    {
+        "id": "115",
+        "name": "Xonacatlán"
+    },
+    {
+        "id": "116",
+        "name": "Zacazonapan"
+    },
+    {
+        "id": "117",
+        "name": "Zacualpan"
+    },
+    {
+        "id": "118",
+        "name": "Zinacantepec"
+    },
+    {
+        "id": "119",
+        "name": "Zumpahuacán"
+    },
+    {
+        "id": "120",
+        "name": "Zumpango"
+    },
+    {
+        "id": "121",
+        "name": "Cuautitlán Izcalli"
+    },
+    {
+        "id": "122",
+        "name": "Valle de Chalco Solidaridad"
+    },
+    {
+        "id": "123",
+        "name": "Luvianos"
+    },
+    {
+        "id": "124",
+        "name": "San José del Rincón"
+    },
+    {
+        "id": "125",
+        "name": "Tonanitla"
+    }
+]

@@ -1,0 +1,174 @@
+[
+    {
+        "id": "1",
+        "name": "Abasolo"
+    },
+    {
+        "id": "2",
+        "name": "Aldama"
+    },
+    {
+        "id": "3",
+        "name": "Altamira"
+    },
+    {
+        "id": "4",
+        "name": "Antiguo Morelos"
+    },
+    {
+        "id": "5",
+        "name": "Burgos"
+    },
+    {
+        "id": "6",
+        "name": "Bustamante"
+    },
+    {
+        "id": "7",
+        "name": "Camargo"
+    },
+    {
+        "id": "8",
+        "name": "Casas"
+    },
+    {
+        "id": "9",
+        "name": "Ciudad Madero"
+    },
+    {
+        "id": "10",
+        "name": "Cruillas"
+    },
+    {
+        "id": "11",
+        "name": "Gómez Farías"
+    },
+    {
+        "id": "12",
+        "name": "González"
+    },
+    {
+        "id": "13",
+        "name": "Güémez"
+    },
+    {
+        "id": "14",
+        "name": "Guerrero"
+    },
+    {
+        "id": "15",
+        "name": "Gustavo Díaz Ordaz"
+    },
+    {
+        "id": "16",
+        "name": "Hidalgo"
+    },
+    {
+        "id": "17",
+        "name": "Jaumave"
+    },
+    {
+        "id": "18",
+        "name": "Jiménez"
+    },
+    {
+        "id": "19",
+        "name": "Llera"
+    },
+    {
+        "id": "20",
+        "name": "Mainero"
+    },
+    {
+        "id": "21",
+        "name": "El Mante"
+    },
+    {
+        "id": "22",
+        "name": "Matamoros"
+    },
+    {
+        "id": "23",
+        "name": "Méndez"
+    },
+    {
+        "id": "24",
+        "name": "Mier"
+    },
+    {
+        "id": "25",
+        "name": "Miguel Alemán"
+    },
+    {
+        "id": "26",
+        "name": "Miquihuana"
+    },
+    {
+        "id": "27",
+        "name": "Nuevo Laredo"
+    },
+    {
+        "id": "28",
+        "name": "Nuevo Morelos"
+    },
+    {
+        "id": "29",
+        "name": "Ocampo"
+    },
+    {
+        "id": "30",
+        "name": "Padilla"
+    },
+    {
+        "id": "31",
+        "name": "Palmillas"
+    },
+    {
+        "id": "32",
+        "name": "Reynosa"
+    },
+    {
+        "id": "33",
+        "name": "Río Bravo"
+    },
+    {
+        "id": "34",
+        "name": "San Carlos"
+    },
+    {
+        "id": "35",
+        "name": "San Fernando"
+    },
+    {
+        "id": "36",
+        "name": "San Nicolás"
+    },
+    {
+        "id": "37",
+        "name": "Soto la Marina"
+    },
+    {
+        "id": "38",
+        "name": "Tampico"
+    },
+    {
+        "id": "39",
+        "name": "Tula"
+    },
+    {
+        "id": "40",
+        "name": "Valle Hermoso"
+    },
+    {
+        "id": "41",
+        "name": "Victoria"
+    },
+    {
+        "id": "42",
+        "name": "Villagrán"
+    },
+    {
+        "id": "43",
+        "name": "Xicoténcatl"
+    }
+]

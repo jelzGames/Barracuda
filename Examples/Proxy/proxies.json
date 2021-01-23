@@ -1,0 +1,203 @@
+{
+  "$schema": "http://json.schemastore.org/proxies",
+  "proxies": {
+    "UserSecretsRegister": {
+      "matchCondition": {
+        "route": "api/permissions/Register",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/Register"
+    },
+    "UserSecretsAuth": {
+      "matchCondition": {
+        "route": "api/permissions/Auth",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/Auth"
+    },
+    "UserSecretsChangePassword": {
+      "matchCondition": {
+        "route": "api/permissions/ChangePassword",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/ChangePassword"
+    },
+    "UserSecretsRefresh": {
+      "matchCondition": {
+        "route": "api/permissions/Refresh",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/Refresh"
+    },
+    "UserSecretsRefreshToken": {
+      "matchCondition": {
+        "route": "api/permissions/RefreshToken",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/RefreshToken"
+    },
+    "UserSecretsSocialGoogle": {
+      "matchCondition": {
+        "route": "api/permissions/SocialGoogle",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/SocialGoogle"
+    },
+    "UserSecretsSocialFacebook": {
+      "matchCondition": {
+        "route": "api/permissions/SocialFacebook",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/SocialFacebook"
+    },
+    "UserSecretsSocialMicrosoft": {
+      "matchCondition": {
+        "route": "api/permissions/SocialMicrosoft",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/SocialMicrosoft"
+    },
+    "UserSecretsForgotPassword": {
+      "matchCondition": {
+        "route": "api/permissions/ForgotPassword",
+        "methods": [
+          "GET"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/ForgotPassword"
+    },
+    "UserSecretsUpdateScopes": {
+      "matchCondition": {
+        "route": "api/permissions/UpdateScopes",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/UpdateScopes"
+    },
+    "openApiDemosGetAll": {
+      "matchCondition": {
+        "route": "api/openApiDemos/GetAll",
+        "methods": [
+          "GET"
+        ]
+      },
+      "backendUri": "%Host_OpenApi%/openApiDemos/GetAll"
+    },
+    "openApiDemosopenapiv1": {
+      "matchCondition": {
+        "route": "api/openApiDemos/openapi/v1",
+        "methods": [
+          "GET"
+        ]
+      },
+      "backendUri": "%Host_OpenApi%/openApiDemos/openapi/v1"
+    },
+    "openApiDemosopenapiui": {
+      "matchCondition": {
+        "route": "api/openApiDemos/openapi/ui",
+        "methods": [
+          "GET"
+        ]
+      },
+      "backendUri": "%Host_OpenApi%/openApiDemos/openapi/ui"
+    },
+    "openApiDemosopenapiauth": {
+      "matchCondition": {
+        "route": "api/openApiDemos/openapi/auth",
+        "methods": [
+          "GET"
+        ]
+      },
+      "backendUri": "%Host_OpenApi%/openApiDemos/openapi/auth"
+    },
+    "openApiDemosGetid": {
+      "matchCondition": {
+        "route": "api/openApiDemos/Get/{id}",
+        "methods": [
+          "GET"
+        ]
+      },
+      "backendUri": "%Host_OpenApi%/openApiDemos/Get/{id}"
+    },
+    "openApiDemosPOST": {
+      "matchCondition": {
+        "route": "api/openApiDemos/POST",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_OpenApi%/openApiDemos/POST"
+    },
+    "BlobsCreate": {
+      "matchCondition": {
+        "route": "api/Blobs/Create",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_Blobs%/Blobs/Create"
+    },
+    "BlobsGetid": {
+      "matchCondition": {
+        "route": "api/Blobs/Get/{id}",
+        "methods": [
+          "GET"
+        ]
+      },
+      "backendUri": "%Host_Blobs%/Blobs/Get/{id}"
+    },
+    "BlobsUpdate": {
+      "matchCondition": {
+        "route": "api/Blobs/Update",
+        "methods": [
+          "PUT"
+        ]
+      },
+      "backendUri": "%Host_Blobs%/Blobs/Update"
+    },
+    "BlobsGetAll": {
+      "matchCondition": {
+        "route": "api/Blobs/GetAll",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_Blobs%/Blobs/GetAll"
+    },
+    "BlobsDeleteid": {
+      "matchCondition": {
+        "route": "api/Blobs/Delete/{id}",
+        "methods": [
+          "DELETE"
+        ]
+      },
+      "backendUri": "%Host_Blobs%/Blobs/Delete/{id}"
+    },
+    "BlobsGetSASToken": {
+      "matchCondition": {
+        "route": "api/Blobs/GetSASToken",
+        "methods": [
+          "GET"
+        ]
+      },
+      "backendUri": "%Host_Blobs%/Blobs/GetSASToken"
+    }
+  }
+}

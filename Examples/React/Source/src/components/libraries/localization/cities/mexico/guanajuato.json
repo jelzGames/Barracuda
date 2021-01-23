@@ -1,0 +1,186 @@
+[
+    {
+        "id": "1",
+        "name": "Abasolo"
+    },
+    {
+        "id": "2",
+        "name": "Acámbaro"
+    },
+    {
+        "id": "3",
+        "name": "San Miguel de Allende"
+    },
+    {
+        "id": "4",
+        "name": "Apaseo el Alto"
+    },
+    {
+        "id": "5",
+        "name": "Apaseo el Grande"
+    },
+    {
+        "id": "6",
+        "name": "Atarjea"
+    },
+    {
+        "id": "7",
+        "name": "Celaya"
+    },
+    {
+        "id": "8",
+        "name": "Manuel Doblado"
+    },
+    {
+        "id": "9",
+        "name": "Comonfort"
+    },
+    {
+        "id": "10",
+        "name": "Coroneo"
+    },
+    {
+        "id": "11",
+        "name": "Cortazar"
+    },
+    {
+        "id": "12",
+        "name": "Cuerámaro"
+    },
+    {
+        "id": "13",
+        "name": "Doctor Mora"
+    },
+    {
+        "id": "14",
+        "name": "Dolores Hidalgo Cuna de la Independencia Nacional"
+    },
+    {
+        "id": "15",
+        "name": "Guanajuato"
+    },
+    {
+        "id": "16",
+        "name": "Huanímaro"
+    },
+    {
+        "id": "17",
+        "name": "Irapuato"
+    },
+    {
+        "id": "18",
+        "name": "Jaral del Progreso"
+    },
+    {
+        "id": "19",
+        "name": "Jerécuaro"
+    },
+    {
+        "id": "20",
+        "name": "León"
+    },
+    {
+        "id": "21",
+        "name": "Moroleón"
+    },
+    {
+        "id": "22",
+        "name": "Ocampo"
+    },
+    {
+        "id": "23",
+        "name": "Pénjamo"
+    },
+    {
+        "id": "24",
+        "name": "Pueblo Nuevo"
+    },
+    {
+        "id": "25",
+        "name": "Purísima del Rincón"
+    },
+    {
+        "id": "26",
+        "name": "Romita"
+    },
+    {
+        "id": "27",
+        "name": "Salamanca"
+    },
+    {
+        "id": "28",
+        "name": "Salvatierra"
+    },
+    {
+        "id": "29",
+        "name": "San Diego de la Unión"
+    },
+    {
+        "id": "30",
+        "name": "San Felipe"
+    },
+    {
+        "id": "31",
+        "name": "San Francisco del Rincón"
+    },
+    {
+        "id": "32",
+        "name": "San José Iturbide"
+    },
+    {
+        "id": "33",
+        "name": "San Luis de la Paz"
+    },
+    {
+        "id": "34",
+        "name": "Santa Catarina"
+    },
+    {
+        "id": "35",
+        "name": "Santa Cruz de Juventino Rosas"
+    },
+    {
+        "id": "36",
+        "name": "Santiago Maravatío"
+    },
+    {
+        "id": "37",
+        "name": "Silao de la Victoria"
+    },
+    {
+        "id": "38",
+        "name": "Tarandacuao"
+    },
+    {
+        "id": "39",
+        "name": "Tarimoro"
+    },
+    {
+        "id": "40",
+        "name": "Tierra Blanca"
+    },
+    {
+        "id": "41",
+        "name": "Uriangato"
+    },
+    {
+        "id": "42",
+        "name": "Valle de Santiago"
+    },
+    {
+        "id": "43",
+        "name": "Victoria"
+    },
+    {
+        "id": "44",
+        "name": "Villagrán"
+    },
+    {
+        "id": "45",
+        "name": "Xichú"
+    },
+    {
+        "id": "46",
+        "name": "Yuriria"
+    }
+]

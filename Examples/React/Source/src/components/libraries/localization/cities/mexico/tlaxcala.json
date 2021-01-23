@@ -1,0 +1,242 @@
+[
+    {
+        "id": "1",
+        "name": "Amaxac de Guerrero"
+    },
+    {
+        "id": "2",
+        "name": "Apetatitlán de Antonio Carvajal"
+    },
+    {
+        "id": "3",
+        "name": "Atlangatepec"
+    },
+    {
+        "id": "4",
+        "name": "Atltzayanca"
+    },
+    {
+        "id": "5",
+        "name": "Apizaco"
+    },
+    {
+        "id": "6",
+        "name": "Calpulalpan"
+    },
+    {
+        "id": "7",
+        "name": "El Carmen Tequexquitla"
+    },
+    {
+        "id": "8",
+        "name": "Cuapiaxtla"
+    },
+    {
+        "id": "9",
+        "name": "Cuaxomulco"
+    },
+    {
+        "id": "10",
+        "name": "Chiautempan"
+    },
+    {
+        "id": "11",
+        "name": "Muñoz de Domingo Arenas"
+    },
+    {
+        "id": "12",
+        "name": "Españita"
+    },
+    {
+        "id": "13",
+        "name": "Huamantla"
+    },
+    {
+        "id": "14",
+        "name": "Hueyotlipan"
+    },
+    {
+        "id": "15",
+        "name": "Ixtacuixtla de Mariano Matamoros"
+    },
+    {
+        "id": "16",
+        "name": "Ixtenco"
+    },
+    {
+        "id": "17",
+        "name": "Mazatecochco de José María Morelos"
+    },
+    {
+        "id": "18",
+        "name": "Contla de Juan Cuamatzi"
+    },
+    {
+        "id": "19",
+        "name": "Tepetitla de Lardizábal"
+    },
+    {
+        "id": "20",
+        "name": "Sanctórum de Lázaro Cárdenas"
+    },
+    {
+        "id": "21",
+        "name": "Nanacamilpa de Mariano Arista"
+    },
+    {
+        "id": "22",
+        "name": "Acuamanala de Miguel Hidalgo"
+    },
+    {
+        "id": "23",
+        "name": "Natívitas"
+    },
+    {
+        "id": "24",
+        "name": "Panotla"
+    },
+    {
+        "id": "25",
+        "name": "San Pablo del Monte"
+    },
+    {
+        "id": "26",
+        "name": "Santa Cruz Tlaxcala"
+    },
+    {
+        "id": "27",
+        "name": "Tenancingo"
+    },
+    {
+        "id": "28",
+        "name": "Teolocholco"
+    },
+    {
+        "id": "29",
+        "name": "Tepeyanco"
+    },
+    {
+        "id": "30",
+        "name": "Terrenate"
+    },
+    {
+        "id": "31",
+        "name": "Tetla de la Solidaridad"
+    },
+    {
+        "id": "32",
+        "name": "Tetlatlahuca"
+    },
+    {
+        "id": "33",
+        "name": "Tlaxcala"
+    },
+    {
+        "id": "34",
+        "name": "Tlaxco"
+    },
+    {
+        "id": "35",
+        "name": "Tocatlán"
+    },
+    {
+        "id": "36",
+        "name": "Totolac"
+    },
+    {
+        "id": "37",
+        "name": "Ziltlaltépec de Trinidad Sánchez Santos"
+    },
+    {
+        "id": "38",
+        "name": "Tzompantepec"
+    },
+    {
+        "id": "39",
+        "name": "Xaloztoc"
+    },
+    {
+        "id": "40",
+        "name": "Xaltocan"
+    },
+    {
+        "id": "41",
+        "name": "Papalotla de Xicohténcatl"
+    },
+    {
+        "id": "42",
+        "name": "Xicohtzinco"
+    },
+    {
+        "id": "43",
+        "name": "Yauhquemehcan"
+    },
+    {
+        "id": "44",
+        "name": "Zacatelco"
+    },
+    {
+        "id": "45",
+        "name": "Benito Juárez"
+    },
+    {
+        "id": "46",
+        "name": "Emiliano Zapata"
+    },
+    {
+        "id": "47",
+        "name": "Lázaro Cárdenas"
+    },
+    {
+        "id": "48",
+        "name": "La Magdalena Tlaltelulco"
+    },
+    {
+        "id": "49",
+        "name": "San Damián Texóloc"
+    },
+    {
+        "id": "50",
+        "name": "San Francisco Tetlanohcan"
+    },
+    {
+        "id": "51",
+        "name": "San Jerónimo Zacualpan"
+    },
+    {
+        "id": "52",
+        "name": "San José Teacalco"
+    },
+    {
+        "id": "53",
+        "name": "San Juan Huactzinco"
+    },
+    {
+        "id": "54",
+        "name": "San Lorenzo Axocomanitla"
+    },
+    {
+        "id": "55",
+        "name": "San Lucas Tecopilco"
+    },
+    {
+        "id": "56",
+        "name": "Santa Ana Nopalucan"
+    },
+    {
+        "id": "57",
+        "name": "Santa Apolonia Teacalco"
+    },
+    {
+        "id": "58",
+        "name": "Santa Catarina Ayometla"
+    },
+    {
+        "id": "59",
+        "name": "Santa Cruz Quilehtla"
+    },
+    {
+        "id": "60",
+        "name": "Santa Isabel Xiloxoxtla"
+    }
+]

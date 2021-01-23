@@ -1,0 +1,474 @@
+[
+    {
+        "id": "1",
+        "name": "Acacoyagua"
+    },
+    {
+        "id": "2",
+        "name": "Acala"
+    },
+    {
+        "id": "3",
+        "name": "Acapetahua"
+    },
+    {
+        "id": "4",
+        "name": "Altamirano"
+    },
+    {
+        "id": "5",
+        "name": "Amatán"
+    },
+    {
+        "id": "6",
+        "name": "Amatenango de la Frontera"
+    },
+    {
+        "id": "7",
+        "name": "Amatenango del Valle"
+    },
+    {
+        "id": "8",
+        "name": "Angel Albino Corzo"
+    },
+    {
+        "id": "9",
+        "name": "Arriaga"
+    },
+    {
+        "id": "10",
+        "name": "Bejucal de Ocampo"
+    },
+    {
+        "id": "11",
+        "name": "Bella Vista"
+    },
+    {
+        "id": "12",
+        "name": "Berriozábal"
+    },
+    {
+        "id": "13",
+        "name": "Bochil"
+    },
+    {
+        "id": "14",
+        "name": "El Bosque"
+    },
+    {
+        "id": "15",
+        "name": "Cacahoatán"
+    },
+    {
+        "id": "16",
+        "name": "Catazajá"
+    },
+    {
+        "id": "17",
+        "name": "Cintalapa"
+    },
+    {
+        "id": "18",
+        "name": "Coapilla"
+    },
+    {
+        "id": "19",
+        "name": "Comitán de Domínguez"
+    },
+    {
+        "id": "20",
+        "name": "La Concordia"
+    },
+    {
+        "id": "21",
+        "name": "Copainalá"
+    },
+    {
+        "id": "22",
+        "name": "Chalchihuitán"
+    },
+    {
+        "id": "23",
+        "name": "Chamula"
+    },
+    {
+        "id": "24",
+        "name": "Chanal"
+    },
+    {
+        "id": "25",
+        "name": "Chapultenango"
+    },
+    {
+        "id": "26",
+        "name": "Chenalhó"
+    },
+    {
+        "id": "27",
+        "name": "Chiapa de Corzo"
+    },
+    {
+        "id": "28",
+        "name": "Chiapilla"
+    },
+    {
+        "id": "29",
+        "name": "Chicoasén"
+    },
+    {
+        "id": "30",
+        "name": "Chicomuselo"
+    },
+    {
+        "id": "31",
+        "name": "Chilón"
+    },
+    {
+        "id": "32",
+        "name": "Escuintla"
+    },
+    {
+        "id": "33",
+        "name": "Francisco León"
+    },
+    {
+        "id": "34",
+        "name": "Frontera Comalapa"
+    },
+    {
+        "id": "35",
+        "name": "Frontera Hidalgo"
+    },
+    {
+        "id": "36",
+        "name": "La Grandeza"
+    },
+    {
+        "id": "37",
+        "name": "Huehuetán"
+    },
+    {
+        "id": "38",
+        "name": "Huixtán"
+    },
+    {
+        "id": "39",
+        "name": "Huitiupán"
+    },
+    {
+        "id": "40",
+        "name": "Huixtla"
+    },
+    {
+        "id": "41",
+        "name": "La Independencia"
+    },
+    {
+        "id": "42",
+        "name": "Ixhuatán"
+    },
+    {
+        "id": "43",
+        "name": "Ixtacomitán"
+    },
+    {
+        "id": "44",
+        "name": "Ixtapa"
+    },
+    {
+        "id": "45",
+        "name": "Ixtapangajoya"
+    },
+    {
+        "id": "46",
+        "name": "Jiquipilas"
+    },
+    {
+        "id": "47",
+        "name": "Jitotol"
+    },
+    {
+        "id": "48",
+        "name": "Juárez"
+    },
+    {
+        "id": "49",
+        "name": "Larráinzar"
+    },
+    {
+        "id": "50",
+        "name": "La Libertad"
+    },
+    {
+        "id": "51",
+        "name": "Mapastepec"
+    },
+    {
+        "id": "52",
+        "name": "Las Margaritas"
+    },
+    {
+        "id": "53",
+        "name": "Mazapa de Madero"
+    },
+    {
+        "id": "54",
+        "name": "Mazatán"
+    },
+    {
+        "id": "55",
+        "name": "Metapa"
+    },
+    {
+        "id": "56",
+        "name": "Mitontic"
+    },
+    {
+        "id": "57",
+        "name": "Motozintla"
+    },
+    {
+        "id": "58",
+        "name": "Nicolás Ruíz"
+    },
+    {
+        "id": "59",
+        "name": "Ocosingo"
+    },
+    {
+        "id": "60",
+        "name": "Ocotepec"
+    },
+    {
+        "id": "61",
+        "name": "Ocozocoautla de Espinosa"
+    },
+    {
+        "id": "62",
+        "name": "Ostuacán"
+    },
+    {
+        "id": "63",
+        "name": "Osumacinta"
+    },
+    {
+        "id": "64",
+        "name": "Oxchuc"
+    },
+    {
+        "id": "65",
+        "name": "Palenque"
+    },
+    {
+        "id": "66",
+        "name": "Pantelhó"
+    },
+    {
+        "id": "67",
+        "name": "Pantepec"
+    },
+    {
+        "id": "68",
+        "name": "Pichucalco"
+    },
+    {
+        "id": "69",
+        "name": "Pijijiapan"
+    },
+    {
+        "id": "70",
+        "name": "El Porvenir"
+    },
+    {
+        "id": "71",
+        "name": "Villa Comaltitlán"
+    },
+    {
+        "id": "72",
+        "name": "Pueblo Nuevo Solistahuacán"
+    },
+    {
+        "id": "73",
+        "name": "Rayón"
+    },
+    {
+        "id": "74",
+        "name": "Reforma"
+    },
+    {
+        "id": "75",
+        "name": "Las Rosas"
+    },
+    {
+        "id": "76",
+        "name": "Sabanilla"
+    },
+    {
+        "id": "77",
+        "name": "Salto de Agua"
+    },
+    {
+        "id": "78",
+        "name": "San Cristóbal de las Casas"
+    },
+    {
+        "id": "79",
+        "name": "San Fernando"
+    },
+    {
+        "id": "80",
+        "name": "Siltepec"
+    },
+    {
+        "id": "81",
+        "name": "Simojovel"
+    },
+    {
+        "id": "82",
+        "name": "Sitalá"
+    },
+    {
+        "id": "83",
+        "name": "Socoltenango"
+    },
+    {
+        "id": "84",
+        "name": "Solosuchiapa"
+    },
+    {
+        "id": "85",
+        "name": "Soyaló"
+    },
+    {
+        "id": "86",
+        "name": "Suchiapa"
+    },
+    {
+        "id": "87",
+        "name": "Suchiate"
+    },
+    {
+        "id": "88",
+        "name": "Sunuapa"
+    },
+    {
+        "id": "89",
+        "name": "Tapachula"
+    },
+    {
+        "id": "90",
+        "name": "Tapalapa"
+    },
+    {
+        "id": "91",
+        "name": "Tapilula"
+    },
+    {
+        "id": "92",
+        "name": "Tecpatán"
+    },
+    {
+        "id": "93",
+        "name": "Tenejapa"
+    },
+    {
+        "id": "94",
+        "name": "Teopisca"
+    },
+    {
+        "id": "96",
+        "name": "Tila"
+    },
+    {
+        "id": "97",
+        "name": "Tonalá"
+    },
+    {
+        "id": "98",
+        "name": "Totolapa"
+    },
+    {
+        "id": "99",
+        "name": "La Trinitaria"
+    },
+    {
+        "id": "100",
+        "name": "Tumbalá"
+    },
+    {
+        "id": "101",
+        "name": "Tuxtla Gutiérrez"
+    },
+    {
+        "id": "102",
+        "name": "Tuxtla Chico"
+    },
+    {
+        "id": "103",
+        "name": "Tuzantán"
+    },
+    {
+        "id": "104",
+        "name": "Tzimol"
+    },
+    {
+        "id": "105",
+        "name": "Unión Juárez"
+    },
+    {
+        "id": "106",
+        "name": "Venustiano Carranza"
+    },
+    {
+        "id": "107",
+        "name": "Villa Corzo"
+    },
+    {
+        "id": "108",
+        "name": "Villaflores"
+    },
+    {
+        "id": "109",
+        "name": "Yajalón"
+    },
+    {
+        "id": "110",
+        "name": "San Lucas"
+    },
+    {
+        "id": "111",
+        "name": "Zinacantán"
+    },
+    {
+        "id": "112",
+        "name": "San Juan Cancuc"
+    },
+    {
+        "id": "113",
+        "name": "Aldama"
+    },
+    {
+        "id": "114",
+        "name": "Benemérito de las Américas"
+    },
+    {
+        "id": "115",
+        "name": "Maravilla Tenejapa"
+    },
+    {
+        "id": "116",
+        "name": "Marqués de Comillas"
+    },
+    {
+        "id": "117",
+        "name": "Montecristo de Guerrero"
+    },
+    {
+        "id": "118",
+        "name": "San Andrés Duraznal"
+    },
+    {
+        "id": "119",
+        "name": "Santiago el Pinar"
+    }
+]
