@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3.17.0/swagger-ui.css">
+    <script src="https://unpkg.com/swagger-ui-dist@3/swagger-ui-bundle.js" charset="UTF-8"></script>
+    <script>
+        var elementClicked;
+
+        function render() {
+            var ui = SwaggerUIBundle({
+                url: '',
+                oauth2RedirectUrl: '',
+                dom_id: '#swagger-ui',
+                presets: [
+                    SwaggerUIBundle.presets.apis,
+                    SwaggerUIBundle.SwaggerUIStandalonePreset
+                ],
+                onComplete: function () {
+                },
+                requestInterceptor: function (request) {
+                    return request;
+                },
+                responseInterceptor: async function (resp) {
+                    if (resp.status === 401 && resp.text === "SecurityTokenExpired") {
+                        await RefreshAll();
+                    }
+                    
+                    return resp;
+                },
+            });
+
+            ui.initOAuth({
+                clientId: '',
+                clientSecret: '',
+            });
+        }
+
+        function ModalLogin() {
+            var x = document.getElementById("BarracudaModal");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+
+        
+        async function postLogin() {
+            var flag = true;
+            await Auth()
+                .then(async (res) => {
+                })
+                .catch((err) => {
+                    flag = false;
+                })
+
+            await GetRefreshToken(flag);
+        }
+
+        async function RefreshAll() {
+            var flag = true;
+            await Refresh()
+                .then(async (res) => {
+                })
+                .catch((err) => {
+                    flag = false;
+                })
+
+            await GetRefreshToken(flag, true);
+        }
+
+        async function GetRefreshToken(flag, fromRefreshAll) {
+            if (flag) {
+                await RefreshToken(fromRefreshAll)
+                    .then((res) => {
+                    })
+                    .catch((err) => {
+                    })
+            }
+        }
+
+        function Auth() {
+            return new Promise((resolve, reject) => {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        if (this.status == 200) {
+                            resolve();
+                        }
+                        else {
+                            reject();
+                        }
+                    }
+                };
+                var model = {
+                    email: document.getElementById("email").value,
+                    password: document.getElementById("password").value
+                }
+
+                var json = JSON.stringify(model);
+                xhttp.open("POST", "BarracudaAuthUrl", true);
+                xhttp.setRequestHeader("Content-type", "application/json");
+                xhttp.withCredentials = true;
+                xhttp.send(json);
+            })
+        }
+
+        function RefreshToken(fromRefreshAll) {
+            return new Promise((resolve, reject) => {
+                var xhttpRefreshToken = new XMLHttpRequest();
+                xhttpRefreshToken.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        if (this.status == 200) {
+                            var x = document.getElementById("BarracudaModal");
+                            document.getElementById("password").value = "";
+                            x.style.display = "none";
+                            if (!fromRefreshAll) {
+                                alert("Barracuda sign in sucessful");
+                            }
+                            else {
+                                alert("Token auth refreshed, execute again!");
+                            }
+                            resolve();
+                        }
+                        else {
+                            alert("No authorized");
+                            reject();
+                        }
+                    }
+                };
+
+                xhttpRefreshToken.open("POST", "BarracudaRefreshTokenUrl", true);
+                xhttpRefreshToken.setRequestHeader("Content-type", "application/json");
+                xhttpRefreshToken.withCredentials = true;
+                xhttpRefreshToken.send();
+            })
+        }
+
+        function Refresh() {
+            return new Promise((resolve, reject) => {
+                var xhttpRefresh = new XMLHttpRequest();
+                xhttpRefresh.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        if (this.status == 200) {
+                            resolve();
+                        }
+                        else {
+                            alert("No authorized");
+                            reject();
+                        }
+                    }
+                };
+
+                xhttpRefresh.open("POST", "BarracudaRefreshUrl", true);
+                xhttpRefresh.setRequestHeader("Content-type", "application/json");
+                xhttpRefresh.withCredentials = true;
+                xhttpRefresh.send();
+            })
+        }
+
+    </script>
+    <style>
+        .container {
+            padding: 25px;
+            background-color: lightblue;
+        }
+
+        .mybutton {
+            background-color: #559ce0;
+            width: 100%;
+            color: white;
+            padding: 15px;
+            margin: 10px 0px;
+            border: none;
+            cursor: pointer;
+
+        }
+
+        form {
+            border: 3px solid #f1f1f1;
+        }
+
+        input[type=text], input[type=password] {
+            width: 100%;
+            margin: 8px 0;
+            padding: 12px 20px;
+            display: inline-block;
+            border: 2px solid green;
+            box-sizing: border-box;
+        }
+        
+        .center {
+            margin: auto;
+            width: 50%;
+            border: 3px solid green;
+            padding: 10px;
+        }
+    </style>
+    <title></title>
+</head>
+<body onload="render()">
+    <!--<div id="LoginBarracuda">
+        <section class="swagger-ui schemes">
+            <div id="Barracuda" class="swagger-ui auth-wrapper">
+                <button class="btn authorize unlocked" onclick="ModalLogin()" style="margin-right:10px;">
+                    <span>Barracuda</span>
+                    <svg width="20" height="20">
+                        <use href="#unlocked" xlink:href="#unlocked">
+                        </use>
+                    </svg>
+                </button>
+            </div>
+            <div id="BarracudaModal" style="width:30%" class="center">
+                <div class="container">
+                    <label>Email : </label>
+                    <input id="email" type="text" placeholder="Enter Username" name="username" required>
+                    <label>Password : </label>
+                    <input id="password" type="password" placeholder="Enter Password" name="password" required>
+                    <button class="mybutton" style="margin-top:10px" onclick="postLogin()">Login Barracuda</button>
+                </div>
+            </div>
+        </section>
+
+    </div>-->
+
+    <div id="swagger-ui"></div>
+</body>
+
+</html>

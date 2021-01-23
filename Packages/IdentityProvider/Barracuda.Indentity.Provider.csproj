@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackageId>Barracuda.Indentity.Provider</PackageId>
+    <Authors>Jesús Lopez, César Rodríguez</Authors>
+    <Company>Jesús López</Company>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>This package contains azure functions in order to Authenticate users through token validations even from external accounts like Google, Facebook and Microsoft.</Description>
+    <Product>Barracuda.Indentity.Provider</Product>
+    <RootNamespace>Barracuda.Indentity.Provider</RootNamespace>
+    <AssemblyName>Barracuda.Indentity.Provider</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Cosmos" Version="4.0.0-preview" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.49.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="StackExchange.Redis" Version="2.2.4" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
+  </ItemGroup>
+
+</Project>
