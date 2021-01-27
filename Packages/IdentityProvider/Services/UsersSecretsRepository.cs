@@ -89,7 +89,7 @@ namespace Barracuda.Indentity.Provider.Services
             return _result.Create(ok, message, model);
         }
 
-        public async Task<Result<string>> Register(string email, string password)
+        public async Task<Result<string>> Register(string email, string password, bool validEmail = false)
         {
             bool ok = false;
             string message = "";
@@ -124,7 +124,7 @@ namespace Barracuda.Indentity.Provider.Services
                 else
                 {
                     var item = new UserPrivateDataModel();
-                    UpdatePrivateMetadata(item, email, password, false);
+                    UpdatePrivateMetadata(item, email, password, false, validEmail);
                     var key = new PartitionKey(_partitionId);
                     await RepositoryContainer.CreateItemAsync<UserPrivateDataModel>(item, key,
                         new ItemRequestOptions { });
@@ -146,6 +146,62 @@ namespace Barracuda.Indentity.Provider.Services
             return _result.Create(ok, message, id);
         }
 
+        public async Task<Result<string>> ValidateRegisterEmail(string email)
+        {
+            bool ok = false;
+            string message = "";
+            UserPrivateDataModel item = null;
+
+            try
+            {
+
+                var queryOptions = new QueryRequestOptions
+                {
+                    PartitionKey = new PartitionKey(_partitionId),
+                    MaxItemCount = 1
+                };
+
+                var isFound = false;
+                var query = $"select * from Delivers d where d.Email = '{email}'";
+                await foreach (var page in RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
+                    query, null, queryOptions, new CancellationToken()).AsPages())
+                {
+                    isFound = page.Values.Count > 0 ? true : false;
+                    if (isFound)
+                    {
+                        item = page.Values[0];
+                    }
+                    break;
+                }
+
+                if (!isFound)
+                {
+                    message = _errors.NotFound;
+                }
+                else
+                {
+                    item.ValidEmail = true;
+                    UpdatePrivate(item);
+                    var key = new PartitionKey(_partitionId);
+                    await RepositoryContainer.ReplaceItemAsync<UserPrivateDataModel>(item, item.id, key,
+                        new ItemRequestOptions { });
+
+                    message = item.id;
+
+                    ok = true;
+                }
+            }
+            catch (CosmosException ex)
+            {
+                message = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+
+            return _result.Create(ok, message, message);
+        }
         public async Task<Result<string>> ChangePassword(string email, string password)
         {
             bool ok = false;
@@ -202,7 +258,7 @@ namespace Barracuda.Indentity.Provider.Services
             return _result.Create(ok, message, id);
         }
 
-        private void UpdatePrivateMetadata(UserPrivateDataModel item, string email, string password, bool isUpdate)
+        private void UpdatePrivateMetadata(UserPrivateDataModel item, string email, string password, bool isUpdate, bool validEmail = false)
         {
             if (!isUpdate)
             {
@@ -210,6 +266,7 @@ namespace Barracuda.Indentity.Provider.Services
                 item.Email = email;
                 item.TimeCreated = DateTime.Now;
                 item.PartitionId = _partitionId;
+                item.ValidEmail = validEmail;
             }
             else
             {
@@ -218,7 +275,13 @@ namespace Barracuda.Indentity.Provider.Services
 
             item.Password = _crypto.GetStringSha256Hash(email + password + _settings.SecretKey);
         }
+        private void UpdatePrivate(UserPrivateDataModel item)
+        {
+            
+            item.TimeModified = DateTime.Now;
 
+
+        }
         public async Task<Result<UserPrivateDataModel>> GetSecrets(string id)
         {
             bool ok = false;

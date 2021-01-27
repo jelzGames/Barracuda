@@ -51,13 +51,31 @@ export const SocialMicrosoft = async(model, cancelToken) => {
         .catch(handleError);
 };
 
-export const ChangePassword = async(model, cancelToken) => {
+export const ChangePassword = async(model, token, cancelToken) => {
     const options = getRequestOptions(cancelToken);
+    if(token) {
+        return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/ChangePassword?changepasswordtoken=${token}`, model, options)
+        .then(handleResponse)
+        .catch(handleError);
+    }
     return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/ChangePassword`, model, options)
         .then(handleResponse)
         .catch(handleError);
 };
 
+export const ForgotPassword = async(model, cancelToken) => {
+    const options = getRequestOptions(cancelToken);
+    return await axios.get(getApiUrl(serviceKeys.api) + `/api/permissions/ForgotPassword?email=${model.email}`, options)
+        .then(handleResponse)
+        .catch(handleError);
+};
 
-
+export const ValidEmail = async(token, resend, email, cancelToken) => {
+    console.log("API")
+    console.log(email)
+    const options = getRequestOptions(cancelToken);
+    return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/ValidEmail?validEmailToken=${token}&resend=${resend}&email=${email}`, null, options)
+        .then(handleResponse)
+        .catch(handleError);
+};
 

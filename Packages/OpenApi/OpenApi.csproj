@@ -10,6 +10,7 @@
     <Product>Barracuda.OpenApi</Product>
     <PackageId>Barracuda.OpenApi</PackageId>
     <Version>1.0.0</Version>
+    <Description>This package contains Azure Function  in order to use openAPI 3.0</Description>
   </PropertyGroup>
 
   <ItemGroup>

@@ -21,7 +21,9 @@ namespace Barracuda.Indentity.Provider.Interfaces
         LoginDto EndToken(HttpRequest request, string cookie, string path, UserPrivateDataDto model);
         TokensDto ValidateToken(HttpRequestMessage req);
         string ValidateToken(string token);
+        string ValidateTokenConfirmEmail(string token);
         Task<Result<string>> ChangePassword(string email, string password);
-        string ForgotPassword(string email);
+        string ForgotPasswordOrRegister(string email);
+        Task<Result<string>> ValidateRegisterEmail(string email);
     }
 }

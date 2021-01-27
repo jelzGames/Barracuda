@@ -13,7 +13,7 @@ const RequireUserComponent = ({ component, ...rest }) => {
     if (userAuth !== "undefined") {
       userAuth = JSON.parse(userAuth);
     }
-    if (Component && userAuth && userAuth.id) {
+    if (Component && userAuth && userAuth.id  && userAuth.validEmail) {
       return <div>
               <Component {...props} />
              </div>;
@@ -29,7 +29,6 @@ const RequireUserComponent = ({ component, ...rest }) => {
   
   return <Route {...rest} render={renderFn(component, rest)} />;
 };
-  
 
 const mapStateToProps = (state) => {
   return {

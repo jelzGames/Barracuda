@@ -48,7 +48,7 @@ export class Layout extends React.Component {
     const { handleDrawerOpen,  handleDrawerClose } = this;
     return (
       <div className={classes.root}>
-        {this.props.userAuth && this.props.userAuth.id ? (
+        {this.props.userAuth && this.props.userAuth.id && this.props.userAuth.validEmail ? (
           <Fragment>
             <CssBaseline />
             <TopBar open={open} handleDrawerOpen={handleDrawerOpen} />

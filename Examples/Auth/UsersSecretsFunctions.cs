@@ -58,6 +58,30 @@ namespace UsersSecrets.Functions
                 return new BadRequestObjectResult(dataResult.Message);
             }
 
+            var dataScope = await _controller.UpdateScopes(dataResult.Value, new
+            {
+                blobs = new
+                {
+                    update = true,
+                    read = true
+                }
+            });
+
+            var token = _controller.ForgotPasswordOrRegister(email);
+
+            // you can build you custom address with the token generated 
+            // example https://mysite.com/onRoute/?validEmailToken=" + token
+            // and send an email to requester including the address in the email body 
+
+            // you can call to change password api whit the token recived from email
+            // exmaple: https://localhost/api/permissions/ValidEmail?token=" + token
+
+            // It is important use the parameter named token
+
+            // Remember not return the token only if has been calling internally by the server
+            // use return new OkResult(); instead
+
+
             return new OkObjectResult(dataResult.Value);
         }
 
@@ -225,7 +249,7 @@ namespace UsersSecrets.Functions
            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/ChangePassword")] HttpRequestMessage req,
            HttpRequest request, ILogger log)
         {
-            var token = req.RequestUri.ParseQueryString().Get("token");
+            var token = req.RequestUri.ParseQueryString().Get("changepasswordtoken");
             var emailToken = "";
             if (!String.IsNullOrEmpty(token))
             {
@@ -263,15 +287,10 @@ namespace UsersSecrets.Functions
 
             if (!String.IsNullOrEmpty(emailToken))
             {
-                if (emailToken != email)
-                {
-                    return new UnauthorizedResult();
-                }
-                else
-                {
-                    email = emailToken;
-                }
+            
+                email = emailToken;
             }
+            
 
             if (String.IsNullOrEmpty(email) || String.IsNullOrEmpty(password))
             {
@@ -302,11 +321,11 @@ namespace UsersSecrets.Functions
                 return new BadRequestObjectResult(_errors.ValuesNotValid);
             }
 
-            var token = _controller.ForgotPassword(email);
+            var token = _controller.ForgotPasswordOrRegister(email);
 
 
             // you can buid you custom address with the token generated 
-            // example https://nysite.com/changepassord?token=" + token
+            // example https://mysite.com/onRoute/?changepasswordtoken=" + token
             // and send an email to requester including the address in the email body 
 
             // you can call to change password api whit the token recived from email
@@ -317,9 +336,100 @@ namespace UsersSecrets.Functions
             // Remember not return the token only if has been calling internally by the server
             // use return new OkResult(); instead
 
-            return new OkObjectResult(token);
+            return new OkObjectResult("Ok");
         }
 
+        [FunctionName("ValidEmail")]
+        public async Task<IActionResult> ValidEmail(
+           [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/ValidEmail")] HttpRequestMessage req,
+           HttpRequest request, ILogger log)
+        {
+            var token = req.RequestUri.ParseQueryString().Get("validEmailToken");
+            var resend = req.RequestUri.ParseQueryString().Get("resend");
+            var resendEmail = req.RequestUri.ParseQueryString().Get("email");
+            var emailToken = "";
+            if (!String.IsNullOrEmpty(token))
+            {
+                if (resend != null)
+                {
+                    if(resendEmail != null)
+                    {
+                        emailToken = resendEmail;
+                    }
+                    else
+                    {
+                        emailToken = _controller.ValidateTokenConfirmEmail(token);
+                    }
+          
+                }
+                else
+                {
+                    emailToken = _controller.ValidateToken(token);
+                }
+                if (String.IsNullOrEmpty(emailToken))
+                {
+                    return new BadRequestObjectResult(_errors.NotAuthorized);
+                }
+            }
+
+            var email = "";
+            if (!String.IsNullOrEmpty(emailToken))
+            {
+
+                email = emailToken;
+            }
+
+            var dataResult = await _controller.ValidateRegisterEmail(email);
+
+            if (!dataResult.Success)
+            {
+                return new BadRequestObjectResult(dataResult.Message);
+            }
+
+            return new OkObjectResult(dataResult.Value);
+        }
+
+        [FunctionName("ResendValidEmail")]
+        public async Task<IActionResult> ResendValidEmail(
+          [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/ResendValidEmail")] HttpRequestMessage req,
+          HttpRequest request, ILogger log)
+        {
+            var token = req.RequestUri.ParseQueryString().Get("validEmailToken");
+            var resendEmail = req.RequestUri.ParseQueryString().Get("email");
+            var emailToken = "";
+            if (!String.IsNullOrEmpty(token))
+            {
+                emailToken = _controller.ValidateTokenConfirmEmail(token);
+            }
+            else
+            {
+                if (resendEmail != null)
+                {
+                    emailToken = resendEmail;
+                }
+            }
+            if (String.IsNullOrEmpty(emailToken))
+            {
+                return new BadRequestObjectResult(_errors.NotAuthorized);
+            }
+
+            var newToken = _controller.ForgotPasswordOrRegister(emailToken);
+
+            // you can build you custom address with the token generated 
+            // example https://mysite.com/onRoute/?validEmailToken=" + token
+            // and send an email to requester including the address in the email body 
+
+            // you can call to change password api whit the token recived from email
+            // exmaple: https://localhost/api/permissions/ValidEmail?token=" + token
+
+            // It is important use the parameter named token
+
+            // Remember not return the token only if has been calling internally by the server
+            // use return new OkResult(); instead
+
+
+            return new OkObjectResult("OK");
+        }
 
         private Result<ClaimsPrincipal> validAuthorized(HttpRequestMessage req, HttpRequest request)
         {

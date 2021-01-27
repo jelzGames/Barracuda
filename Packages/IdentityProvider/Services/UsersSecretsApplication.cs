@@ -178,6 +178,7 @@ namespace Barracuda.Indentity.Provider.Services
             var dto = new UserPrivateDataDto();
             dto.Id = model.id;
             dto.Email = model.Email;
+            dto.ValidEmail = model.ValidEmail;
             dto.Token = token;
 
             return _result.Create(true, "", dto);
@@ -227,7 +228,7 @@ namespace Barracuda.Indentity.Provider.Services
                 return _result.Create<UserPrivateDataDto>(false, result.Message, null);
             }
 
-            var register = await _services.Register(result.Value.Email, _crypto.GetRandomNumber());
+            var register = await _services.Register(result.Value.Email, _crypto.GetRandomNumber(), true);
             if (!register.Success)
             {
                 if (register.Message != _errors.Found)
@@ -254,7 +255,7 @@ namespace Barracuda.Indentity.Provider.Services
                 return _result.Create<LoginDto>(false, result.Message, null);
             }
 
-            var register = await _services.Register(result.Value.Email, _crypto.GetRandomNumber());
+            var register = await _services.Register(result.Value.Email, _crypto.GetRandomNumber(), true);
             if (!register.Success)
             {
                 if (register.Message != _errors.Found)
@@ -282,7 +283,7 @@ namespace Barracuda.Indentity.Provider.Services
                 return _result.Create<LoginDto>(false, result.Message, null);
             }
 
-            var register = await _services.Register(result.Value.Email, _crypto.GetRandomNumber());
+            var register = await _services.Register(result.Value.Email, _crypto.GetRandomNumber(), true);
             if (!register.Success)
             {
                 if (register.Message != _errors.Found)
@@ -309,7 +310,8 @@ namespace Barracuda.Indentity.Provider.Services
             return new LoginDto()
             {
                 Id = model.Id,
-                Email = model.Email
+                Email = model.Email,
+                ValidEmail= model.ValidEmail
             };
         }
 
@@ -371,7 +373,7 @@ namespace Barracuda.Indentity.Provider.Services
             return await _services.ChangePassword(email, password);
         }
 
-        public string ForgotPassword(string email)
+        public string ForgotPasswordOrRegister(string email)
         {
             return _tokens.CreateToken(Guid.NewGuid().ToString(), email, null, true);
         }
@@ -380,6 +382,17 @@ namespace Barracuda.Indentity.Provider.Services
         {
             var email = "";
             var principal = _tokens.ValidateToken(token);
+            if (principal != null)
+            {
+                email = principal.FindFirst(ClaimTypes.Email).Value;
+            }
+
+            return email;
+        }
+        public string ValidateTokenConfirmEmail(string token)
+        {
+            var email = "";
+            var principal = _tokens.ValidateToken(token, false);
             if (principal != null)
             {
                 email = principal.FindFirst(ClaimTypes.Email).Value;
@@ -405,6 +418,10 @@ namespace Barracuda.Indentity.Provider.Services
             }
 
             return _result.Create(true, "", "");
+        }
+        public async Task<Result<string>> ValidateRegisterEmail(string email)
+        {
+            return await _services.ValidateRegisterEmail(email);
         }
     }
 }

@@ -29,14 +29,19 @@ namespace Barracuda.Indentity.Provider.Services
             return await _repository.Login(email);
         }
 
-        public async Task<Result<string>> Register(string email, string password)
+        public async Task<Result<string>> Register(string email, string password, bool validEmail = false)
         {
-            return await _repository.Register(email, password);
+            return await _repository.Register(email, password, validEmail);
         }
        
         public async Task<Result<string>> Update(UserPrivateDataModel model)
         {
             return await _repository.Update(model);
+        }
+
+        public async Task<Result<string>> ValidateRegisterEmail(string email)
+        {
+            return await _repository.ValidateRegisterEmail(email);
         }
     }
 }

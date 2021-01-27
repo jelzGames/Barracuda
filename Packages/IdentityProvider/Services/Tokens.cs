@@ -21,7 +21,7 @@ namespace Barracuda.Indentity.Provider.Services
             _settings = settings;
         }
 
-        public string CreateToken(string id, string email, dynamic userScopes, bool iSforgotPassword = false)
+        public string CreateToken(string id, string email, dynamic userScopes, bool iSforgotPasswordOrRegister = false)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.JWTKey));
 
@@ -34,7 +34,7 @@ namespace Barracuda.Indentity.Provider.Services
             };
 
             var seconds = _settings.ExpiredTimeInSeconds;
-            if (iSforgotPassword)
+            if (iSforgotPasswordOrRegister)
             {
                 seconds = _settings.ExpiredTimeInSecondsToForgetPasword;
             }

@@ -51,7 +51,12 @@ export const LogIn = (model) => {
         })
    
         if (flag) {
-            setUserAuth(result, dispatch);
+            if(result.validEmail){
+                setUserAuth(result, dispatch);
+            }
+            else{
+                throw "NotValidEmailConfirmation";
+            }
         }
 
         return true;
@@ -63,6 +68,8 @@ const setUserAuth = async(result, dispatch) => {
     var userAuth = {...initialState.userAuth};
     userAuth.id = result.id;
     userAuth.email = result.email;
+    userAuth.validEmail= result.validEmail;
+    console.log(result)
     setAuht(userAuth, dispatch);
 }
 
@@ -182,9 +189,41 @@ export const RefreshToken = (user) => {
     }
 }
 
-export const ChangePassword = (model) => {
+export const ChangePassword = (model, token) => {
     return async function(dispatch) {
-        await usersAuthApi.ChangePassword(model)
+        await usersAuthApi.ChangePassword(model, token)
+        .then( (result) => {
+        })
+        .catch((error) => {
+            if (error === constants.NotAuthorized) {
+                console.log("Not Authorized")
+            }
+            else {
+                console.log(error)
+            }
+        });
+    }
+}
+
+export const ForgotPassword = (model) => {
+    return async function(dispatch) {
+        await usersAuthApi.ForgotPassword(model)
+        .then( (result) => {
+        })
+        .catch((error) => {
+            if (error === constants.NotAuthorized) {
+                console.log("Not Authorized")
+            }
+            else {
+                console.log(error)
+            }
+        });
+    }
+}
+
+export const ValidEmail = (token, resend, email) => {
+    return async function(dispatch) {
+        await usersAuthApi.ValidEmail(token, resend, email)
         .then( (result) => {
         })
         .catch((error) => {

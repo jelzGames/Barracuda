@@ -142,13 +142,9 @@ export class CustomLogin extends React.Component{
                     validation: () =>  { return this.state.registerEmail.trim() === ""},
                     errorMessage: "Required"
                 },
-                "confirmEmail": {
-                    validation: () =>  { return this.state.confirmEmail.trim() === ""},
+                "registerPassword": {
+                    validation: () =>  { return this.state.registerPassword.trim() === ""},
                     errorMessage: "Required"
-                },
-                "retryEmail": {
-                    validation: () =>  { return this.state.registerEmail !== this.state.confirmEmail},
-                    errorMessage: "not match"
                 }
             },
             validationsPassword: {
@@ -218,6 +214,26 @@ export class CustomLogin extends React.Component{
         })
     }
 
+    handleValidEmailToken = async() => {
+        const { loginEmail} = this.state;
+        this.setState({
+          isloading: true
+        })
+        await this.props.actions.ValidEmail(null, true, loginEmail)
+        .then((result) => {
+            this.props.history.push("/");
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+        .finally(() => {
+            this.setState({
+                isloading: false,
+            });
+
+        });
+    }
+
     handleLogIn = async() => {
         this.setState({
             isloading: true
@@ -226,12 +242,15 @@ export class CustomLogin extends React.Component{
             email: this.state.loginEmail,
             password: this.state.loginPassword
         }
-        console.log(this.props.actions);
         await this.props.actions.LogIn(model)
         .then((result) => {
             this.props.history.push("/");
         })
-        .catch((error) => {
+        .catch( async(error) => {
+            if(error = "NotValidEmailConfirmation"){
+                await this.handleValidEmailToken();
+                alert("The Email hasn't been confirmed");
+            }
         })
         .finally(() => {
             this.setState({
@@ -311,8 +330,6 @@ export class CustomLogin extends React.Component{
     }
 
     successLinkedIn = (data) => {
-        console.log("entro")
-        console.log(data)
         this.props.history.push("/"); 
     }
 
@@ -326,9 +343,20 @@ export class CustomLogin extends React.Component{
         }
     }
 
+    handleForgotPassword = async() => {
+        var model  ={
+            email: this.state.recoverPassword
+        }
+        await this.props.actions.ForgotPassword(model)
+        .then( (result) => {
+        })
+        .catch((error) => { 
+        });
+    }
+
     renderPassword = () => {   
         const { classes } = this.props;
-        const { handleCloseForm, handleChange, validaDataPassword } = this;
+        const { handleCloseForm, handleChange, validaDataPassword, handleForgotPassword } = this;
         const { recoverPassword } = this.state;
         
         return(
@@ -353,6 +381,7 @@ export class CustomLogin extends React.Component{
                         <CustomButton 
                             disabled={validaDataPassword()}
                             color="primary"
+                            handleClick={handleForgotPassword}
                             content={"Recover"}
                             fullWidth={true}
                         />
@@ -492,7 +521,7 @@ export class CustomLogin extends React.Component{
 
     renderSignUp = () => {
 
-        const { registerEmail, confirmEmail, validationsSignUp} = this.state;
+        const { registerEmail, registerPassword} = this.state;
         const { handleChange, handleRegister, validaDataSignUp, handleCloseForm } = this;
 
         return(
@@ -511,24 +540,15 @@ export class CustomLogin extends React.Component{
                             value={registerEmail} 
                             label={"email"}  
                             handleChange={handleChange}
-                            errorConditions={
-                                <Fragment>
-                                    {validationsSignUp["retryEmail"].validation() && validationsSignUp["retryEmail"].errorMessage.concat("\n")} 
-                                </Fragment>
-                            } 
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <CustomTextField 
-                            id={"confirmEmail"} 
-                            value={confirmEmail} 
-                            label={"ConfirmEmail"}  
+                            id={"registerPassword"} 
+                            value={registerPassword} 
+                            label={"password"}  
                             handleChange={handleChange}
-                            errorConditions={
-                                <Fragment>
-                                    {validationsSignUp["retryEmail"].validation() && validationsSignUp["retryEmail"].errorMessage.concat("\n")} 
-                                </Fragment>
-                            }
+                            isNumber={"password"}
                         />
                     </Grid>
                     <Grid item xs={12} style={{padding:"24px"}}>
@@ -569,10 +589,9 @@ export class CustomLogin extends React.Component{
         const { renderForm} = this;
         const { classes, userAuth } = this.props;
         const { isloading } = this.state;
-        
         return(
             <Fragment>
-                    {(!userAuth || !userAuth.id) && 
+                    {(!userAuth || !userAuth.id || !userAuth.validEmail) && 
                         <Container >
                             {renderForm()} 
                             {isloading && 
@@ -599,6 +618,8 @@ const mapDispatchToProps = (dispatch) => {
             SocialGoogle: bindActionCreators(usersAction.SocialGoogle, dispatch),
             SocialFacebook: bindActionCreators(usersAction.SocialFacebook, dispatch),
             SocialMicrosoft: bindActionCreators(usersAction.SocialMicrosoft, dispatch),
+            ForgotPassword: bindActionCreators(usersAction.ForgotPassword, dispatch),
+            ValidEmail: bindActionCreators(usersAction.ValidEmail, dispatch),
         }
     };
 };

@@ -8,6 +8,7 @@ namespace Barracuda.Indentity.Provide.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public string RefreshToken { get; set; }
+        public bool ValidEmail { get; set; }
         public dynamic Scopes { get; set; }
     }
 }

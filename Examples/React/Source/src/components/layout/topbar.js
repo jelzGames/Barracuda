@@ -129,7 +129,6 @@ export class TopBar extends React.Component {
       email: this.props.userAuth.email,
       password: this.state.newPassword
   }
-  console.log(model);
   await this.props.actions.ChangePassword(model)
   .then((result) => {
       console.log(result)

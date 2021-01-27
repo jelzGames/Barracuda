@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react";
-import { Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import{ RequireUser } from "./routerauth";
 import CustomSpinner from "../components/common/customSpinner";
 
@@ -9,6 +9,7 @@ const Workqueues = lazy(() => import("../components/workqueues/workqueues"));
 const AddNewUser= lazy(() => import("../components/users/addedituser"));
 const AddEditRoles= lazy(() => import("../components/roles/addEditroles"));
 const Profile= lazy(() => import("../components/profiles/profile"));
+const VerifyTokens = lazy(() => import("../components/verifyTokens"));
 
 export const routes = (
     <Switch>
@@ -18,7 +19,8 @@ export const routes = (
             <RequireUser exact={true} path="/users/:id" component={AddNewUser} />
             <RequireUser  exact={true} path="/roles" component={Roles} />
             <RequireUser  exact={true} path="/roles/:id" component={AddEditRoles}/>
-            <RequireUser  exact={true} path="/workqueues" component={Workqueues} />          
+            <RequireUser  exact={true} path="/workqueues" component={Workqueues} />
+            <Route  exact={true} path="/verifyTokens" component={VerifyTokens} />          
         </Suspense>
     </Switch>
 );

@@ -91,6 +91,24 @@
       },
       "backendUri": "%Host_UserSecrets%/permissions/UpdateScopes"
     },
+    "UserSecretsValidEmail": {
+      "matchCondition": {
+        "route": "api/permissions/ValidEmail",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/ValidEmail"
+    },
+    "UserSecretsResendValidEmaill": {
+      "matchCondition": {
+        "route": "api/permissions/ResendValidEmail",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/ResendValidEmail"
+    },
     "openApiDemosGetAll": {
       "matchCondition": {
         "route": "api/openApiDemos/GetAll",
