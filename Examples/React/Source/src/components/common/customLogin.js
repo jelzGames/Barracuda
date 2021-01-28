@@ -18,6 +18,8 @@ import MicrosoftLogin from "react-microsoft-login";
 import CustomImage from "../common/customImage";
 import CustomLink from "../common/customLink";
 import env from "../../utils/env"; 
+import * as constants from "../../constants";
+import CustomModal from "./customModal";
 
 const useStyles = (theme) => ({
     closeIcon: {
@@ -219,7 +221,7 @@ export class CustomLogin extends React.Component{
         this.setState({
           isloading: true
         })
-        await this.props.actions.ValidEmail(null, true, loginEmail)
+        await this.props.actions.ValidEmail("", true, loginEmail)
         .then((result) => {
             this.props.history.push("/");
         })
@@ -232,6 +234,64 @@ export class CustomLogin extends React.Component{
             });
 
         });
+    }
+
+    handleResendValidEmail = async() => {
+        const { loginEmail} = this.state;
+        this.setState({
+          isloading: true
+        })
+        await this.props.actions.ResendValidEmail("", loginEmail)
+        .then((result) => {
+            this.props.history.push("/");
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+        .finally(() => {
+            this.setState({
+                isloading: false,
+            });
+
+        });
+    }
+    
+    handleResendModal = async() => {
+        await this.handleResendValidEmail();
+        this.setState({
+            openModal: false
+        })
+    }
+
+    handleCloseModal = () => {
+        this.setState({
+            openModal: false
+        })
+    }
+
+    bodyModalResendEmail = () => {
+        const { handleCloseModal, handleResendModal } = this;
+        return(
+            <Grid container >
+                <Grid item xs={12} >
+                    <h3>
+                        The email hasn't been confirmed. Do you want to resend an email?
+                    </h3>
+                </Grid>
+                <Grid item xs={12} >
+                    <CustomButton
+                    content={"Accept"}
+                    color={"primary"}
+                    handleClick={handleResendModal}
+                    />{" "}
+                    <CustomButton
+                    content={"Cancel"}
+                    color={"secondary"}
+                    handleClick={handleCloseModal}
+                    />
+                </Grid>
+            </Grid>    
+        )
     }
 
     handleLogIn = async() => {
@@ -247,11 +307,12 @@ export class CustomLogin extends React.Component{
             this.props.history.push("/");
         })
         .catch( async(error) => {
-            if(error = "NotValidEmailConfirmation"){
-                await this.handleValidEmailToken();
-                alert("The Email hasn't been confirmed");
+            if(error === constants.NotValidEmailConfirmation){
+                this.setState({
+                    openModal: true
+                })
             }
-        })
+        })  
         .finally(() => {
             this.setState({
                 isloading: false,
@@ -599,6 +660,9 @@ export class CustomLogin extends React.Component{
                             }
                         </Container>
                     }
+                    <CustomModal modal={this.state.openModal}
+                        item={this.bodyModalResendEmail()}
+                    />
             </Fragment>
         )
     }
@@ -620,6 +684,7 @@ const mapDispatchToProps = (dispatch) => {
             SocialMicrosoft: bindActionCreators(usersAction.SocialMicrosoft, dispatch),
             ForgotPassword: bindActionCreators(usersAction.ForgotPassword, dispatch),
             ValidEmail: bindActionCreators(usersAction.ValidEmail, dispatch),
+            ResendValidEmail: bindActionCreators(usersAction.ResendValidEmail, dispatch)
         }
     };
 };

@@ -350,9 +350,9 @@ namespace UsersSecrets.Functions
             var emailToken = "";
             if (!String.IsNullOrEmpty(token))
             {
-                if (resend != null)
+                if (resend != "false")
                 {
-                    if(resendEmail != null)
+                    if(resendEmail != "null")
                     {
                         emailToken = resendEmail;
                     }
@@ -368,7 +368,7 @@ namespace UsersSecrets.Functions
                 }
                 if (String.IsNullOrEmpty(emailToken))
                 {
-                    return new BadRequestObjectResult(_errors.NotAuthorized);
+                    return new BadRequestObjectResult(_errors.ValidateTokenConfirmEmailExpired);
                 }
             }
 

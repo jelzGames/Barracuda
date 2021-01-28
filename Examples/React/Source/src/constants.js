@@ -5,6 +5,8 @@ export const NotFound = "NotFound";
 export const NotAuthorized = "NotAuthorized";
 export const Found = "Found";
 export const SecurityTokenExpired = "SecurityTokenExpired";
+export const NotValidEmailConfirmation = "NotValidEmailConfirmation"
+export const ValidateTokenConfirmEmailExpired = "ValidateTokenConfirmEmailExpired"
 
 export const permissionFile = {
     Read: "Read",

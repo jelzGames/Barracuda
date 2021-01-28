@@ -55,7 +55,7 @@ export const LogIn = (model) => {
                 setUserAuth(result, dispatch);
             }
             else{
-                throw "NotValidEmailConfirmation";
+                throw constants.NotValidEmailConfirmation;
             }
         }
 
@@ -224,6 +224,24 @@ export const ForgotPassword = (model) => {
 export const ValidEmail = (token, resend, email) => {
     return async function(dispatch) {
         await usersAuthApi.ValidEmail(token, resend, email)
+        .then( (result) => {
+        })
+        .catch((error) => {
+            if (error === constants.NotAuthorized) {
+                console.log("Not Authorized")
+            }
+            else if(error === constants.ValidateTokenConfirmEmailExpired){
+                throw constants.ValidateTokenConfirmEmailExpired;
+            }
+            else {
+                console.log(error)
+            }
+        });
+    }
+}
+export const ResendValidEmail = (token, resendEmail) => {
+    return async function(dispatch) {
+        await usersAuthApi.ResendValidEmail(token, resendEmail)
         .then( (result) => {
         })
         .catch((error) => {

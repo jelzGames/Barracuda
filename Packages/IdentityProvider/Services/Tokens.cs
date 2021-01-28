@@ -80,7 +80,15 @@ namespace Barracuda.Indentity.Provider.Services
 
             SecurityToken validatedToken;
 
-            ClaimsPrincipal principal = tokenHandler.ValidateToken(authToken, validationParameters, out validatedToken);
+            ClaimsPrincipal principal = null;
+            try
+            {
+                principal = tokenHandler.ValidateToken(authToken, validationParameters, out validatedToken);
+            }
+            catch
+            {
+
+            }
 
             return principal;
         }
@@ -100,7 +108,7 @@ namespace Barracuda.Indentity.Provider.Services
 
             if (validateLifetime)
             {
-                model.LifetimeValidator = LifetimeValidator;
+                model.LifetimeValidator =  LifetimeValidator;
 
             }
 

@@ -71,10 +71,15 @@ export const ForgotPassword = async(model, cancelToken) => {
 };
 
 export const ValidEmail = async(token, resend, email, cancelToken) => {
-    console.log("API")
-    console.log(email)
     const options = getRequestOptions(cancelToken);
     return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/ValidEmail?validEmailToken=${token}&resend=${resend}&email=${email}`, null, options)
+        .then(handleResponse)
+        .catch(handleError);
+};
+
+export const ResendValidEmail = async(token, resendEmail, cancelToken) => {
+    const options = getRequestOptions(cancelToken);
+    return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/ResendValidEmail?validEmailToken=${token}&email=${resendEmail}`, null, options)
         .then(handleResponse)
         .catch(handleError);
 };

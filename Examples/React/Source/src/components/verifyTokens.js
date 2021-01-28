@@ -6,9 +6,7 @@ import CustomChangePassword from '../components/common/customChangePassword';
 import CustomModal from './common/customModal';
 import * as usersAction from "../redux/actions/userAuthActions";
 import { connect } from "react-redux";
-import { Alert } from '@material-ui/lab';
-import CustomButton from './common/customButton';
-
+import * as constants from "../constants";
 
 export class verifyTokens extends React.Component {
     constructor(props){
@@ -31,12 +29,19 @@ export class verifyTokens extends React.Component {
         this.setState({
           isloading: true
         })
-        await this.props.actions.ValidEmail(validEmailToken)
+        await this.props.actions.ValidEmail(validEmailToken, false, "")
         .then((result) => {
             this.props.history.push("/");
         })
         .catch((error) => {
-            console.log(error)
+            if(error === constants.ValidateTokenConfirmEmailExpired){
+                console.log("error")
+                console.log(error)
+            }
+            else{
+                console.log(error)
+            }
+            
         })
         .finally(() => {
             this.setState({
@@ -44,31 +49,6 @@ export class verifyTokens extends React.Component {
             });
 
         });
-    }
-
-    renderValidEmailToken = () => {
-        const { handleValidEmailToken } = this;
-        return(
-            <div>
-                <CustomModal modal={true}
-                    item={
-                        <Alert
-                        action={
-                            <CustomButton
-                                color="primary" 
-                                handleClick={handleValidEmailToken}
-                                content={"ok"}
-                                fullWidth={true}
-                            />
-                        }
-                        >
-                            Your email has been registered with success press OK to accept and redirect
-                        </Alert>
-                    }
-                />
-            </div>   
-        )
-        
     }
 
     render() {
