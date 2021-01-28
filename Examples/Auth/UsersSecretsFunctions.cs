@@ -345,41 +345,18 @@ namespace UsersSecrets.Functions
            HttpRequest request, ILogger log)
         {
             var token = req.RequestUri.ParseQueryString().Get("validEmailToken");
-            var resend = req.RequestUri.ParseQueryString().Get("resend");
-            var resendEmail = req.RequestUri.ParseQueryString().Get("email");
             var emailToken = "";
             if (!String.IsNullOrEmpty(token))
-            {
-                if (resend != "false")
-                {
-                    if(resendEmail != "null")
-                    {
-                        emailToken = resendEmail;
-                    }
-                    else
-                    {
-                        emailToken = _controller.ValidateTokenConfirmEmail(token);
-                    }
-          
-                }
-                else
-                {
-                    emailToken = _controller.ValidateToken(token);
-                }
+            {      
+                emailToken = _controller.ValidateToken(token);
+                
                 if (String.IsNullOrEmpty(emailToken))
                 {
                     return new BadRequestObjectResult(_errors.ValidateTokenConfirmEmailExpired);
                 }
             }
 
-            var email = "";
-            if (!String.IsNullOrEmpty(emailToken))
-            {
-
-                email = emailToken;
-            }
-
-            var dataResult = await _controller.ValidateRegisterEmail(email);
+            var dataResult = await _controller.ValidateRegisterEmail(emailToken);
 
             if (!dataResult.Success)
             {

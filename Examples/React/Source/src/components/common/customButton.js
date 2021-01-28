@@ -32,7 +32,7 @@ export class CustomButton extends React.Component {
                 onClick={handleClick}
                 fullWidth={fullWidth}
             >
-                {t(content)}
+                {t ? t(content) : content}
             </Button>
         )
     }

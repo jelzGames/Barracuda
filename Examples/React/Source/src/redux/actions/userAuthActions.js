@@ -221,9 +221,9 @@ export const ForgotPassword = (model) => {
     }
 }
 
-export const ValidEmail = (token, resend, email) => {
+export const ValidEmail = (token) => {
     return async function(dispatch) {
-        await usersAuthApi.ValidEmail(token, resend, email)
+        await usersAuthApi.ValidEmail(token)
         .then( (result) => {
         })
         .catch((error) => {
