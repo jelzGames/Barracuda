@@ -69,7 +69,6 @@ const setUserAuth = async(result, dispatch) => {
     userAuth.id = result.id;
     userAuth.email = result.email;
     userAuth.validEmail= result.validEmail;
-    console.log(result)
     setAuht(userAuth, dispatch);
 }
 
