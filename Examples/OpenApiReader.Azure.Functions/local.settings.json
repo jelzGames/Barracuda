@@ -1,0 +1,22 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+
+    /* Authorization Code Grant Type Flow */
+    "OAuthUrl": "https://login.delivers.com/auth/realms/develop/protocol/openid-connect/auth",
+    "OAuthTokenUrl": "https://login.delivers.com/auth/realms/develop/protocol/openid-connect/token",
+    "OAuthClientId": "delivers",
+    "OAuthClientSecret": "my secret id",
+    "Scope": "profile",
+    "BOAUrlJson": "http://localhost:3000/api/openApiDemos/openapi/v1",
+    "BOARedirectAuthUrl": "http://localhost:3000/api/openApiDemos/openapi/auth"
+
+  },
+  "Host": {
+    "LocalHttpPort": 3000,
+    "CORS": "*",
+    "CORSCredentials": false
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "AZURE_FUNCTION_PROXY_DISABLE_LOCAL_CALL": true,
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "Host_UserSecrets": "https://www.mysite.dev:7072/api",
+    "Host_OpenApi": "https://www.mysite.dev:7075/api",
+    "Host_Blobs": "https://www.mysite.dev:7073/api"
+  },
+  "Host": {
+    "LocalHttpPort": 7070,
+    "CORS": "https://www.mysite.dev:3000,https://www.mysite.dev:7075",
+    "CORSCredentials": true
+  }
+}
+
