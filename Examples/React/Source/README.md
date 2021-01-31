@@ -15,7 +15,7 @@ go to certificate in trusted root, install ca.crt and cert.crt
 type cert.crt ca.crt > www.mysite.dev.crt
 
 # create pfx to azure functions
-openssl pkcs12 -export -out cert.pfx -inkey cert.key -in certicate.cer
+openssl pkcs12 -export -out cert.pfx -inkey cert.key -in cert.crt
 
 
 # Getting Started with Create React App
