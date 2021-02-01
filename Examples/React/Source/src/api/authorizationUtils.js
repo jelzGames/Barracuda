@@ -7,7 +7,9 @@ import { store } from "../redux/store";
 axios.interceptors.response.use((response) => {
     return response;
 }, async (error) => {
-    if (error.response && error.response.status === 401 && error.response.data === constants.SecurityTokenExpired) {
+    if ((store.getState().userAuth && store.getState().userAuth.id) && 
+        error.response && error.response.status === 401 && 
+        error.response.data === constants.SecurityTokenExpired) {
         var original = error.config;
         var flag = await getRefreshToken();
         if (flag) {

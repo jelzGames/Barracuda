@@ -367,7 +367,7 @@ namespace UsersSecrets.Functions
         }
 
         [FunctionName("ResendValidEmail")]
-        public async Task<IActionResult> ResendValidEmail(
+        public IActionResult ResendValidEmail(
           [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/ResendValidEmail")] HttpRequestMessage req,
           HttpRequest request, ILogger log)
         {
