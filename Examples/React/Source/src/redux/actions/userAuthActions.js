@@ -204,9 +204,9 @@ export const ChangePassword = (model, token) => {
     }
 }
 
-export const ForgotPassword = (model) => {
+export const ForgotPassword = (email) => {
     return async function(dispatch) {
-        await usersAuthApi.ForgotPassword(model)
+        await usersAuthApi.ForgotPassword(email)
         .then( (result) => {
         })
         .catch((error) => {
