@@ -72,7 +72,7 @@ namespace UsersSecrets.Functions
             // optional
             // tenants can be grouped by example: "mycompany/surcusals" group is first element and child second
             // using * means all, if you are grouping that refrence to all with the same group by example "mycompany/*"  
-            var dataTenants = await _controller.UpdateScopes(dataResult.Value, new List<string>() { "mycompany/*", "mycompany/surcusals" });
+            var dataTenants = await _controller.UpdateTenants(dataResult.Value, new List<string>() { "mycompany/*", "mycompany/surcusals" });
 
             var token = _controller.ForgotPasswordOrRegister(email);
 
