@@ -2,7 +2,9 @@ const reduxData = {
     userAuth: {
         id: null,
         email: null,
-        validEmail: null
+        validEmail: null,
+        Scopes: {},
+        Tenants: []
     }
 }
 

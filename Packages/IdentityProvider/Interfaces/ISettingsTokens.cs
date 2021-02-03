@@ -9,6 +9,7 @@ namespace Barracuda.Indentity.Provider.Interfaces
         string IUsser { get; }
         string Audencie { get; }
         string JWTKey { get; }
+        int SessionsNumber { get; }
         int ExpiredTimeInSeconds { get; }
         int ExpiredTimeInSecondsToForgetPasword { get; }
         string CookieToken { get; }
