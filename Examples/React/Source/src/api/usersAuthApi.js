@@ -63,9 +63,9 @@ export const ChangePassword = async(model, token, cancelToken) => {
         .catch(handleError);
 };
 
-export const ForgotPassword = async(model, cancelToken) => {
+export const ForgotPassword = async(email, cancelToken) => {
     const options = getRequestOptions(cancelToken);
-    return await axios.get(getApiUrl(serviceKeys.api) + `/api/permissions/ForgotPassword?email=${model.email}`, options)
+    return await axios.get(getApiUrl(serviceKeys.api) + `/api/permissions/ForgotPassword?email=${email}`, options)
         .then(handleResponse)
         .catch(handleError);
 };

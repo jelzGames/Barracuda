@@ -405,10 +405,7 @@ export class CustomLogin extends React.Component{
     }
 
     handleForgotPassword = async() => {
-        var model  ={
-            email: this.state.recoverPassword
-        }
-        await this.props.actions.ForgotPassword(model)
+        await this.props.actions.ForgotPassword(this.state.recoverPassword)
         .then( (result) => {
         })
         .catch((error) => { 

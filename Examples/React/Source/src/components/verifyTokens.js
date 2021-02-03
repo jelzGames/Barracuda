@@ -89,7 +89,6 @@ export class verifyTokens extends React.Component {
         })
         .catch((error) => {
             if(error === constants.ValidateTokenConfirmEmailExpired){
-                console.log("modal")
                 this.setState({
                     openModal: true
                 })
