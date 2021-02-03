@@ -12,6 +12,7 @@ namespace Barracuda.Indentity.Provider.Interfaces
     {
         Task<Result<string>> Register(string email, string password);
         Task<Result<string>> UpdateScopes(string id, dynamic scopes);
+        Task<Result<string>> UpdateTenants(string id, List<string> tenants);
         Task<Result<LoginDto>> Login(string email, string password, HttpRequest request);
         Task<Result<LoginDto>> Refresh(string token, string refreshToken, HttpRequest request);
         Task<Result<LoginDto>> RefreshToken(string id, string email, HttpRequest request);

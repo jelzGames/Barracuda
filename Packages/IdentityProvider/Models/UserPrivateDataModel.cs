@@ -7,8 +7,14 @@ namespace Barracuda.Indentity.Provide.Models
     {
         public string Email { get; set; }
         public string Password { get; set; }
-        public string RefreshToken { get; set; }
+        public List<RefreshTokensModel> RefreshTokens { get; set; }
         public bool ValidEmail { get; set; }
         public dynamic Scopes { get; set; }
+        public List<string> Tenants { get; set; }
+
+        public UserPrivateDataModel()
+        {
+            RefreshTokens = RefreshTokens == null ? new List<RefreshTokensModel>() : RefreshTokens;
+        }
     }
 }

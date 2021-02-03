@@ -1,8 +1,12 @@
 ﻿using Barracuda.Indentity.Provide.Models;
 using Barracuda.Indentity.Provider.Dtos;
 using Barracuda.Indentity.Provider.Interfaces;
+using Barracuda.Indentity.Provider.Models;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -131,7 +135,7 @@ namespace Barracuda.Indentity.Provider.Services
             var principal = _tokens.ValidateToken(token, false);
             var id = principal.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            string queryToken = null;
+            List<RefreshTokensModel> queryToken = null;
             UserPrivateDataModel model = null;
 
             if (!_settings.RedisCacheSecurity)
@@ -143,17 +147,19 @@ namespace Barracuda.Indentity.Provider.Services
                     return _result.Create<UserPrivateDataModel>(false, result.Message, null);
                 }
 
-                queryToken = result.Value.RefreshToken;
+                queryToken = result.Value.RefreshTokens;
                 model = result.Value;
             }
             else
             {
                 var email = principal.FindFirst(ClaimTypes.Email).Value;
-                queryToken = await _redisCache.GetSringValue(id);
-                if (String.IsNullOrEmpty(queryToken))
+                var tokens = await _redisCache.GetSringValue(id);
+                if (String.IsNullOrEmpty(tokens))
                 {
                     return _result.Create<UserPrivateDataModel>(false, _errors.NotAuthorized, null);
                 }
+
+                queryToken = JsonConvert.DeserializeObject<List<RefreshTokensModel>>(tokens);
 
                 model = new UserPrivateDataModel();
                 model.id = id;
@@ -161,8 +167,8 @@ namespace Barracuda.Indentity.Provider.Services
             }
 
             var coderefreshToken = _crypto.GetStringSha256Hash(refreshToken + _settings.SecretKey);
-
-            if (queryToken != coderefreshToken)
+            var idx = queryToken.FindIndex((e) => e.Token == coderefreshToken);
+            if (idx < 0)
             {
                 return _result.Create<UserPrivateDataModel>(false, _errors.NotAuthorized, null);
             }
@@ -180,6 +186,8 @@ namespace Barracuda.Indentity.Provider.Services
             dto.Email = model.Email;
             dto.ValidEmail = model.ValidEmail;
             dto.Token = token;
+            dto.Scopes = model.Scopes;
+            dto.Tenants = model.Tenants;
 
             return _result.Create(true, "", dto);
         }
@@ -187,7 +195,8 @@ namespace Barracuda.Indentity.Provider.Services
         public async Task<Result<UserPrivateDataDto>> UpdateSecrets(UserPrivateDataModel model)
         {
             var refreshToken = _crypto.GetRandomNumber();
-            model.RefreshToken = _crypto.GetStringSha256Hash(refreshToken + _settings.SecretKey);
+            var RefreshTokenHashed = _crypto.GetStringSha256Hash(refreshToken + _settings.SecretKey);
+            createRefreshToken(model.id, model.RefreshTokens, RefreshTokenHashed);
 
             var result = await _services.Update(model);
             if (!result.Success)
@@ -204,13 +213,48 @@ namespace Barracuda.Indentity.Provider.Services
 
         }
 
+        private void createRefreshToken(string id, List<RefreshTokensModel> refreshTokens, string RefreshTokenHashed)
+        {
+            if (refreshTokens == null)
+            {
+                refreshTokens = new List<RefreshTokensModel>();
+            }
+
+            if (refreshTokens.Count >= _settingsTokens.SessionsNumber)
+            {
+                var list = refreshTokens.OrderByDescending((e) => e.CreatedTime).ToList();
+                list[0].Token = RefreshTokenHashed;
+                list[0].CreatedTime = DateTime.UtcNow;
+                refreshTokens = list;
+            }
+            else
+            {
+                refreshTokens.Add(new Models.RefreshTokensModel()
+                {
+                    Id = id,
+                    Token = RefreshTokenHashed,
+                    CreatedTime = DateTime.UtcNow
+                });
+            }
+        }
+
         public async Task<Result<UserPrivateDataDto>> UpdateRedisCache(string id, string email)
         {
+            List<RefreshTokensModel> queryTokens = new List<RefreshTokensModel>();
+            var tokens = await _redisCache.GetSringValue(id);
+            if (String.IsNullOrEmpty(tokens))
+            {
+                queryTokens = JsonConvert.DeserializeObject<List<RefreshTokensModel>>(tokens);
+            }
+
             var refreshToken = _crypto.GetRandomNumber();
-            var redisToken = _crypto.GetStringSha256Hash(refreshToken + _settings.SecretKey);
+            var RefreshTokenHashed = _crypto.GetStringSha256Hash(refreshToken + _settings.SecretKey);
+            createRefreshToken(id, queryTokens, RefreshTokenHashed);
 
-            await _redisCache.SetStringValue(id, redisToken);
+            var jsonString = JsonConvert.SerializeObject(queryTokens);
 
+            await _redisCache.SetStringValue(id, jsonString);
+            
             var dto = new UserPrivateDataDto();
             dto.Id = id;
             dto.Email = email;
@@ -311,7 +355,9 @@ namespace Barracuda.Indentity.Provider.Services
             {
                 Id = model.Id,
                 Email = model.Email,
-                ValidEmail= model.ValidEmail
+                ValidEmail = model.ValidEmail,
+                Scopes = model.Scopes,
+                Tenants = model.Tenants
             };
         }
 
@@ -422,6 +468,25 @@ namespace Barracuda.Indentity.Provider.Services
         public async Task<Result<string>> ValidateRegisterEmail(string email)
         {
             return await _services.ValidateRegisterEmail(email);
+        }
+
+        public async Task<Result<string>> UpdateTenants(string id, List<string> tenants)
+        {
+            var result = await _services.GetSecrets(id);
+            if (!result.Success)
+            {
+                return _result.Create<string>(false, result.Message, null);
+            }
+
+            result.Value.Tenants = tenants;
+
+            var resultUpdate = await _services.Update(result.Value);
+            if (!resultUpdate.Success)
+            {
+                return _result.Create<string>(false, resultUpdate.Message, null);
+            }
+
+            return _result.Create(true, "", "");
         }
     }
 }

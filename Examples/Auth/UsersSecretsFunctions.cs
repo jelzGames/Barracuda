@@ -10,6 +10,7 @@ using System.Security.Claims;
 using Barracuda.Indentity.Provider.Interfaces;
 using Barracuda.Indentity.Provider.Services;
 using Barracuda.Indentity.Provider.Dtos;
+using System.Collections.Generic;
 
 namespace UsersSecrets.Functions
 {
@@ -58,6 +59,7 @@ namespace UsersSecrets.Functions
                 return new BadRequestObjectResult(dataResult.Message);
             }
 
+            // optional
             var dataScope = await _controller.UpdateScopes(dataResult.Value, new
             {
                 blobs = new
@@ -66,6 +68,11 @@ namespace UsersSecrets.Functions
                     read = true
                 }
             });
+
+            // optional
+            // tenants can be grouped by example: "mycompany/surcusals" group is first element and child second
+            // using * means all, if you are grouping that refrence to all with the same group by example "mycompany/*"  
+            var dataTenants = await _controller.UpdateScopes(dataResult.Value, new List<string>() { "mycompany/*", "mycompany/surcusals" });
 
             var token = _controller.ForgotPasswordOrRegister(email);
 
@@ -117,6 +124,49 @@ namespace UsersSecrets.Functions
             }
 
             var dataResult = await _controller.UpdateScopes(data.Id, data.Scopes);
+
+            if (!dataResult.Success)
+            {
+                return new BadRequestObjectResult(dataResult.Message);
+            }
+
+            return new OkObjectResult(dataResult.Value);
+        }
+
+        [FunctionName("Tenants")]
+        public async Task<IActionResult> UpdateTenants(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/UpdateTenants")] HttpRequestMessage req,
+            ILogger log, HttpRequest request)
+        {
+            var resultAuth = validAuthorized(req, request);
+            if (!resultAuth.Success)
+            {
+                return new UnauthorizedResult();
+            }
+
+            var resultScopes = validScopes(new
+            {
+                superamdmin = true,
+                scopes = new
+                {
+                    update = true
+                }
+            });
+            if (!resultScopes.Success)
+            {
+                return new UnauthorizedResult();
+            }
+
+            LoginDto data = await req.Content.ReadAsAsync<LoginDto>();
+
+            var id = data.Id == null ? "" : data.Id;
+
+            if (String.IsNullOrEmpty(id))
+            {
+                return new BadRequestObjectResult(_errors.ValuesNotValid);
+            }
+
+            var dataResult = await _controller.UpdateScopes(data.Id, data.Tenants);
 
             if (!dataResult.Success)
             {

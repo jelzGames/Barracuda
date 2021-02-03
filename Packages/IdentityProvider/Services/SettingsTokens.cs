@@ -21,6 +21,7 @@ namespace Barracuda.Indentity.Provider.Services
             GraphFacebook = System.Environment.GetEnvironmentVariable("GraphFacebook", EnvironmentVariableTarget.Process);
             GraphMicrosoft = System.Environment.GetEnvironmentVariable("GraphMicrosoft", EnvironmentVariableTarget.Process);
             BarracudaSuperAdmins = System.Environment.GetEnvironmentVariable("BarracudaSuperAdmins", EnvironmentVariableTarget.Process).Split(",");
+            SessionsNumber = Convert.ToInt32(System.Environment.GetEnvironmentVariable("SessionsNumber", EnvironmentVariableTarget.Process));
         }
 
         public string IUsser { get; private set; }
@@ -34,5 +35,7 @@ namespace Barracuda.Indentity.Provider.Services
         public string GraphMicrosoft { get; private set; }
         public string GraphFacebook { get; private set; }
         public string[] BarracudaSuperAdmins { get; private set; }
+
+        public int SessionsNumber { get; private set; }
     }
 }

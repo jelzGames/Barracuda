@@ -10,5 +10,6 @@ namespace Barracuda.Indentity.Provider.Dtos
         public string Email { get; set; }
         public bool ValidEmail { get; set; }
         public dynamic Scopes { get; set; }
+        public List<string> Tenants { get; set; }
     }
 }
