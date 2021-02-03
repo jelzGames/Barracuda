@@ -23,8 +23,33 @@ import * as icons from "../libraries/icons";
 import { permissionFile, add } from "../../constants";
 import CustomImage from "../common/customImage";
 import CustomSpinner from "../common/customSpinner";
+import { BottomBar } from "../layout/bottomBar";
+
+const drawerWidth = 240;
 
 const useStyles = theme => ({
+    bottomBar:{
+        backgroundColor: "#3f51b5",
+        width: "100%",
+        position: "absolute",
+        bottom: "20px",
+        color: "white"
+    },
+    appBar: {
+        zIndex: theme.zIndex.drawer + 1,
+        transition: theme.transitions.create(['width', 'margin'], {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
+        }),
+      },
+      appBarShift: {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+    },
     spinnerPaper: {
         backgroundColor: "transparent",
         padding: theme.spacing(0, 0, 0),
@@ -65,15 +90,15 @@ export class Profile extends React.Component{
             user: userModel.model,
             validations: {
                 "requiredCity": {
-                    validation: () =>  { return this.state.user.city.trim() === ""},
+                    validation: () =>  { return this.state.user.city ? this.state.user.city.trim() === "" : true},
                     errorMessage: "Required"
                 },
                 "requiredState": {
-                    validation: () =>  { return this.state.user.state.trim() === ""},
+                    validation: () =>  { return this.state.user.state ? this.state.user.state.trim() === "" : true},
                     errorMessage: "Required"
                 },
                 "requiredCountry": {
-                    validation: () =>  { return this.state.user.country.trim() === ""},
+                    validation: () =>  { return this.state.user.country ? this.state.user.country.trim() === "" : true},
                     errorMessage: "Required"
                 },
             },
@@ -197,7 +222,7 @@ export class Profile extends React.Component{
         this.setState({
             isloading: true
         })
-        var model = {
+        /* var model = {
             query: "select * from Blobs"
         }
         var flag = false;
@@ -215,8 +240,7 @@ export class Profile extends React.Component{
             for (let index = 0; index < this.state.files.length; index++) {
                 this.showImage(index);
             }
-        }
-
+        } */
         var id = this.props.userAuth.id;
         var email = this.props.userAuth.email;
         this.setState((prevState) => ({
@@ -619,6 +643,7 @@ export class Profile extends React.Component{
                 <CustomModal modal={modalEditBlob} paperClass={classes.newUserModalPaper}
                     item={<CustomDragAndDrop editFiles={editfiles} updateFile={updateFile} handleCloseModal={handleCloseModal}/>}
                 />
+                <BottomBar classes={classes} open={true}/>
             </Fragment>
         )
     }

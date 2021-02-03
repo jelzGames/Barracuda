@@ -107,7 +107,6 @@ export class verifyTokens extends React.Component {
 
     render() {
         const { changePasswordToken, validEmailToken } = this.state;
-        console.log(this.props.t)
         return(
             <Fragment>
                 {!validEmailToken && changePasswordToken ? (

@@ -11,12 +11,12 @@ export const items = [
         name: "users",
         path: "/users",
         module: "admin",
-    },
+    }/* ,
     {
         name: "roles",
         path: "/roles",
         module: "admin"
-    }
+    } */
 ]
 
 export const icons = [

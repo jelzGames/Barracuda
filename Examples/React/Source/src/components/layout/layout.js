@@ -7,7 +7,6 @@ import { withStyles} from "@material-ui/core/styles";
 import { bindActionCreators, compose } from 'redux';
 import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom';
-import BottomBar from "./bottomBar";
 import * as usersAction from "../../redux/actions/userAuthActions";
 
 
@@ -53,7 +52,6 @@ export class Layout extends React.Component {
             <CssBaseline />
             <TopBar open={open} handleDrawerOpen={handleDrawerOpen} />
             <NavMenu open={open} handleDrawerClose={handleDrawerClose} handleDrawerOpen={handleDrawerOpen}/>
-            <BottomBar open={open}/>
             <MainContainer children={this.props.children}/>
           </Fragment>  
         ):(

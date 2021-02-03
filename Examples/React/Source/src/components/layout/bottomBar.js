@@ -16,7 +16,7 @@ const useStyles = theme => ({
     },
     appBar: {
     width: `calc(100% - ${margin}px )`,
-    top: 'auto',
+    top: "auto",
     bottom: 0,
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
@@ -67,8 +67,7 @@ export class BottomBar extends React.Component{
         const { handleSaveInfo } = this;
         const { classes, open } = this.props;
         return(
-            <AppBar position="absolute" color="primary" className={clsx(classes.appBar, open && classes.appBarShift)}>
-                <Toolbar className={classes.toolbar}>
+            <div className={classes.bottomBar}>    
                     <div >
                         <CustomIcon 
                             Icon={icons.icon.SaveIcon} 
@@ -78,8 +77,7 @@ export class BottomBar extends React.Component{
                             newClass={classes.saveIcon}
                         />
                     </div>
-                </Toolbar>
-            </AppBar>
+            </div>
         )
     }
 }

@@ -6,7 +6,8 @@
     "FUNCTIONS_WORKER_RUNTIME": "dotnet",
     "Host_UserSecrets": "https://www.mysite.dev:7072/api",
     "Host_OpenApi": "https://www.mysite.dev:7075/api",
-    "Host_Blobs": "https://www.mysite.dev:7073/api"
+    "Host_Blobs": "https://www.mysite.dev:7073/api",
+    "Host_Users": "https://www.mysite.dev:7071/api"
   },
   "Host": {
     "LocalHttpPort": 7070,

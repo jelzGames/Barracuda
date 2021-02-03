@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Users.Functions": {
+      "commandName": "Project",
+      "commandLineArgs": "host start --port 7071 --useHttps --cert \"cert.pfx\" --password \"123\" --pause-on-error"
+    }
+  }
+}

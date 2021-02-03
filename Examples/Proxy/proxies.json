@@ -216,6 +216,51 @@
         ]
       },
       "backendUri": "%Host_Blobs%/Blobs/GetSASToken"
+    },
+    "UsersCreateUser": {
+      "matchCondition": {
+        "route": "api/users/Create",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_Users%/users/Create"
+    },
+    "UsersGetUser": {
+      "matchCondition": {
+        "route": "api/users/Get/{id}",
+        "methods": [
+          "GET"
+        ]
+      },
+      "backendUri": "%Host_Users%/users/Get/{id}"
+    },
+    "UsersUpdateUser": {
+      "matchCondition": {
+        "route": "api/users/Update",
+        "methods": [
+          "PUT"
+        ]
+      },
+      "backendUri": "%Host_Users%/users/Update"
+    },
+    "UsersGetAll": {
+      "matchCondition": {
+        "route": "api/users/GetAll",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_Users%/users/GetAll"
+    },
+    "UsersDeleteUser": {
+      "matchCondition": {
+        "route": "api/users/Delete/{id}",
+        "methods": [
+          "DELETE"
+        ]
+      },
+      "backendUri": "%Host_Users%/users/Delete/{id}"
     }
   }
 }

@@ -85,9 +85,9 @@ namespace Barracuda.Indentity.Provider.Services
             {
                 principal = tokenHandler.ValidateToken(authToken, validationParameters, out validatedToken);
             }
-            catch
+            catch(SecurityTokenException ex)
             {
-
+                throw ex;
             }
 
             return principal;

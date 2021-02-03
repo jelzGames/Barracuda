@@ -104,7 +104,7 @@ export class TopBar extends React.Component {
     this.setState({
       anchorEl: false
     })
-    this.props.history.push(`/`)
+    this.props.history.push(`/profile`)
   };
 
   handleModalPassword = () => {

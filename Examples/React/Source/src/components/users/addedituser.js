@@ -11,6 +11,8 @@ import CustomTextField from "../common/customTextField";
 import CustomSelect from "../common/customSelect";
 import CustomButton from "../common/customButton";
 import CustomHeader from "../common/customHeader";
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
 
 
 const useStyles = theme => ({
@@ -67,6 +69,7 @@ export class AddUsers extends React.Component {
 
 
     componentDidMount(){
+        
         if (this.state.id !== constant.add) {
             usersApi.Get(this.state.userid)
             .then((result) => {
@@ -213,4 +216,7 @@ export class AddUsers extends React.Component {
     }
 }
 
-export default withStyles(useStyles, { withTheme: true })(AddUsers);
+export default compose(
+    withRouter,
+    withStyles(useStyles, { withTheme: true }),
+    )(AddUsers);

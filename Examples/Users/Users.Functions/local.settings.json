@@ -14,7 +14,8 @@
     "IUsser": "Delivers",
     "Audencie": "AllUsers",
     "CookieToken": "X-Access-Token",
-    "RefreshToken": "X-Refresh-Token"
+    "RefreshToken": "X-Refresh-Token",
+    "BarracudaSuperAdmins":  "cesarh.rodlz@gmail.com"
   },
   "Host": {
     "LocalHttpPort": 7071,
