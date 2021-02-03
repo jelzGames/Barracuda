@@ -1,0 +1,24 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "ISSUER": "https://dev-delivers.us.auth0.com/",
+    "DatabaseEndpoint": "https://localhost:8081",
+    "DatabaseSecretKey": "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
+    "DatabaseId": "Delivers",
+    "MaxItemCount": 30,
+    "SecretKey": "letssecret",
+    "JWTKey": "401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b3727429090fb337591abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1",
+    "ExpiredTimeInSeconds": "300",
+    "IUsser": "Delivers",
+    "Audencie": "AllUsers",
+    "CookieToken": "X-Access-Token",
+    "RefreshToken": "X-Refresh-Token"
+  },
+  "Host": {
+    "LocalHttpPort": 7071,
+    "CORS": "*",
+    "CORSCredentials": false
+  }
+}
