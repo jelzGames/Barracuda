@@ -7,6 +7,7 @@ namespace Barracuda.Indentity.Provider.Interfaces
     public interface IUsersSecretsRepository
     {
         Task<Result<string>> Register(string email, string password, bool validEmail = false);
+        Task<Result<string>> DeleteUser(string id);
         Task<Result<UserPrivateDataModel>> Login(string email);
         Task<Result<UserPrivateDataModel>> GetSecrets(string id);
         Task<Result<string>> Update(UserPrivateDataModel model);

@@ -82,15 +82,6 @@
       },
       "backendUri": "%Host_UserSecrets%/permissions/ForgotPassword"
     },
-    "UserSecretsUpdateScopes": {
-      "matchCondition": {
-        "route": "api/permissions/UpdateScopes",
-        "methods": [
-          "POST"
-        ]
-      },
-      "backendUri": "%Host_UserSecrets%/permissions/UpdateScopes"
-    },
     "UserSecretsValidEmail": {
       "matchCondition": {
         "route": "api/permissions/ValidEmail",
@@ -108,6 +99,51 @@
         ]
       },
       "backendUri": "%Host_UserSecrets%/permissions/ResendValidEmail"
+    },
+    "UserSecretsAddUser": {
+      "matchCondition": {
+        "route": "api/permissions/AddUser",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/AddUser"
+    },
+    "UserSecretsDeleteUser": {
+      "matchCondition": {
+        "route": "api/permissions/DeleteUser",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/DeleteUser"
+    },
+    "UserSecretsUpdateScopes": {
+      "matchCondition": {
+        "route": "api/permissions/UpdateScopes",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/UpdateScopes"
+    },
+    "UserSecretsTenants": {
+      "matchCondition": {
+        "route": "api/permissions/Tenants",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/Tenants"
+    },
+    "UserSecretsChangePasswordToUser": {
+      "matchCondition": {
+        "route": "api/permissions/ChangePasswordToUser",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/ChangePasswordToUser"
     },
     "openApiDemosGetAll": {
       "matchCondition": {

@@ -52,9 +52,9 @@ namespace Barracuda.Indentity.Provider.Services
             _settingsTokens = settingsTokens;
         }
 
-        public async Task<Result<string>> Register(string email, string password)
+        public async Task<Result<string>> Register(string email, string password, bool validEmail = false)
         {
-            return await _services.Register(email, password);
+            return await _services.Register(email, password, validEmail);
         }
 
         public async Task<Result<LoginDto>> Login(string email, string password, HttpRequest request)
@@ -179,7 +179,7 @@ namespace Barracuda.Indentity.Provider.Services
 
         private Result<UserPrivateDataDto> GetToken(UserPrivateDataModel model)
         {
-            var token = _tokens.CreateToken(model.id, model.Email, model.Scopes);
+            var token = _tokens.CreateToken(model.id, model.Email, model.Scopes, model.Tenants);
 
             var dto = new UserPrivateDataDto();
             dto.Id = model.id;
@@ -421,7 +421,7 @@ namespace Barracuda.Indentity.Provider.Services
 
         public string ForgotPasswordOrRegister(string email)
         {
-            return _tokens.CreateToken(Guid.NewGuid().ToString(), email, null, true);
+            return _tokens.CreateToken(Guid.NewGuid().ToString(), email, null, null, true);
         }
 
         public string ValidateToken(string token)
@@ -447,7 +447,7 @@ namespace Barracuda.Indentity.Provider.Services
             return email;
         }
 
-        public async Task<Result<string>> UpdateScopes(string id, dynamic scopes)
+        public async Task<Result<string>> UpdateScopes(string id, List<string> scopes)
         {
             var result = await _services.GetSecrets(id);
             if (!result.Success)
@@ -487,6 +487,11 @@ namespace Barracuda.Indentity.Provider.Services
             }
 
             return _result.Create(true, "", "");
+        }
+
+        public async Task<Result<string>> DeleteUser(string id)
+        {
+            return await _services.DeleteUser(id);
         }
     }
 }

@@ -146,6 +146,38 @@ namespace Barracuda.Indentity.Provider.Services
             return _result.Create(ok, message, id);
         }
 
+        public async Task<Result<string>> DeleteUser(string id)
+        {
+            bool ok = false;
+            string message = "";
+            
+            try
+            {
+
+                var queryOptions = new QueryRequestOptions
+                {
+                    PartitionKey = new PartitionKey(_partitionId),
+                    MaxItemCount = 1
+                };
+
+                var key = new PartitionKey(_partitionId);
+                await RepositoryContainer.DeleteItemAsync<UserPrivateDataModel>(id, key,
+                    new ItemRequestOptions { });
+
+                 ok = true;
+            }
+            catch (CosmosException ex)
+            {
+                message = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+
+            return _result.Create(ok, message, id);
+        }
+
         public async Task<Result<string>> ValidateRegisterEmail(string email)
         {
             bool ok = false;

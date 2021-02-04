@@ -11,7 +11,7 @@ namespace Barracuda.Indentity.Provider.Dtos
         public bool ValidEmail { get; set; }
         public string Token { get; set; }
         public string RefreshToken { get; set; }
-        public dynamic Scopes { get; set; }
+        public List<string> Scopes { get; set; }
         public List<string> Tenants { get; set; }
     }
 }

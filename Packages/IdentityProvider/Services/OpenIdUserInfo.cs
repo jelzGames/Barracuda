@@ -96,6 +96,29 @@ namespace Barracuda.Indentity.Provider.Services
             return Task.FromResult(token);
         }
 
+
+        public Result<bool> validScopes(List<string> scopes)
+        {
+            foreach (var scope in this.Scopes)
+            {
+                if (scope == "BOAAdmin")
+                {
+                    return _result.Create(true, "", true);
+                }
+                else
+                {
+                    var idx = scopes.FindIndex((e) => e == scope);
+                    if (idx > -1)
+                    {
+                        return _result.Create(true, "", true);
+                    }
+                }
+            }
+
+            return _result.Create(false, "", false);
+        }
+
+        /*
         public Result<bool> validScopes(dynamic scopes)
         {
             dynamic original = JsonConvert.DeserializeObject<dynamic>(this.Scopes);
@@ -131,7 +154,7 @@ namespace Barracuda.Indentity.Provider.Services
           
             return _result.Create(false, "", false);
         }
-
+        */
 
         public string UserId
         {
@@ -151,12 +174,21 @@ namespace Barracuda.Indentity.Provider.Services
             }
         }
 
-        public dynamic Scopes
+        public List<string> Scopes
         {
             get
             {
-                dynamic scopes = principal.FindFirst("Scopes").Value;
+                List<string> scopes = JsonConvert.DeserializeObject<List<string>>(principal.FindFirst("Scopes").Value);
                 return scopes;
+            }
+        }
+
+        public List<string> Tenants
+        {
+            get
+            {
+                List<string> tenants = JsonConvert.DeserializeObject<List<string>>(principal.FindFirst("Tenants").Value);
+                return tenants;
             }
         }
     }

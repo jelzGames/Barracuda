@@ -10,8 +10,9 @@ namespace Barracuda.Indentity.Provider.Interfaces
 {
     public interface IUsersSecretsApplication
     {
-        Task<Result<string>> Register(string email, string password);
-        Task<Result<string>> UpdateScopes(string id, dynamic scopes);
+        Task<Result<string>> Register(string email, string password, bool validEmail = false);
+        Task<Result<string>> DeleteUser(string id);
+        Task<Result<string>> UpdateScopes(string id, List<string> scopes);
         Task<Result<string>> UpdateTenants(string id, List<string> tenants);
         Task<Result<LoginDto>> Login(string email, string password, HttpRequest request);
         Task<Result<LoginDto>> Refresh(string token, string refreshToken, HttpRequest request);

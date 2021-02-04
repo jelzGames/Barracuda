@@ -21,7 +21,7 @@ namespace Barracuda.Indentity.Provider.Services
             _settings = settings;
         }
 
-        public string CreateToken(string id, string email, dynamic userScopes, bool iSforgotPasswordOrRegister = false)
+        public string CreateToken(string id, string email, List<string> userScopes, List<string> userTenants, bool iSforgotPasswordOrRegister = false)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.JWTKey));
 
@@ -41,16 +41,19 @@ namespace Barracuda.Indentity.Provider.Services
 
             if (userScopes == null)
             {
-                userScopes = new ExpandoObject();
+                userScopes = new List<string>();    
             }
 
-            var idx = Array.FindIndex(_settings.BarracudaSuperAdmins,(e) => e == email);
+            if (userTenants == null)
+            {
+                userTenants = new List<string>();
+            }
+
+            var idx = Array.FindIndex(_settings.BarracudaSuperAdmins, (e) => e == email);
             if (idx > -1)
             {
-                userScopes.superadmin = "";
+                userScopes.Add("BOAAdmin");
             }
-
-            var jsonScopes = JsonConvert.SerializeObject(userScopes);
 
             var timeExpire = DateTime.UtcNow.AddSeconds(seconds);
 
@@ -61,7 +64,8 @@ namespace Barracuda.Indentity.Provider.Services
                 {
                     new Claim(JwtRegisteredClaimNames.Sub, id),
                     new Claim(JwtRegisteredClaimNames.Email, email),
-                    new Claim("Scopes", jsonScopes)
+                    new Claim("Scopes", JsonConvert.SerializeObject(userScopes)),
+                    new Claim("Tenants", JsonConvert.SerializeObject(userTenants))
                 },
                 null,
                 timeExpire,

@@ -37,6 +37,10 @@ namespace UsersSecrets.Functions
             _settingsTokens = settingsTokens;
         }
 
+        /// <summary>
+        /// Single sign on (SSO)
+        /// </summary>
+       
         [FunctionName("Register")]
         public async Task<IActionResult> CreateUser(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/Register")] HttpRequestMessage req,
@@ -60,15 +64,8 @@ namespace UsersSecrets.Functions
             }
 
             // optional
-            var dataScope = await _controller.UpdateScopes(dataResult.Value, new
-            {
-                blobs = new
-                {
-                    update = true,
-                    read = true
-                }
-            });
-
+            var dataScope = await _controller.UpdateScopes(dataResult.Value, new List<string> { "users.read" });
+            
             // optional
             // tenants can be grouped by example: "mycompany/surcusals" group is first element and child second
             // using * means all, if you are grouping that refrence to all with the same group by example "mycompany/*"  
@@ -88,90 +85,6 @@ namespace UsersSecrets.Functions
             // Remember not return the token only if has been calling internally by the server
             // use return new OkResult(); instead
 
-
-            return new OkObjectResult(dataResult.Value);
-        }
-
-        [FunctionName("Scopes")]
-        public async Task<IActionResult> UpdateScopes(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/UpdateScopes")] HttpRequestMessage req,
-            ILogger log, HttpRequest request)
-        {
-            var resultAuth = validAuthorized(req, request);
-            if (!resultAuth.Success)
-            {
-                return new UnauthorizedResult();
-            }
-
-            var resultScopes = validScopes(new { 
-                superamdmin = true,
-                scopes = new {
-                    update = true
-                }
-            });
-            if (!resultScopes.Success)
-            {
-                return new UnauthorizedResult();
-            }
-
-            LoginDto data = await req.Content.ReadAsAsync<LoginDto>();
-
-            var id = data.Id == null ? "" : data.Id;
-           
-            if (String.IsNullOrEmpty(id))
-            {
-                return new BadRequestObjectResult(_errors.ValuesNotValid);
-            }
-
-            var dataResult = await _controller.UpdateScopes(data.Id, data.Scopes);
-
-            if (!dataResult.Success)
-            {
-                return new BadRequestObjectResult(dataResult.Message);
-            }
-
-            return new OkObjectResult(dataResult.Value);
-        }
-
-        [FunctionName("Tenants")]
-        public async Task<IActionResult> UpdateTenants(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/UpdateTenants")] HttpRequestMessage req,
-            ILogger log, HttpRequest request)
-        {
-            var resultAuth = validAuthorized(req, request);
-            if (!resultAuth.Success)
-            {
-                return new UnauthorizedResult();
-            }
-
-            var resultScopes = validScopes(new
-            {
-                superamdmin = true,
-                scopes = new
-                {
-                    update = true
-                }
-            });
-            if (!resultScopes.Success)
-            {
-                return new UnauthorizedResult();
-            }
-
-            LoginDto data = await req.Content.ReadAsAsync<LoginDto>();
-
-            var id = data.Id == null ? "" : data.Id;
-
-            if (String.IsNullOrEmpty(id))
-            {
-                return new BadRequestObjectResult(_errors.ValuesNotValid);
-            }
-
-            var dataResult = await _controller.UpdateScopes(data.Id, data.Tenants);
-
-            if (!dataResult.Success)
-            {
-                return new BadRequestObjectResult(dataResult.Message);
-            }
 
             return new OkObjectResult(dataResult.Value);
         }
@@ -458,15 +371,183 @@ namespace UsersSecrets.Functions
             return new OkObjectResult("OK");
         }
 
+        /// <summary>
+        /// End Single sign on (SSO)
+        /// </summary>
+
+        /// <summary>
+        /// Administrative
+        /// </summary>
+
+        [FunctionName("AddUser")]
+        public async Task<IActionResult> AddUser(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/AddUser")] HttpRequestMessage req,
+            ILogger log, HttpRequest request)
+        {
+            var resultAuth = validAdmin(req, request, new List<string>() { "admin.update" });
+            if (!resultAuth)
+            {
+                return new UnauthorizedResult();
+            }
+
+            UsersSecretsDto data = await req.Content.ReadAsAsync<UsersSecretsDto>();
+
+            var email = data.Email == null ? "" : data.Email;
+            var password = data.Password == null ? "" : data.Password;
+
+            if (String.IsNullOrEmpty(email) || String.IsNullOrEmpty(password))
+            {
+                return new BadRequestObjectResult(_errors.ValuesNotValid);
+            }
+
+            var dataResult = await _controller.Register(data.Email, data.Password);
+
+            if (!dataResult.Success)
+            {
+                return new BadRequestObjectResult(dataResult.Message);
+            }
+
+            return new OkObjectResult(dataResult.Value);
+        }
+
+        [FunctionName("DeleteUser")]
+        public async Task<IActionResult> DeleteUser(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/DeleteUser/{id}")] HttpRequestMessage req,
+            string id, ILogger log, HttpRequest request)
+        {
+            var resultAuth = validAdmin(req, request, new List<string>() { "admin.update" });
+            if (!resultAuth)
+            {
+                return new UnauthorizedResult();
+            }
+
+            var dataResult = await _controller.DeleteUser(id);
+
+            if (!dataResult.Success)
+            {
+                return new BadRequestObjectResult(dataResult.Message);
+            }
+
+            return new OkObjectResult(dataResult.Value);
+        }
+
+        [FunctionName("Scopes")]
+        public async Task<IActionResult> UpdateScopes(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/UpdateScopes")] HttpRequestMessage req,
+            ILogger log, HttpRequest request)
+        {
+            var resultAuth = validAdmin(req, request, new List<string>() { "admin.update" });
+            if (!resultAuth)
+            {
+                return new UnauthorizedResult();
+            }
+
+            LoginDto data = await req.Content.ReadAsAsync<LoginDto>();
+
+            var id = data.Id == null ? "" : data.Id;
+
+            if (String.IsNullOrEmpty(id))
+            {
+                return new BadRequestObjectResult(_errors.ValuesNotValid);
+            }
+
+            var dataResult = await _controller.UpdateScopes(data.Id, data.Scopes);
+
+            if (!dataResult.Success)
+            {
+                return new BadRequestObjectResult(dataResult.Message);
+            }
+
+            return new OkObjectResult(dataResult.Value);
+        }
+
+        [FunctionName("Tenants")]
+        public async Task<IActionResult> UpdateTenants(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/UpdateTenants")] HttpRequestMessage req,
+            ILogger log, HttpRequest request)
+        {
+            var resultAuth = validAdmin(req, request, new List<string>() { "admin.update" });
+            if (!resultAuth)
+            {
+                return new UnauthorizedResult();
+            }
+
+            LoginDto data = await req.Content.ReadAsAsync<LoginDto>();
+
+            var id = data.Id == null ? "" : data.Id;
+
+            if (String.IsNullOrEmpty(id))
+            {
+                return new BadRequestObjectResult(_errors.ValuesNotValid);
+            }
+
+            var dataResult = await _controller.UpdateScopes(data.Id, data.Tenants);
+
+            if (!dataResult.Success)
+            {
+                return new BadRequestObjectResult(dataResult.Message);
+            }
+
+            return new OkObjectResult(dataResult.Value);
+        }
+
+        [FunctionName("ChangePasswordToUser")]
+        public async Task<IActionResult> ChangePasswordToUser(
+          [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/ChangePasswordToUser")] HttpRequestMessage req,
+          HttpRequest request, ILogger log)
+        {
+        
+            UsersSecretsDto data = await req.Content.ReadAsAsync<UsersSecretsDto>();
+
+            var email = data.Email == null ? "" : data.Email;
+            var password = data.Password == null ? "" : data.Password;
+
+            if (String.IsNullOrEmpty(email) || String.IsNullOrEmpty(password))
+            {
+                return new BadRequestObjectResult(_errors.ValuesNotValid);
+            }
+
+            var resultAuth = validAdmin(req, request, new List<string>() { "admin.update" });
+            if (!resultAuth)
+            {
+                return new UnauthorizedResult();
+            }
+
+            var dataResult = await _controller.ChangePassword(email, password);
+
+            if (!dataResult.Success)
+            {
+                return new BadRequestObjectResult(dataResult.Message);
+            }
+
+            return new OkObjectResult(dataResult.Value);
+        }
+
+        /// <summary>
+        /// end administrative
+        /// </summary>
+
         private Result<ClaimsPrincipal> validAuthorized(HttpRequestMessage req, HttpRequest request)
         {
             return _userInfo.ValidateTokenAsync(req.Headers, request.HttpContext.Connection.RemoteIpAddress);
         }
 
-        private Result<bool> validScopes(dynamic scopes)
+        private bool validAdmin(HttpRequestMessage req, HttpRequest request, List<string> scopes)
         {
-  
-            return _userInfo.validScopes(scopes);
+            var resultAuth = validAuthorized(req, request);
+            if (!resultAuth.Success)
+            {
+                return false;
+            }
+
+            var resultScopes = _userInfo.validScopes(scopes);
+            if (!resultScopes.Success)
+            {
+                return false;
+            }
+
+
+            return true;
         }
 
         [FunctionName("WarmFunctions")]

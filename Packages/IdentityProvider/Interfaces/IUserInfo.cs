@@ -12,9 +12,9 @@ namespace Barracuda.Indentity.Provider.Interfaces
         string UserId { get; }
         string Email { get; }
         Task<string> GetTokenAsync();
-        dynamic Scopes { get; }
+        List<string> Scopes { get; }
 
         Result<ClaimsPrincipal> ValidateTokenAsync(HttpRequestHeaders value, IPAddress ipAddress);
-        Result<bool> validScopes(dynamic scopes);
+        Result<bool> validScopes(List<string> scopes);
     }
 }
