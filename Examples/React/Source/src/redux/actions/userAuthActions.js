@@ -176,7 +176,6 @@ export const RefreshToken = (user) => {
         var flag = true;
         await usersAuthApi.Refresh()
         .then((result) => {
-            console.log(result)
             user = setUserModel(result, user);
         })
         .catch((error) => {

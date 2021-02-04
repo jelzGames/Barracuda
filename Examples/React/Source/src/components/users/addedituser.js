@@ -69,7 +69,6 @@ export class AddUsers extends React.Component {
 
 
     componentDidMount(){
-        
         if (this.state.id !== constant.add) {
             usersApi.Get(this.state.userid)
             .then((result) => {

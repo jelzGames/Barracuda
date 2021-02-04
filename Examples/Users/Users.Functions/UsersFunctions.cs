@@ -42,21 +42,8 @@ namespace Users.Functions
             var resultAuth = validAuthorized(req, request);
             if (!resultAuth.Success)
             {
-                if (resultAuth.Message == _errors.NotAuthorized)
-                {
-                    return new UnauthorizedResult();
-                }
-                else
-                {
-                    var objectResult = new ObjectResult(resultAuth.Message)
-                    {
-                        StatusCode = StatusCodes.Status401Unauthorized
-                    };
-
-                    return objectResult;
-                }
+                return new BadRequestObjectResult(resultAuth.Message);
             }
-
 
             UserModel data = await req.Content.ReadAsAsync<UserModel>();
 
@@ -100,19 +87,7 @@ namespace Users.Functions
             var resultAuth = validAuthorized(req, request);
             if (!resultAuth.Success)
             {
-                if (resultAuth.Message == _errors.NotAuthorized)
-                {
-                    return new UnauthorizedResult();
-                }
-                else
-                {
-                    var objectResult = new ObjectResult(resultAuth.Message)
-                    {
-                        StatusCode = StatusCodes.Status401Unauthorized
-                    };
-
-                    return objectResult;
-                }
+                return new BadRequestObjectResult(resultAuth.Message);
             }
 
             UserModel data = await req.Content.ReadAsAsync<UserModel>();
@@ -135,19 +110,7 @@ namespace Users.Functions
             var resultAuth = validAuthorized(req, request);
             if (!resultAuth.Success)
             {
-                if (resultAuth.Message == _errors.NotAuthorized)
-                {
-                    return new UnauthorizedResult();
-                }
-                else
-                {
-                    var objectResult = new ObjectResult(resultAuth.Message)
-                    {
-                        StatusCode = StatusCodes.Status401Unauthorized
-                    };
-
-                    return objectResult;
-                }
+                return new BadRequestObjectResult(resultAuth.Message);
             }
 
             QueryInputModel data = await req.Content.ReadAsAsync<QueryInputModel>();
@@ -170,19 +133,7 @@ namespace Users.Functions
             var resultAuth = validAuthorized(req, request);
             if (!resultAuth.Success)
             {
-                if (resultAuth.Message == _errors.NotAuthorized)
-                {
-                    return new UnauthorizedResult();
-                }
-                else
-                {
-                    var objectResult = new ObjectResult(resultAuth.Message)
-                    {
-                        StatusCode = StatusCodes.Status401Unauthorized
-                    };
-
-                    return objectResult;
-                }
+                return new BadRequestObjectResult(resultAuth.Message);
             }
 
             var dataResult = await _controller.Delete(id);

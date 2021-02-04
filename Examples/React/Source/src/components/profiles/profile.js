@@ -32,23 +32,8 @@ const useStyles = theme => ({
         backgroundColor: "#3f51b5",
         width: "100%",
         position: "absolute",
-        bottom: "20px",
+        bottom: "0px",
         color: "white"
-    },
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1,
-        transition: theme.transitions.create(['width', 'margin'], {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-      },
-      appBarShift: {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(['width', 'margin'], {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
     },
     spinnerPaper: {
         backgroundColor: "transparent",
@@ -90,15 +75,15 @@ export class Profile extends React.Component{
             user: userModel.model,
             validations: {
                 "requiredCity": {
-                    validation: () =>  { return this.state.user.city ? this.state.user.city.trim() === "" : true},
+                    validation: () =>  { return this.state.user.city.trim() === "" },
                     errorMessage: "Required"
                 },
                 "requiredState": {
-                    validation: () =>  { return this.state.user.state ? this.state.user.state.trim() === "" : true},
+                    validation: () =>  { return this.state.user.state.trim() === "" },
                     errorMessage: "Required"
                 },
                 "requiredCountry": {
-                    validation: () =>  { return this.state.user.country ? this.state.user.country.trim() === "" : true},
+                    validation: () =>  { return this.state.user.country.trim() === "" },
                     errorMessage: "Required"
                 },
             },
