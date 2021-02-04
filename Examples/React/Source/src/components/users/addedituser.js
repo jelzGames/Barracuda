@@ -13,6 +13,7 @@ import CustomButton from "../common/customButton";
 import CustomHeader from "../common/customHeader";
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
+import * as usersAuthApi from "../../api/usersAuthApi";
 
 
 const useStyles = theme => ({
@@ -36,6 +37,7 @@ export class AddUsers extends React.Component {
             price: 0,
             country: "",
             countryIdx: "",
+            newPassword: "",
             items: [
                 {
                     id: "USA",
@@ -61,6 +63,10 @@ export class AddUsers extends React.Component {
                 },
                 "requiredCountry": {
                     validation: () =>  { return this.state.country.trim() === ""},
+                    errorMessage: "Required"
+                },
+                "password": {
+                    validation: () =>  { return this.state.newPassword.trim() === ""},
                     errorMessage: "Required"
                 },
             }, 
@@ -91,22 +97,32 @@ export class AddUsers extends React.Component {
         })
     } 
 
-    handleSave = () => {
+    handleSave = async() => {
         var model = {
             "name": this.state.name,
             "username": this.state.username
         }
         if (this.state.id === constant.add) {
-            usersApi.Create(model)
+            var flag = false;
+            await usersApi.Create(model)
             .then((result) => {
+                flag = true;
             })
             .catch((error) => {
                 console.log(error)
             })
+            if(flag){
+                await usersAuthApi.AddUser(this.state.user)
+                .then((result) => {
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+            }
         }
         else {
             model.id = this.state.userid
-            usersApi.Update(model)
+            await usersApi.Update(model)
             .then((result) => {
             })
             .catch((error) => {
@@ -139,7 +155,7 @@ export class AddUsers extends React.Component {
     render() {
         const { handleChange, handleSave, validaData, handleChangeLocation} = this;
         const { classes } = this.props;
-        const { name, username, userid, validations, countryIdx, items, price } = this.state;
+        const { name, username, userid, validations, countryIdx, items, price, newPassword } = this.state;
         return(
             <Fragment>
             <div>
@@ -164,7 +180,20 @@ export class AddUsers extends React.Component {
                                 </Fragment>
                             } 
                         />
-
+                        {this.state.id === constant.add &&
+                            <CustomTextField 
+                                id={"newPassword"} 
+                                value={newPassword} 
+                                label={"password"}  
+                                handleChange={handleChange}
+                                isNumber={"password"}
+                                errorConditions={
+                                    <Fragment>
+                                        {validations["password"].validation() && validations["password"].errorMessage.concat("\n")} 
+                                    </Fragment>
+                                } 
+                            />
+                        }
                         <CustomSelect 
                             id={"select-id"} 
                             labelId={"label-id"} 

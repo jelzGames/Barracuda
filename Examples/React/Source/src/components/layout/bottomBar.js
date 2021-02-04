@@ -11,45 +11,18 @@ const useStyles = theme => ({
 
 export class BottomBar extends React.Component{
 
-    handleSaveInfo = () => {
-        const { id, name, username, city, state, country } = userModel.model;
-        
-        var model = {
-            id: id,
-            name: name,
-            username: username,
-            city: city,
-            state: state,
-            country: country
-    }
-
-    if(name !== "" && username !== "" && city !== "" && state !== "" && country !== ""){
-        usersApi.Create(model)
-        .then((result) => {
-            this.setState({
-                showDocTab: true
-            })
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-    }
-}
-
     render(){
-        const { handleSaveInfo } = this;
-        const { classes } = this.props;
+        const { classes, isNotValid, clickAction} = this.props;
         return(
             <div className={classes.bottomBar}>    
-                    <div >
-                        <CustomIcon 
-                            Icon={icons.icon.SaveIcon} 
-                            fontSize={"large"}  
-                            handleClick={handleSaveInfo}
-                            color={"inherit"}
-                            newClass={classes.saveIcon}
-                        />
-                    </div>
+                <CustomIcon
+                    disabled={isNotValid}
+                    Icon={icons.icon.SaveIcon} 
+                    fontSize={"large"}  
+                    handleClick={() => clickAction()}
+                    color={"inherit"}
+                    newClass={classes.saveIcon}
+                />
             </div>
         )
     }

@@ -24,7 +24,7 @@
     "CookieRefreshTokenPath": "/api/permissions/Refresh",
 
     //admins
-    "BarracudaSuperAdmins": "demo2@demo.com",
+    "BarracudaSuperAdmins": "demo2@demo.com,qwer",
 
     //social 
     "GoogleClientId": "860374859932-268aj3d6ir5nt7s2frmjig1kjuga6e89.apps.googleusercontent.com",

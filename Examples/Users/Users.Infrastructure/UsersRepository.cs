@@ -45,7 +45,10 @@ namespace Users.Infrastructure
 
             try
             {
-                item.id = Guid.NewGuid().ToString();
+                if (String.IsNullOrEmpty(item.id))
+                {
+                    item.id = Guid.NewGuid().ToString();
+                }
                 UpdateMetadata(item, true);
                 var tenatId = new PartitionKey(_partitionId);
                 await RepositoryContainer.CreateItemAsync<UserModel>(item, tenatId);

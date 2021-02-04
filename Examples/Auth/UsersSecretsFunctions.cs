@@ -21,13 +21,15 @@ namespace UsersSecrets.Functions
         private readonly ISettingsUserSecrests _commonSettings;
         private readonly ISettingsTokens _settingsTokens;
         private readonly IErrorMessages _errors;
-        
+        private readonly IResult _result;
+
         public UsersSecretsFunctions(
             IUsersSecretsApplication controller,
             IUserInfo userInfo,
             ISettingsUserSecrests commonSettings,
             IErrorMessages errors,
-            ISettingsTokens settingsTokens
+            ISettingsTokens settingsTokens,
+            IResult result
         )
         {
             _commonSettings = commonSettings;
@@ -35,6 +37,7 @@ namespace UsersSecrets.Functions
             _userInfo = userInfo;
             _errors = errors;
             _settingsTokens = settingsTokens;
+            _result = result;
         }
 
         /// <summary>
@@ -385,9 +388,9 @@ namespace UsersSecrets.Functions
             ILogger log, HttpRequest request)
         {
             var resultAuth = validAdmin(req, request, new List<string>() { "admin.update" });
-            if (!resultAuth)
+            if (!resultAuth.Success)
             {
-                return new UnauthorizedResult();
+                return new BadRequestObjectResult(resultAuth.Message);
             }
 
             UsersSecretsDto data = await req.Content.ReadAsAsync<UsersSecretsDto>();
@@ -416,9 +419,9 @@ namespace UsersSecrets.Functions
             string id, ILogger log, HttpRequest request)
         {
             var resultAuth = validAdmin(req, request, new List<string>() { "admin.update" });
-            if (!resultAuth)
+            if (!resultAuth.Success)
             {
-                return new UnauthorizedResult();
+                return new BadRequestObjectResult(resultAuth.Message);
             }
 
             var dataResult = await _controller.DeleteUser(id);
@@ -437,9 +440,9 @@ namespace UsersSecrets.Functions
             ILogger log, HttpRequest request)
         {
             var resultAuth = validAdmin(req, request, new List<string>() { "admin.update" });
-            if (!resultAuth)
+            if (!resultAuth.Success)
             {
-                return new UnauthorizedResult();
+                return new BadRequestObjectResult(resultAuth.Message);
             }
 
             LoginDto data = await req.Content.ReadAsAsync<LoginDto>();
@@ -467,9 +470,9 @@ namespace UsersSecrets.Functions
             ILogger log, HttpRequest request)
         {
             var resultAuth = validAdmin(req, request, new List<string>() { "admin.update" });
-            if (!resultAuth)
+            if (!resultAuth.Success)
             {
-                return new UnauthorizedResult();
+                return new BadRequestObjectResult(resultAuth.Message);
             }
 
             LoginDto data = await req.Content.ReadAsAsync<LoginDto>();
@@ -508,9 +511,9 @@ namespace UsersSecrets.Functions
             }
 
             var resultAuth = validAdmin(req, request, new List<string>() { "admin.update" });
-            if (!resultAuth)
+            if (!resultAuth.Success)
             {
-                return new UnauthorizedResult();
+                return new BadRequestObjectResult(resultAuth.Message);
             }
 
             var dataResult = await _controller.ChangePassword(email, password);
@@ -532,22 +535,22 @@ namespace UsersSecrets.Functions
             return _userInfo.ValidateTokenAsync(req.Headers, request.HttpContext.Connection.RemoteIpAddress);
         }
 
-        private bool validAdmin(HttpRequestMessage req, HttpRequest request, List<string> scopes)
+        private Result<bool> validAdmin(HttpRequestMessage req, HttpRequest request, List<string> scopes)
         {
             var resultAuth = validAuthorized(req, request);
             if (!resultAuth.Success)
             {
-                return false;
+                return _result.Create<bool>(false,resultAuth.Message,false);
             }
 
             var resultScopes = _userInfo.validScopes(scopes);
             if (!resultScopes.Success)
             {
-                return false;
+                return _result.Create<bool>(false, resultAuth.Message, false);
             }
 
 
-            return true;
+            return _result.Create<bool>(true, "" , true);
         }
 
         [FunctionName("WarmFunctions")]

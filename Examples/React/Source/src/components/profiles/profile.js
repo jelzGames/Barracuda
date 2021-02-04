@@ -74,18 +74,10 @@ export class Profile extends React.Component{
             countries: countries.countries,
             user: userModel.model,
             validations: {
-                "requiredCity": {
-                    validation: () =>  { return this.state.user.city.trim() === "" },
+                "nameRequired": {
+                    validation: () =>  { return this.state.user.name.trim() === "" },
                     errorMessage: "Required"
-                },
-                "requiredState": {
-                    validation: () =>  { return this.state.user.state.trim() === "" },
-                    errorMessage: "Required"
-                },
-                "requiredCountry": {
-                    validation: () =>  { return this.state.user.country.trim() === "" },
-                    errorMessage: "Required"
-                },
+                }
             },
             modal: false,
             modalDeleteBlob: false, 
@@ -249,7 +241,7 @@ export class Profile extends React.Component{
 
             this.setState({
                 user: result,
-                showDocTab: true
+                showDocTab: false
             })
             userModel.model = result;
         })
@@ -433,7 +425,7 @@ export class Profile extends React.Component{
         const { id, email, name, username } = this.state.user;
         const { handleChange } = this;
         const { classes } = this.props;
-        const { photoUrl } = this.state;
+        const { photoUrl, validations } = this.state;
         return(
             <Grid item sm={6} className={classes.columns} style={{paddingRight: "50px"}}>
 
@@ -456,6 +448,11 @@ export class Profile extends React.Component{
                     value={name} 
                     label={"Name"}  
                     handleChange={handleChange}
+                    errorConditions={
+                        <Fragment>
+                            {validations["nameRequired"].validation() && validations["nameRequired"].errorMessage.concat("\n")} 
+                        </Fragment>
+                    } 
                 />
                 <CustomTextField 
                     id={"username"} 
@@ -550,7 +547,7 @@ export class Profile extends React.Component{
             <div className={classes.tabsContainer}>
                 <Grid container>
                     {renderInfoGeneral()}
-                    {renderLocalization()}  
+                    {/* {renderLocalization()}   */}
                 </Grid>
             </div>
         )
@@ -562,10 +559,10 @@ export class Profile extends React.Component{
                 title: "Information",
                 item: this.renderTabGeneral()
             },
-            {
+            /* {
                 title: "Documents",
                 item: this.renderTabDocuments()
-            }
+            } */
         ]
         return(
             <CustomSwiper tabs={tabs} />
@@ -607,8 +604,18 @@ export class Profile extends React.Component{
            }
      }
 
+     createUser = async() =>{
+        await usersApi.Create(this.state.user)
+        .then((result) => {
+            alert("Se ha guardado")
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+     }
+
     render(){
-        const { handleCloseModal, insertFile, bodyModalDelete, updateFile } = this;
+        const { handleCloseModal, insertFile, bodyModalDelete, updateFile, createUser } = this;
         const { modal, modalDeleteBlob, modalEditBlob, editfiles, isloading } = this.state;
         const { classes } = this.props;
         return(
@@ -628,7 +635,7 @@ export class Profile extends React.Component{
                 <CustomModal modal={modalEditBlob} paperClass={classes.newUserModalPaper}
                     item={<CustomDragAndDrop editFiles={editfiles} updateFile={updateFile} handleCloseModal={handleCloseModal}/>}
                 />
-                <BottomBar classes={classes} open={true}/>
+                <BottomBar classes={classes} open={true} isNotValid={this.validaData()} clickAction={createUser} />
             </Fragment>
         )
     }

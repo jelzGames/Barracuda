@@ -2,6 +2,7 @@ import { handleResponse, handleError, serviceKeys, getApiUrl } from "./apiUtils"
 import getRequestOptions from "./authorizationUtils";
 import axios from "axios";
 
+//Here start the SSO functions
 export const Register = async(model, cancelToken) => {
     const options = getRequestOptions(cancelToken);
     return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/Register`, model, options)
@@ -83,4 +84,12 @@ export const ResendValidEmail = async(token, resendEmail, cancelToken) => {
         .then(handleResponse)
         .catch(handleError);
 };
+// End SSO Function
 
+// Start Administrative
+export const AddUser = async(model, cancelToken) => {
+    const options = getRequestOptions(cancelToken);
+    return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/AddUser`, model, options)
+        .then(handleResponse)
+        .catch(handleError);
+};

@@ -14,6 +14,7 @@ using Users.Domain.Models;
 using Bases.Interfaces;
 using Barracuda.Indentity.Provider.Interfaces;
 using Barracuda.Indentity.Provider.Services;
+using System.Collections.Generic;
 
 namespace Users.Functions
 {
@@ -22,16 +23,19 @@ namespace Users.Functions
         private readonly IUserApplication _controller;
         private readonly IUserInfo _userInfo;
         private readonly IErrorMessagesExample _errors;
+        private readonly IResult _result;
 
         public UsersFunctions(
             IUserApplication controller,
             IUserInfo userInfo,
-             IErrorMessagesExample errors
+             IErrorMessagesExample errors,
+             IResult result
         )
         {
             _controller = controller;
             _userInfo = userInfo;
             _errors = errors;
+            _result = result;
         }
 
         [FunctionName("CreateUser")]
@@ -39,7 +43,7 @@ namespace Users.Functions
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "users/Create")] HttpRequestMessage req,
             HttpRequest request, ILogger log)
         {
-            var resultAuth = validAuthorized(req, request);
+            var resultAuth = validAdmin(req, request, new List<string>() { "users.read" });
             if (!resultAuth.Success)
             {
                 return new BadRequestObjectResult(resultAuth.Message);
@@ -62,10 +66,9 @@ namespace Users.Functions
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "users/Get/{id}")] HttpRequestMessage req, string id,
             HttpRequest request, ILogger log)
         {
-            var resultAuth = validAuthorized(req, request);
+            var resultAuth = validAdmin(req, request, new List<string>() { "users.read" });
             if (!resultAuth.Success)
             {
-
                 return new BadRequestObjectResult(resultAuth.Message);
             }
 
@@ -84,7 +87,7 @@ namespace Users.Functions
             [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "users/Update")] HttpRequestMessage req,
             HttpRequest request, ILogger log)
         {
-            var resultAuth = validAuthorized(req, request);
+            var resultAuth = validAdmin(req, request, new List<string>() { "users.read" });
             if (!resultAuth.Success)
             {
                 return new BadRequestObjectResult(resultAuth.Message);
@@ -107,7 +110,7 @@ namespace Users.Functions
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "users/GetAll")] HttpRequestMessage req,
             HttpRequest request, ILogger log, CancellationToken cancellationToken)
         {
-            var resultAuth = validAuthorized(req, request);
+            var resultAuth = validAdmin(req, request, new List<string>() { "users.read" });
             if (!resultAuth.Success)
             {
                 return new BadRequestObjectResult(resultAuth.Message);
@@ -130,7 +133,7 @@ namespace Users.Functions
             [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "users/Delete/{id}")] HttpRequestMessage req, string id,
             HttpRequest request, ILogger log)
         {
-            var resultAuth = validAuthorized(req, request);
+            var resultAuth = validAdmin(req, request, new List<string>() { "users.read" });
             if (!resultAuth.Success)
             {
                 return new BadRequestObjectResult(resultAuth.Message);
@@ -155,6 +158,23 @@ namespace Users.Functions
         private Result<ClaimsPrincipal> validAuthorized(HttpRequestMessage req, HttpRequest request)
         {
             return _userInfo.ValidateTokenAsync(req.Headers, request.HttpContext.Connection.RemoteIpAddress);
+        }
+        private Result<bool> validAdmin(HttpRequestMessage req, HttpRequest request, List<string> scopes)
+        {
+            var resultAuth = validAuthorized(req, request);
+            if (!resultAuth.Success)
+            {
+                return _result.Create<bool>(false, resultAuth.Message, false);
+            }
+
+            var resultScopes = _userInfo.validScopes(scopes);
+            if (!resultScopes.Success)
+            {
+                return _result.Create<bool>(false, resultAuth.Message, false);
+            }
+
+
+            return _result.Create<bool>(true, "", true);
         }
     }
 }
