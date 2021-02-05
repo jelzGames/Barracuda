@@ -149,6 +149,28 @@ namespace Users.Functions
             return new OkObjectResult(dataResult.Value);
         }
 
+        [FunctionName("CheckUsername")]
+        public async Task<IActionResult> CheckUsername(
+          [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "users/CheckUsername/{username}")] HttpRequestMessage req,
+          HttpRequest request, ILogger log, string username)
+        {
+
+            if (String.IsNullOrEmpty(username))
+            {
+                return new BadRequestObjectResult(_errors.ValuesNotValid);
+            }
+
+            var dataResult = await _controller.CheckUsername(username);
+
+            if (!dataResult.Success)
+            {
+                return new BadRequestObjectResult(dataResult.Message);
+            }
+
+            return new OkObjectResult(dataResult.Value);
+        }
+
+
         [FunctionName("WarmFunctions")]
         public void Run([TimerTrigger("0 */4 * * * *", RunOnStartup = true)] TimerInfo myTimer, ILogger log)
         {

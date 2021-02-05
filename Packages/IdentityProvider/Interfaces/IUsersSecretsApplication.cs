@@ -27,5 +27,6 @@ namespace Barracuda.Indentity.Provider.Interfaces
         Task<Result<string>> ChangePassword(string email, string password);
         string ForgotPasswordOrRegister(string email);
         Task<Result<string>> ValidateRegisterEmail(string email);
+        Task<Result<string>> CheckEmail(string email);
     }
 }

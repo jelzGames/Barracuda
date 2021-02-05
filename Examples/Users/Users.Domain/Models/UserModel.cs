@@ -7,6 +7,7 @@ namespace Users.Domain.Models
 {
     public class UserModel : BaseModel
     {
+        public string Email { get; set; }
         public string Name { get; set; }
         public string Username { get; set; }
         public string country { get; set; }

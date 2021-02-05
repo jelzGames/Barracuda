@@ -19,6 +19,11 @@ namespace Barracuda.Indentity.Provider.Services
             return await _repository.ChangePassword(email, password);
         }
 
+        public async Task<Result<string>> CheckEmail(string email)
+        {
+            return await _repository.CheckEmail(email);
+        }
+
         public async Task<Result<string>> DeleteUser(string id)
         {
             return await _repository.DeleteUser(id);

@@ -36,3 +36,10 @@ export const Delete = (id, cancelToken) => {
         .then(handleResponse)
         .catch(handleError);
 };
+
+export const CheckUsername = async(username, cancelToken) => {
+    const options = getRequestOptions(cancelToken);
+    return await axios.get(getApiUrl(serviceKeys.api) + `/api/users/CheckUsername/${username}`, options)
+        .then(handleResponse)
+        .catch(handleError);
+};

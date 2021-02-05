@@ -530,6 +530,34 @@ namespace UsersSecrets.Functions
         /// end administrative
         /// </summary>
 
+        /// <summary>
+        /// Generic
+        /// </summary>
+
+        [FunctionName("CheckEmail")]
+        public async Task<IActionResult> CheckEmail(
+         [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "permissions/CheckEmail/{email}")] HttpRequestMessage req,
+         HttpRequest request, ILogger log, string email)
+        {
+
+            if (String.IsNullOrEmpty(email))
+            {
+                return new BadRequestObjectResult(_errors.ValuesNotValid);
+            }
+
+            var dataResult = await _controller.CheckEmail(email);
+
+            if (!dataResult.Success)
+            {
+                return new BadRequestObjectResult(dataResult.Message);
+            }
+
+            return new OkObjectResult(dataResult.Value);
+        }
+
+        /// <summary>
+        /// Generic end
+        /// </summary>
         private Result<ClaimsPrincipal> validAuthorized(HttpRequestMessage req, HttpRequest request)
         {
             return _userInfo.ValidateTokenAsync(req.Headers, request.HttpContext.Connection.RemoteIpAddress);

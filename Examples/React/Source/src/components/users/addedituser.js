@@ -2,18 +2,17 @@ import { Button } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { withStyles } from '@material-ui/styles';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import SaveIcon from '@material-ui/icons/Save';
 import CloseIcon from '@material-ui/icons/Close';
 import * as usersApi from "../../api/usersApi";
 import * as constant from "../../constants";
 import CustomTextField from "../common/customTextField";
-import CustomSelect from "../common/customSelect";
 import CustomButton from "../common/customButton";
 import CustomHeader from "../common/customHeader";
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import * as usersAuthApi from "../../api/usersAuthApi";
+import CustomSpinner from '../common/customSpinner';
 
 
 const useStyles = theme => ({
@@ -22,9 +21,12 @@ const useStyles = theme => ({
         margin: theme.spacing(1),
       },
     },
+    spinnerPaper: {
+        backgroundColor: "transparent",
+        padding: theme.spacing(0, 0, 0),
+        border: 'none'
+    }
   });
-
-  
 
 export class AddUsers extends React.Component {
     constructor(props){
@@ -32,12 +34,13 @@ export class AddUsers extends React.Component {
         this.state = {
             id: this.props.match.params.id,
             userid: this.props.match.params.id === constant.add ? "" : this.props.match.params.id,
+            email: "",
             name: '',
             username: '',
-            price: 0,
             country: "",
             countryIdx: "",
             newPassword: "",
+            isloading: false,
             items: [
                 {
                     id: "USA",
@@ -49,26 +52,14 @@ export class AddUsers extends React.Component {
                 },
             ],
             validations: {
-                "required": {
-                    validation: () =>  { return this.state.userid.trim() === ""},
-                    errorMessage: "Required"
-                },
-                "userId": {
-                    validation: () => { return this.state.userid === "2" },
-                    errorMessage: "checkid"
-                },
-                "userIdNotZero": {
-                    validation: () => { return this.state.userid === "2" && this.state.userid !== "0"},
-                    errorMessage: "checkidnotzero"
-                },
-                "requiredCountry": {
-                    validation: () =>  { return this.state.country.trim() === ""},
-                    errorMessage: "Required"
-                },
                 "password": {
-                    validation: () =>  { return this.state.newPassword.trim() === ""},
+                    validation: () =>  { return this.state.id === constant.add ? this.state.newPassword.trim() === "" : false},
                     errorMessage: "Required"
                 },
+                "email": {
+                    validation: () =>  { return this.state.id === constant.add ? this.state.email.trim() === "" : false},
+                    errorMessage: "Required"
+                }
             }, 
         }
     }
@@ -98,37 +89,65 @@ export class AddUsers extends React.Component {
     } 
 
     handleSave = async() => {
+        this.setState({
+            isloading: true
+        });
         var model = {
             "name": this.state.name,
-            "username": this.state.username
+            "username": this.state.username,
+            "email": this.state.email
         }
         if (this.state.id === constant.add) {
             var flag = false;
-            await usersApi.Create(model)
-            .then((result) => {
-                flag = true;
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-            if(flag){
-                await usersAuthApi.AddUser(this.state.user)
+            await usersAuthApi.CheckEmail(this.state.email)
                 .then((result) => {
+                    flag = true;
+                })
+                .catch((error) => {
+                    if(error === constant.Found ){
+                        alert("The email already exist");
+                    }
+                    else{
+                        console.log(error)
+                    }
+                })
+            if(flag){
+                await usersApi.Create(model)
+                .then((result) => {
+                    flag = true;
                 })
                 .catch((error) => {
                     console.log(error)
                 })
+                if(flag){
+                    var Autmodel = {
+                        id: this.state.userid,
+                        email: this.state.email,
+                        password: this.state.newPassword
+                    }
+                    await usersAuthApi.AddUser(Autmodel)
+                    .then((result) => {
+                        alert("The user has been created");
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+                }
             }
         }
         else {
-            model.id = this.state.userid
+            model.id = this.state.userid;
             await usersApi.Update(model)
             .then((result) => {
+                alert("The user has been updated");
             })
             .catch((error) => {
                 console.log(error)
             }) 
-        }  
+        }
+        this.setState({
+            isloading: false
+        });
     }
 
     validaData = () => {
@@ -144,43 +163,30 @@ export class AddUsers extends React.Component {
         return flag;
     }
 
-    handleChangeLocation = (idx, idxState, element) => {
-        this.setState({
-            [idxState]: idx
-        }, () => {
-            this.handleChange(element)
-        });
-    }
-
     render() {
-        const { handleChange, handleSave, validaData, handleChangeLocation} = this;
+        const { handleChange, handleSave, validaData} = this;
         const { classes } = this.props;
-        const { name, username, userid, validations, countryIdx, items, price, newPassword } = this.state;
+        const { name, username, userid, validations, newPassword, isloading, email } = this.state;
         return(
             <Fragment>
-            <div>
+                {isloading && 
+                    <CustomSpinner open={true} paperClass={classes.spinnerPaper} />
+                }
                 <CustomHeader size={1} content={this.state.id === constant.add ? "Add" : "Edit"}/>
                 <Button onClick={() => this.props.history.goBack()} color="primary">
                     <ArrowBackIcon fontSize="large"/>
                 </Button>
-                <form className={classes.root} > 
-                        <CustomHeader size={2} content={"ID"}/>
-
-                        <CustomTextField 
-                            id={"userid"} 
-                            value={userid} 
-                            label={"Id"} 
-                            autoFocus
-                            handleChange={handleChange} 
-                            errorConditions={
-                                <Fragment>
-                                    {validations["required"].validation() && validations["required"].errorMessage.concat("\n")} 
-                                    {validations["userId"].validation() && validations["userId"].errorMessage.concat("\n")} 
-                                    {validations["userIdNotZero"].validation() && validations["userIdNotZero"].errorMessage.concat("\n")} 
-                                </Fragment>
-                            } 
-                        />
-                        {this.state.id === constant.add &&
+                    <CustomHeader size={2} content={"ID"}/>
+                    <CustomTextField 
+                        id={"userid"} 
+                        value={userid} 
+                        label={"Id"} 
+                        autoFocus
+                        handleChange={handleChange}
+                        disabled={true}
+                    />
+                    {this.state.id === constant.add &&
+                        <Fragment>
                             <CustomTextField 
                                 id={"newPassword"} 
                                 value={newPassword} 
@@ -193,36 +199,31 @@ export class AddUsers extends React.Component {
                                     </Fragment>
                                 } 
                             />
-                        }
-                        <CustomSelect 
-                            id={"select-id"} 
-                            labelId={"label-id"} 
-                            label={"Country"}
-                            idx={countryIdx}
-                            idxState={"countryIdx"}
-                            fieldToShow={"name"}
-                            idItem={"country"}
-                            items={items}
-                            handleChange={handleChangeLocation}
+                            <CustomTextField 
+                            id={"email"} 
+                            value={email} 
+                            label={"email"}  
+                            handleChange={handleChange}
                             errorConditions={
                                 <Fragment>
-                                    {validations["requiredCountry"].validation() && validations["requiredCountry"].errorMessage.concat("\n")} 
+                                    {validations["email"].validation() && validations["email"].errorMessage.concat("\n")} 
                                 </Fragment>
-                            } 
+                            }  
+                            />
+                        </Fragment>
+                    }
+                        <CustomTextField 
+                            id={"name"} 
+                            value={name} 
+                            label={"Name"} 
+                            handleChange={handleChange}
                         />
 
-                        <h2>Name:</h2>
-                        <OutlinedInput  id={"name"} value={name} type="text" onChange={handleChange}/>
-                        <h2>Username:</h2>
-                        <OutlinedInput  id={"username"} value={username} onChange={handleChange}/><br/>
-
                         <CustomTextField 
-                            id={"price"} 
-                            value={price} 
-                            label={"Price"} 
-                            isNumber="number"
-                            maxDecimals={6}
-                            handleChange={handleChange} 
+                            id={"username"} 
+                            value={username} 
+                            label={"Username"} 
+                            handleChange={handleChange}
                         />
 
                         <CustomButton 
@@ -230,15 +231,12 @@ export class AddUsers extends React.Component {
                             color="primary" 
                             startIcon={<SaveIcon/>} 
                             handleClick={handleSave}
-                            content={"Save"}
+                        />{" "}
+                        <CustomButton 
+                            color="secondary" 
+                            startIcon={<CloseIcon/>} 
+                            handleClick={() => this.props.history.goBack()}
                         />
-                    
-                        <Button color="secondary" startIcon={<CloseIcon/>} variant="contained" size="large" onClick={() => this.props.history.goBack()}>
-                            Cancel
-                        </Button>
-                </form>
-            </div>
-
             </Fragment>
         )
     }

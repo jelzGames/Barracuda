@@ -120,7 +120,6 @@ export class CustomLogin extends React.Component{
             renderPassword: false,
             renderLogIn: true,
             renderSignUp: false,
-            tabValue: 0,
             recoverPassword: "",
             loginEmail: "",
             loginPassword: "",
@@ -331,8 +330,11 @@ export class CustomLogin extends React.Component{
         await this.props.actions.Register(model)
         .then((result) => {
             this.setState({
-                tabValue: 0
+                renderLogIn: true,
+                renderSignUp: false
             })
+            alert("An email confirmation has been sent");
+            this.props.history.push("/");
         })
         .catch((error) => {
         })
@@ -340,12 +342,6 @@ export class CustomLogin extends React.Component{
             this.setState({
                 isloading: false
             })
-        })
-    }
-
-    handleChangeTab = (event, newValue) => {        
-        this.setState({
-            tabValue: newValue,
         })
     }
 

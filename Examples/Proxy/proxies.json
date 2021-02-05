@@ -145,6 +145,15 @@
       },
       "backendUri": "%Host_UserSecrets%/permissions/ChangePasswordToUser"
     },
+    "UserSecretsCheckEmail": {
+      "matchCondition": {
+        "route": "api/permissions/CheckEmail/{email}",
+        "methods": [
+          "GET"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/CheckEmail/{email}"
+    },
     "openApiDemosGetAll": {
       "matchCondition": {
         "route": "api/openApiDemos/GetAll",
@@ -297,6 +306,15 @@
         ]
       },
       "backendUri": "%Host_Users%/users/Delete/{id}"
+    },
+    "UsersCheckUsername": {
+      "matchCondition": {
+        "route": "api/users/CheckUsername/{username}",
+        "methods": [
+          "GET"
+        ]
+      },
+      "backendUri": "%Host_Users%/users/CheckUsername/{username}"
     }
   }
 }

@@ -46,5 +46,9 @@ namespace Users.Application.Services
         {
             return await _services.Update(item);
         }
+        public async Task<Result<string>> CheckUsername(string username)
+        {
+            return await _services.CheckUsername(username);
+        }
     }
 }

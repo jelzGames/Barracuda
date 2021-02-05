@@ -56,5 +56,5 @@ export class CustomModal extends React.Component {
 
 export default compose(
     withTranslation("common"),
-    withStyles(useStyles, { withTheme: true }),
+    withStyles (useStyles, { withTheme: true }),
 )(CustomModal);

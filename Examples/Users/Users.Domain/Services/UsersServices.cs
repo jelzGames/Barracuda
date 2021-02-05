@@ -21,6 +21,11 @@ namespace Users.Domain.Services
             _repository = repository;
         }
 
+        public async Task<Result<string>> CheckUsername(string username)
+        {
+            return await _repository.CheckUsername(username);
+        }
+
         public async Task<Result<string>> Create(UserModel item)
         {
             return await _repository.Create(item);

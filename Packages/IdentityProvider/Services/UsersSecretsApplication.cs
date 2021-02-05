@@ -493,5 +493,10 @@ namespace Barracuda.Indentity.Provider.Services
         {
             return await _services.DeleteUser(id);
         }
+
+        public async Task<Result<string>> CheckEmail(string email)
+        {
+            return await _services.CheckEmail(email);
+        }
     }
 }

@@ -16,5 +16,6 @@ namespace Users.Application.Interfaces
         public Task<Result<string>> Create(UserModel item);
         public Task<Result<string>> Update(UserModel item);
         public Task<Result<string>> Delete(string id);
+        Task<Result<string>> CheckUsername(string username);
     }
 }

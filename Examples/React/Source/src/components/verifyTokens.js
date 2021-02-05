@@ -110,11 +110,9 @@ export class verifyTokens extends React.Component {
         return(
             <Fragment>
                 {!validEmailToken && changePasswordToken ? (
-                    <div>
-                        <CustomModal modal={true}
-                            item={<CustomChangePassword token={changePasswordToken} history={this.props.history} />}
-                        />  
-                    </div>
+                    <CustomModal modal={true}
+                        item={<CustomChangePassword token={changePasswordToken} history={this.props.history} />}
+                    />  
                 ) : (
                     !validEmailToken &&
                     this.props.history.push("/")

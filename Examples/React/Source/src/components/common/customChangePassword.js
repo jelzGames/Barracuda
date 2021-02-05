@@ -7,6 +7,7 @@ import CustomTextField from "./customTextField";
 import CustomButton from "./customButton";
 import { connect } from "react-redux";
 import * as usersAction from "../../redux/actions/userAuthActions";
+import * as usersAuthApi from "../../api/usersAuthApi";
 
 const useStyles = theme => ({
     
@@ -43,20 +44,36 @@ export class CustomChangePassword extends React.Component {
           email: this.props.userAuth.email,
           password: this.state.newPassword
       }
-      await this.props.actions.ChangePassword(model, token)
-      .then((result) => {
-          if(token) {
-              this.props.history.push("/");
-          }
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-      .finally(() => {
-          this.setState({
-              isloading: false,
-          });
-      });
+      if(token){
+        await this.props.actions.ChangePassword(model, token)
+            .then((result) => {
+                if(token) {
+                    this.props.history.push("/");
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+            .finally(() => {
+                this.setState({
+                    isloading: false,
+                });
+            });
+      }
+      else{
+        await usersAuthApi.ChangePasswordToUser(model)
+        .then((result) => {
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+        .finally(() => {
+            this.setState({
+                isloading: false,
+            });
+        });
+      }
+      
     }
 
     validaData = () => {

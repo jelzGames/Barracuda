@@ -8,23 +8,36 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import * as usersApi from "../../api/usersApi";
+import CustomSpinner from '../common/customSpinner';
+import { Fragment } from 'react';
+import * as usersAuthApi from "../../api/usersAuthApi";
+import { Grid } from '@material-ui/core';
+import { CustomButton } from '../common/customButton';
+import CustomModal from '../common/customModal';
+import CustomChangePassword from '../common/customChangePassword';
 
 
 const useStyles = theme => ({
     table: {
       minWidth: 300,
     },
+    spinnerPaper: {
+        backgroundColor: "transparent",
+        padding: theme.spacing(0, 0, 0),
+        border: 'none'
+    }
   });
 
 export class Users extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            data: []
+            data: [],
+            isloading: false,
+            openModalDelete: false,
+            openModalPassword: false
         }
     }
 
@@ -33,6 +46,9 @@ export class Users extends React.Component {
     }
 
     loadData = async() => {
+        this.setState({
+            isloading: true
+        });
         var model = {
             query: "select * from Users"
         }
@@ -45,16 +61,26 @@ export class Users extends React.Component {
         .catch((error) => {
             console.log(error)
         })
+        .finally(() => {
+            this.setState({
+                isloading: false
+            });
+        })
     }
 
     handleOpen = (id) => {
         this.props.history.push(`/users/${id}`)
-    };
+    }
 
-    handleDelete = (element) => {
-        usersApi.Delete(element.id)
+    handleDelete = async() => {
+        this.setState({
+            isloading: true
+        });
+        var flag = false;
+        await usersApi.Delete(this.state.id)
         .then(() => {
-            var idx = this.state.data.findIndex((e) => e.id === element.id);
+            flag = true;
+            var idx = this.state.data.findIndex((e) => e.id === this.state.id);
             if(idx > -1) {
                 var temp = [...this.state.data];
                 temp.splice(idx,1);
@@ -66,19 +92,80 @@ export class Users extends React.Component {
         .catch((error) => {
             console.log(error)
         })
+        if(flag){
+            await usersAuthApi.DeleteUser(this.state.id)
+            .then((result) => {
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+            .finally(() => {
+                this.setState({
+                    isloading: false,
+                    openModalDelete: false
+                });
+            })
+        }
     }
 
+    handleModalDelete = (id) => {
+        this.setState({
+            openModalDelete: true,
+            id: id
+        })
+    }
+
+    handleModalPassword = (element) => {
+        this.setState({
+            openModalPassword: true,
+            modelPassword: element
+        })
+    }
+
+    handleModalClose = () => {
+        this.setState({
+            openModalDelete: false,
+            openModalPassword: false
+        })
+    }
+
+    renderModalDelete = () => {
+        const { handleDelete, handleModalClose } = this;
+        return(
+            <Grid container >
+                <Grid item xs={12} >
+                    <h3>
+                        Do you want to delete the user?
+                    </h3>
+                </Grid>
+                <Grid item xs={12} >
+                    <CustomButton
+                    content={"Accept"}
+                    color={"primary"}
+                    handleClick={handleDelete}
+                    />
+                    <CustomButton
+                    content={"Cancel"}
+                    color={"secondary"}
+                    handleClick={handleModalClose}
+                    />
+                </Grid>
+            </Grid>    
+        )
+    }
 
     render() {
-        const { data } = this.state;
+        const { data, isloading, openModalDelete, openModalPassword } = this.state;
         const { classes } = this.props;
         const {handleOpen } = this;
         return (
-            <div>       
+            <Fragment>
+                {isloading && 
+                    <CustomSpinner open={true} paperClass={classes.spinnerPaper} />
+                }
                 <Button variant='contained' startIcon={<AddIcon/>} color='primary' onClick={(e) => handleOpen("new")}>
                 Add New User
                 </Button><br/><br/>
-                <div>
                 <TableContainer component={Paper}>
                     <Table className={classes.table}>
                         <TableHead>
@@ -96,8 +183,9 @@ export class Users extends React.Component {
                                     <TableCell align="center">{element.name}</TableCell>
                                     <TableCell align="center">{element.username}</TableCell>
                                     <TableCell align="center">
-                                        <Button startIcon={<EditIcon/>} color="primary" variant="contained" onClick={(e) => this.handleOpen(element.id)}>Edit</Button>{"  "}
-                                        <Button startIcon={<DeleteIcon/>} color="secondary" variant="contained" onClick={(e) => this.handleDelete(element)}>Delete</Button>
+                                        <Button color="primary" variant="contained" onClick={(e) => this.handleOpen(element.id)}>Edit</Button>{"  "}
+                                        <Button color="secondary" variant="contained" onClick={(e) => this.handleModalOpen(element.id)}>Delete</Button>{" "}
+                                        <Button variant="contained" onClick={(e) => this.handleModalPassword(element)}>Change Password</Button>
                                     </TableCell>
                                 </TableRow> 
                             )) 
@@ -105,8 +193,13 @@ export class Users extends React.Component {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                </div>
-            </div>
+                <CustomModal modal={openModalDelete}
+                    item={this.renderModalDelete()}
+                />
+                <CustomModal modal={openModalPassword} handleCloseModal={this.handleModalClose} 
+                        item={<CustomChangePassword modelPassword={this.state.modelPassword} />}
+                    /> 
+            </Fragment>
         )
     }
 }

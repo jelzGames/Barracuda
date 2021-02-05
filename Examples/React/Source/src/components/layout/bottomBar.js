@@ -1,6 +1,4 @@
 import React from 'react';
-import * as usersApi from "../../api/usersApi";
-import userModel from "../../datatest/userModel";
 import { withStyles } from '@material-ui/styles';
 import CustomIcon from "../common/customIcon";
 import * as icons from "../libraries/icons";

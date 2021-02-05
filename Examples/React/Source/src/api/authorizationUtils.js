@@ -7,7 +7,6 @@ import { store } from "../redux/store";
 axios.interceptors.response.use((response) => {
     return response;
 }, async (error) => {
-    console.log(error.response)
     if ((store.getState().userAuth && store.getState().userAuth.id) && 
         error.response && 
         error.response.data === constants.SecurityTokenExpired) {

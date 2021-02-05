@@ -84,12 +84,52 @@ export const ResendValidEmail = async(token, resendEmail, cancelToken) => {
         .then(handleResponse)
         .catch(handleError);
 };
-// End SSO Function
+// End SSO Functions
 
 // Start Administrative
 export const AddUser = async(model, cancelToken) => {
+    console.log("AddUser")
+    console.log(model)
     const options = getRequestOptions(cancelToken);
     return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/AddUser`, model, options)
         .then(handleResponse)
         .catch(handleError);
 };
+
+export const DeleteUser = async(id, cancelToken) => {
+    const options = getRequestOptions(cancelToken);
+    return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/DeleteUser/${id}`, options)
+        .then(handleResponse)
+        .catch(handleError);
+};
+
+export const ChangePasswordToUser = async(model, cancelToken) => {
+    const options = getRequestOptions(cancelToken);
+    return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/ChangePasswordToUser`, model, options)
+        .then(handleResponse)
+        .catch(handleError);
+};
+
+export const Tenants = async(model, cancelToken) => {
+    const options = getRequestOptions(cancelToken);
+    return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/UpdateTenants`, model, options)
+        .then(handleResponse)
+        .catch(handleError);
+};
+
+export const Scopes = async(model, cancelToken) => {
+    const options = getRequestOptions(cancelToken);
+    return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/UpdateScopes`, model, options)
+        .then(handleResponse)
+        .catch(handleError);
+};
+// End Administrative
+
+//Generic
+export const CheckEmail = async(email, cancelToken) => {
+    const options = getRequestOptions(cancelToken);
+    return await axios.get(getApiUrl(serviceKeys.api) + `/api/permissions/CheckEmail/${email}`, options)
+        .then(handleResponse)
+        .catch(handleError);
+};
+//Generic End

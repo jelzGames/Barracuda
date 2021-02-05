@@ -25,8 +25,6 @@ import CustomImage from "../common/customImage";
 import CustomSpinner from "../common/customSpinner";
 import { BottomBar } from "../layout/bottomBar";
 
-const drawerWidth = 240;
-
 const useStyles = theme => ({
     bottomBar:{
         backgroundColor: "#3f51b5",
@@ -49,11 +47,6 @@ const useStyles = theme => ({
     },
     tabsContainer: {
         marginTop: 10
-    },
-    large: {
-        margin: theme.spacing(2),
-        width: theme.spacing(20),
-        height: theme.spacing(20)
     },
     table: {
         minWidth: 200
@@ -569,50 +562,58 @@ export class Profile extends React.Component{
         )
     }
 
-     insertFile = (item) => {
-       var temp = [...this.state.files];
-       temp.push(item)
-       if (item.fileType === "Photo") {
-        this.setState({
+    insertFile = (item) => {
+    var temp = [...this.state.files];
+    temp.push(item)
+    if (item.fileType === "Photo") {
+    this.setState({
+        photoUrl: item.url
+    })
+    }
+    this.setState({
+        files: temp,
+        modal: false
+    })
+    }
+
+    updateFile = (item) => {
+    var temp = [...this.state.files];
+    var idx = temp.findIndex((e) => e.id === item.id);
+    if (idx > -1) {
+        temp[idx].id = item.id;
+        temp[idx].filename = item.filename;
+        temp[idx].fileExtension= item.fileExtension;
+        temp[idx].fileType = item.fileType;
+    }
+    this.setState({
+            files: temp,
+            modalEditBlob: false,
             photoUrl: item.url
         })
-       }
-       this.setState({
-            files: temp,
-            modal: false
-        })
-     }
-
-     updateFile = (item) => {
-        var temp = [...this.state.files];
-        var idx = temp.findIndex((e) => e.id === item.id);
-        if (idx > -1) {
-            temp[idx].id = item.id;
-            temp[idx].filename = item.filename;
-            temp[idx].fileExtension= item.fileExtension;
-            temp[idx].fileType = item.fileType;
-        }
+        if (item.fileType !== "Photo") {
         this.setState({
-             files: temp,
-             modalEditBlob: false,
-             photoUrl: item.url
-         })
-         if (item.fileType !== "Photo") {
-            this.setState({
-                photoUrl: ""
-            })
-           }
-     }
+            photoUrl: ""
+        })
+        }
+    }
 
-     createUser = async() =>{
-        await usersApi.Create(this.state.user)
-        .then((result) => {
-            alert("Se ha guardado")
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-     }
+    createUser = async() =>{
+    this.setState({
+        isloading: true
+    });
+    await usersApi.Create(this.state.user)
+    .then((result) => {
+        alert("Se ha guardado")
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+    .finally(() => {
+        this.setState({
+            isloading: false
+        });
+    });
+    }
 
     render(){
         const { handleCloseModal, insertFile, bodyModalDelete, updateFile, createUser } = this;
@@ -635,7 +636,7 @@ export class Profile extends React.Component{
                 <CustomModal modal={modalEditBlob} paperClass={classes.newUserModalPaper}
                     item={<CustomDragAndDrop editFiles={editfiles} updateFile={updateFile} handleCloseModal={handleCloseModal}/>}
                 />
-                <BottomBar classes={classes} open={true} isNotValid={this.validaData()} clickAction={createUser} />
+                <BottomBar classes={classes} isNotValid={this.validaData()} clickAction={createUser} />
             </Fragment>
         )
     }

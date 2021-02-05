@@ -387,5 +387,52 @@ namespace Barracuda.Indentity.Provider.Services
 
             return _result.Create(ok, message, "");
         }
+
+        public async Task<Result<string>> CheckEmail(string email)
+        {
+            bool ok = false;
+            string message = "";
+            var find = false;
+
+            try
+            {
+                var queryOptions = new QueryRequestOptions
+                {
+                    PartitionKey = new PartitionKey(_partitionId),
+                    MaxItemCount = 1
+                };
+
+                var query = $"select * from Delivers d where d.Email = '{email}'";
+                await foreach (var page in RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
+                    query, null, queryOptions, new CancellationToken()).AsPages())
+                {
+                    if (page.Values.Count > 0)
+                    {
+                        find = true;
+                    }
+
+                    break;
+                }
+
+                if (find)
+                {
+                    message = _errors.Found;
+                }
+                else
+                {
+                    ok = true;
+                }
+            }
+            catch (CosmosException ex)
+            {
+                message = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+
+            return _result.Create(ok, message, "");
+        }
     }
 }

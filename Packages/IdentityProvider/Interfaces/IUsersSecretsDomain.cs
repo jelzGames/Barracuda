@@ -13,5 +13,6 @@ namespace Barracuda.Indentity.Provider.Interfaces
         Task<Result<string>> Update(UserPrivateDataModel model);
         Task<Result<string>> ChangePassword(string email, string password);
         Task<Result<string>> ValidateRegisterEmail(string email);
+        Task<Result<string>> CheckEmail(string email);
     }
 }
