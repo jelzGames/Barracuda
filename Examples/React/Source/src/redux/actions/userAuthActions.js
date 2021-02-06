@@ -32,7 +32,7 @@ export const Logout = () => {
 export const LogIn = (model) => {
     return async function(dispatch) {
         var flag = false;
-        var result = await usersAuthApi.Auth(model)
+        var result = await usersAuthApi.Login(model)
         .then( (result) => {
             flag = true;
             return result;

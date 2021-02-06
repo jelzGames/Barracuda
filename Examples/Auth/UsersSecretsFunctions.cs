@@ -92,9 +92,9 @@ namespace UsersSecrets.Functions
             return new OkObjectResult(dataResult.Value);
         }
 
-        [FunctionName("Auth")]
-        public async Task<IActionResult> Auth(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/Auth")] HttpRequestMessage req,
+        [FunctionName("Login")]
+        public async Task<IActionResult> Login(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/Login")] HttpRequestMessage req,
             HttpRequest request, ILogger log)
         {
             UsersSecretsDto data = await req.Content.ReadAsAsync<UsersSecretsDto>();
@@ -116,6 +116,39 @@ namespace UsersSecrets.Functions
 
             return new OkObjectResult(dataResult.Value);
         }
+
+        [FunctionName("Logout")]
+        public IActionResult Logout(
+           [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "permissions/Logout")] HttpRequestMessage req,
+           HttpRequest request, ILogger log)
+        {
+            var resultAuth = validAuthorized(req, request);
+            if (!resultAuth.Success)
+            {
+                return new UnauthorizedResult();
+            }
+            
+            var logout = _controller.Logout(request);
+
+            return new OkObjectResult(logout);
+        }
+
+        [FunctionName("RemoveRefreshToken")]
+        public IActionResult RemoveRefreshToken(
+           [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "permissions/RemoveRefreshToken")] HttpRequestMessage req,
+           HttpRequest request, ILogger log)
+        {
+            var resultAuth = validAuthorized(req, request);
+            if (!resultAuth.Success)
+            {
+                return new UnauthorizedResult();
+            }
+
+            _controller.RemoveRefreshToken(request);
+
+            return new OkObjectResult("ok");
+        }
+
 
         [FunctionName("RefreshToken")]
         public async Task<IActionResult> RefreshToken(

@@ -79,6 +79,18 @@ namespace Barracuda.Indentity.Provider.Services
             return _result.Create(true, "", login);
         }
 
+        public LoginDto Logout(HttpRequest request)
+        {
+            EndToken(request, _settingsTokens.CookieToken, _settingsSecrets.CookieTokenPath, new UserPrivateDataDto());
+
+            return new LoginDto();
+        }
+
+        public void RemoveRefreshToken(HttpRequest request)
+        {
+            EndToken(request, _settingsSecrets.CookieRefreshToken, _settingsSecrets.CookieRefreshTokenPath, new UserPrivateDataDto());
+        }
+
         public async Task<Result<LoginDto>> Refresh(string token, string refreshToken, HttpRequest request)
         {
             var result = await ValidRefreshToken(token, refreshToken);
@@ -172,11 +184,24 @@ namespace Barracuda.Indentity.Provider.Services
             {
                 return _result.Create<UserPrivateDataModel>(false, _errors.NotAuthorized, null);
             }
-
-
+            else
+            {
+                queryToken.RemoveAt(idx);
+                if (!_settings.RedisCacheSecurity)
+                {
+                    model.RefreshTokens = queryToken;
+                    await _services.Update(model);
+                }
+                else
+                {
+                    var jsonString = JsonConvert.SerializeObject(queryToken);
+                    await _redisCache.SetStringValue(model.id, jsonString);
+                }
+            }
+            
             return _result.Create(true, "", model);
         }
-
+  
         private Result<UserPrivateDataDto> GetToken(UserPrivateDataModel model)
         {
             var token = _tokens.CreateToken(model.id, model.Email, model.Scopes, model.Tenants);

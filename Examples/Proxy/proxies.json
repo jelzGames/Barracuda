@@ -10,14 +10,32 @@
       },
       "backendUri": "%Host_UserSecrets%/permissions/Register"
     },
-    "UserSecretsAuth": {
+    "UserSecretsLogin": {
       "matchCondition": {
-        "route": "api/permissions/Auth",
+        "route": "api/permissions/Login",
         "methods": [
           "POST"
         ]
       },
-      "backendUri": "%Host_UserSecrets%/permissions/Auth"
+      "backendUri": "%Host_UserSecrets%/permissions/Login"
+    },
+    "UserSecretsLogout": {
+      "matchCondition": {
+        "route": "api/permissions/Logout",
+        "methods": [
+          "GET"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/Logout"
+    },
+    "UserSecretsRemoveRefreshToken": {
+      "matchCondition": {
+        "route": "api/permissions/RemoveRefreshToken",
+        "methods": [
+          "GET"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/RemoveRefreshToken"
     },
     "UserSecretsChangePassword": {
       "matchCondition": {

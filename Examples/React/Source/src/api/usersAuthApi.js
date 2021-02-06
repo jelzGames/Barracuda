@@ -10,9 +10,23 @@ export const Register = async(model, cancelToken) => {
         .catch(handleError);
 };
 
-export const Auth = async(model, cancelToken) => {
+export const Login = async(model, cancelToken) => {
     const options = getRequestOptions(cancelToken);
-    return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/Auth`, model, options)
+    return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/Login`, model, options)
+        .then(handleResponse)
+        .catch(handleError);
+};
+
+export const Logout = async(cancelToken) => {
+    const options = getRequestOptions(cancelToken);
+    return await axios.get(getApiUrl(serviceKeys.api) + `/api/permissions/Logout`, options)
+        .then(handleResponse)
+        .catch(handleError);
+};
+
+export const RemoveRefreshToken = async(cancelToken) => {
+    const options = getRequestOptions(cancelToken);
+    return await axios.get(getApiUrl(serviceKeys.api) + `/api/permissions/RemoveRefreshToken`, options)
         .then(handleResponse)
         .catch(handleError);
 };
