@@ -13,7 +13,7 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import * as usersAuthApi from "../../api/usersAuthApi";
 import CustomSpinner from '../common/customSpinner';
-
+import { v4 as uuidv4 } from 'uuid';
 
 const useStyles = theme => ({
     root: {
@@ -92,7 +92,9 @@ export class AddUsers extends React.Component {
         this.setState({
             isloading: true
         });
+        var id = uuidv4();
         var model = {
+            "id": id,
             "name": this.state.name,
             "username": this.state.username,
             "email": this.state.email
@@ -112,20 +114,35 @@ export class AddUsers extends React.Component {
                     }
                 })
             if(flag){
-                await usersApi.Create(model)
+                await usersApi.CheckUsername(this.state.username)
                 .then((result) => {
-                    flag = true;
                 })
                 .catch((error) => {
+                    if(error === constant.Found ){
+                        flag = false;
+                        alert("The username already exist");
+                    }
+                    else{
+                        flag = false;
+                        console.log(error)
+                    }
+                })
+            }
+            if(flag){
+                await usersApi.Create(model)
+                .then((result) => {
+                })
+                .catch((error) => {
+                    flag = false
                     console.log(error)
                 })
                 if(flag){
-                    var Autmodel = {
-                        id: this.state.userid,
+                    var Authmodel = {
+                        id: id,
                         email: this.state.email,
                         password: this.state.newPassword
                     }
-                    await usersAuthApi.AddUser(Autmodel)
+                    await usersAuthApi.AddUser(Authmodel)
                     .then((result) => {
                         alert("The user has been created");
                     })

@@ -89,7 +89,7 @@ namespace Barracuda.Indentity.Provider.Services
             return _result.Create(ok, message, model);
         }
 
-        public async Task<Result<string>> Register(string email, string password, bool validEmail = false)
+        public async Task<Result<string>> Register(string userid, string email, string password, bool validEmail = false)
         {
             bool ok = false;
             string message = "";
@@ -124,6 +124,15 @@ namespace Barracuda.Indentity.Provider.Services
                 else
                 {
                     var item = new UserPrivateDataModel();
+
+                    if (String.IsNullOrEmpty(userid))
+                    {
+                        item.id = Guid.NewGuid().ToString();
+                    }
+                    else
+                    {
+                        item.id = userid;
+                    }
                     UpdatePrivateMetadata(item, email, password, false, validEmail);
                     var key = new PartitionKey(_partitionId);
                     await RepositoryContainer.CreateItemAsync<UserPrivateDataModel>(item, key,
@@ -293,8 +302,8 @@ namespace Barracuda.Indentity.Provider.Services
         private void UpdatePrivateMetadata(UserPrivateDataModel item, string email, string password, bool isUpdate, bool validEmail = false)
         {
             if (!isUpdate)
-            {
-                item.id = Guid.NewGuid().ToString();
+            {       
+                
                 item.Email = email;
                 item.TimeCreated = DateTime.Now;
                 item.PartitionId = _partitionId;

@@ -100,12 +100,12 @@ export class Users extends React.Component {
                 console.log(error)
             })
             .finally(() => {
-                this.setState({
-                    isloading: false,
-                    openModalDelete: false
-                });
             })
         }
+        this.setState({
+            isloading: false,
+            openModalDelete: false
+        });
     }
 
     handleModalDelete = (id) => {
@@ -118,7 +118,7 @@ export class Users extends React.Component {
     handleModalPassword = (element) => {
         this.setState({
             openModalPassword: true,
-            modelPassword: element
+            usermodel: element
         })
     }
 
@@ -184,7 +184,7 @@ export class Users extends React.Component {
                                     <TableCell align="center">{element.username}</TableCell>
                                     <TableCell align="center">
                                         <Button color="primary" variant="contained" onClick={(e) => this.handleOpen(element.id)}>Edit</Button>{"  "}
-                                        <Button color="secondary" variant="contained" onClick={(e) => this.handleModalOpen(element.id)}>Delete</Button>{" "}
+                                        <Button color="secondary" variant="contained" onClick={(e) => this.handleModalDelete(element.id)}>Delete</Button>{" "}
                                         <Button variant="contained" onClick={(e) => this.handleModalPassword(element)}>Change Password</Button>
                                     </TableCell>
                                 </TableRow> 
@@ -197,7 +197,7 @@ export class Users extends React.Component {
                     item={this.renderModalDelete()}
                 />
                 <CustomModal modal={openModalPassword} handleCloseModal={this.handleModalClose} 
-                        item={<CustomChangePassword modelPassword={this.state.modelPassword} />}
+                        item={<CustomChangePassword userModel={this.state.usermodel} />}
                     /> 
             </Fragment>
         )

@@ -102,8 +102,6 @@ export const ResendValidEmail = async(token, resendEmail, cancelToken) => {
 
 // Start Administrative
 export const AddUser = async(model, cancelToken) => {
-    console.log("AddUser")
-    console.log(model)
     const options = getRequestOptions(cancelToken);
     return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/AddUser`, model, options)
         .then(handleResponse)
@@ -112,7 +110,7 @@ export const AddUser = async(model, cancelToken) => {
 
 export const DeleteUser = async(id, cancelToken) => {
     const options = getRequestOptions(cancelToken);
-    return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/DeleteUser/${id}`, options)
+    return await axios.delete(getApiUrl(serviceKeys.api) + `/api/permissions/DeleteUser/${id}`, options)
         .then(handleResponse)
         .catch(handleError);
 };

@@ -52,9 +52,9 @@ namespace Barracuda.Indentity.Provider.Services
             _settingsTokens = settingsTokens;
         }
 
-        public async Task<Result<string>> Register(string email, string password, bool validEmail = false)
+        public async Task<Result<string>> Register(string userid, string email, string password, bool validEmail = false)
         {
-            return await _services.Register(email, password, validEmail);
+            return await _services.Register(userid, email, password, validEmail);
         }
 
         public async Task<Result<LoginDto>> Login(string email, string password, HttpRequest request)
@@ -297,7 +297,7 @@ namespace Barracuda.Indentity.Provider.Services
                 return _result.Create<UserPrivateDataDto>(false, result.Message, null);
             }
 
-            var register = await _services.Register(result.Value.Email, _crypto.GetRandomNumber(), true);
+            var register = await _services.Register(result.Value.id, result.Value.Email, _crypto.GetRandomNumber(), true);
             if (!register.Success)
             {
                 if (register.Message != _errors.Found)
@@ -324,7 +324,7 @@ namespace Barracuda.Indentity.Provider.Services
                 return _result.Create<LoginDto>(false, result.Message, null);
             }
 
-            var register = await _services.Register(result.Value.Email, _crypto.GetRandomNumber(), true);
+            var register = await _services.Register(result.Value.id, result.Value.Email, _crypto.GetRandomNumber(), true);
             if (!register.Success)
             {
                 if (register.Message != _errors.Found)
@@ -352,7 +352,7 @@ namespace Barracuda.Indentity.Provider.Services
                 return _result.Create<LoginDto>(false, result.Message, null);
             }
 
-            var register = await _services.Register(result.Value.Email, _crypto.GetRandomNumber(), true);
+            var register = await _services.Register(result.Value.id, result.Value.Email, _crypto.GetRandomNumber(), true);
             if (!register.Success)
             {
                 if (register.Message != _errors.Found)

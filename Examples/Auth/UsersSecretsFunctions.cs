@@ -59,7 +59,7 @@ namespace UsersSecrets.Functions
                 return new BadRequestObjectResult(_errors.ValuesNotValid);
             }
 
-            var dataResult = await _controller.Register(data.Email, data.Password);
+            var dataResult = await _controller.Register(data.Id, data.Email, data.Password);
 
             if (!dataResult.Success)
             {
@@ -436,7 +436,7 @@ namespace UsersSecrets.Functions
                 return new BadRequestObjectResult(_errors.ValuesNotValid);
             }
 
-            var dataResult = await _controller.Register(data.Email, data.Password);
+            var dataResult = await _controller.Register(data.Id, data.Email, data.Password, true);
 
             if (!dataResult.Success)
             {
@@ -448,7 +448,7 @@ namespace UsersSecrets.Functions
 
         [FunctionName("DeleteUser")]
         public async Task<IActionResult> DeleteUser(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/DeleteUser/{id}")] HttpRequestMessage req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "permissions/DeleteUser/{id}")] HttpRequestMessage req,
             string id, ILogger log, HttpRequest request)
         {
             var resultAuth = validAdmin(req, request, new List<string>() { "admin.update" });

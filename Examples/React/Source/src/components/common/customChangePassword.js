@@ -35,7 +35,7 @@ export class CustomChangePassword extends React.Component {
     } 
 
     handlePassword = async() => {
-        const { token } = this.props;
+        const { token, userModel } = this.props;
         this.setState({
           isloading: true
       })
@@ -60,9 +60,16 @@ export class CustomChangePassword extends React.Component {
                 });
             });
       }
-      else{
+      else if(userModel){
+        console.log(userModel)
+        model = {
+            id: userModel.id,
+            email: userModel.email,
+            password: this.state.newPassword
+        }
         await usersAuthApi.ChangePasswordToUser(model)
         .then((result) => {
+            alert("The password has been updated")
         })
         .catch((error) => {
             console.log(error)
@@ -72,8 +79,7 @@ export class CustomChangePassword extends React.Component {
                 isloading: false,
             });
         });
-      }
-      
+      }    
     }
 
     validaData = () => {

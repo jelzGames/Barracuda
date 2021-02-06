@@ -129,12 +129,12 @@
     },
     "UserSecretsDeleteUser": {
       "matchCondition": {
-        "route": "api/permissions/DeleteUser",
+        "route": "api/permissions/DeleteUser/{id}",
         "methods": [
-          "POST"
+          "DELETE"
         ]
       },
-      "backendUri": "%Host_UserSecrets%/permissions/DeleteUser"
+      "backendUri": "%Host_UserSecrets%/permissions/DeleteUser/{id}"
     },
     "UserSecretsUpdateScopes": {
       "matchCondition": {
