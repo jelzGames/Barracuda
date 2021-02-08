@@ -8,14 +8,13 @@ import { bindActionCreators, compose } from 'redux';
 import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom';
 import * as usersAction from "../../redux/actions/userAuthActions";
-
+import PostMessageHoc from "../../helpers/postMessageHelper";
 
 const useStyles = theme => ({
   root: {
     display: "flex"
   },
 });
-
 
 export class Layout extends React.Component {
   constructor(props) {
@@ -27,6 +26,13 @@ export class Layout extends React.Component {
 
   componentDidMount() {
      this.props.actions.GetUserAuth();
+  }
+
+  componentDidUpdate(prevState){
+     console.log(this.props.communicationState)
+    if(prevState.communicationState !== this.props.communicationState){
+     
+    }
   }
  
   handleDrawerOpen = () => {

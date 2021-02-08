@@ -8,7 +8,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
 import * as usersApi from "../../api/usersApi";
 import CustomSpinner from '../common/customSpinner';
 import { Fragment } from 'react';
@@ -163,7 +162,7 @@ export class Users extends React.Component {
                 {isloading && 
                     <CustomSpinner open={true} paperClass={classes.spinnerPaper} />
                 }
-                <Button variant='contained' startIcon={<AddIcon/>} color='primary' onClick={(e) => handleOpen("new")}>
+                <Button variant='contained' color='primary' onClick={(e) => handleOpen("new")}>
                 Add New User
                 </Button><br/><br/>
                 <TableContainer component={Paper}>

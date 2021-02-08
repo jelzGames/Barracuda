@@ -29,6 +29,14 @@ export const Logout = () => {
     }
 }
 
+export const RemoveRefreshToken = () => {
+    return async function(dispatch) {
+        localStorage.setItem(constants.UserAuth, JSON.stringify(initialState.userAuth));
+        dispatch(LoginSuccesfull(initialState.userAuth));
+        return true;
+    }
+}
+
 export const LogIn = (model) => {
     return async function(dispatch) {
         var flag = false;
