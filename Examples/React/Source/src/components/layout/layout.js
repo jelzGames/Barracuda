@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom';
 import * as usersAction from "../../redux/actions/userAuthActions";
 import PostMessageHoc from "../../helpers/postMessageHelper";
+import initialState from "../../redux/reducers/initialState";
 
 const useStyles = theme => ({
   root: {
@@ -29,9 +30,8 @@ export class Layout extends React.Component {
   }
 
   componentDidUpdate(prevState){
-     console.log(this.props.communicationState)
     if(prevState.communicationState !== this.props.communicationState){
-     
+      this.props.actions.LoginSuccesfull(initialState.userAuth);
     }
   }
  
@@ -80,12 +80,14 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
       actions: {
-        GetUserAuth: bindActionCreators(usersAction.GetUserAuth, dispatch)
+        GetUserAuth: bindActionCreators(usersAction.GetUserAuth, dispatch),
+        LoginSuccesfull: bindActionCreators(usersAction.LoginSuccesfull, dispatch)
       }
   };
 };
 
 export default compose(
+  PostMessageHoc,
   withRouter,
   withStyles(useStyles, { withTheme: true }),
   connect(mapStateToProps, mapDispatchToProps)

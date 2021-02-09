@@ -6,8 +6,8 @@ const PostMessageHoc = (Component) => {
     const WrappedComponent = (props) => {
         const [communicationState, postMessage] = useBrowserContextCommunication("channel");
        
-        console.log(communicationState)
         return <Component 
+        {...props}
         communicationState = {communicationState}
         postMessage = {postMessage}
         />;

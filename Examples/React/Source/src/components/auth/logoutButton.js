@@ -17,7 +17,7 @@ export class LogoutButton extends React.Component{
     let RemoveRefreshToken = this.props.actions.RemoveRefreshToken();
     return Promise.all([Logout, RemoveRefreshToken])
       .then((result) => {
-        this.props.postMessage("usersReactBarracuda")
+        this.props.postMessage("BarracudaLogout")
       })
       .catch((error) => {
         console.log(error)
@@ -51,6 +51,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default compose(
+  PostMessageHoc,
   withRouter,
   withStyles(useStyles, { withTheme: true }),
   connect(mapStateToProps, mapDispatchToProps)
