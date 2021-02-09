@@ -3,7 +3,7 @@ const reduxData = {
         id: null,
         email: null,
         validEmail: null,
-        scopes: {},
+        scopes: [],
         tenants: []
     }
 }

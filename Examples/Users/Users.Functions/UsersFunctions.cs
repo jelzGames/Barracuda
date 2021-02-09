@@ -110,7 +110,7 @@ namespace Users.Functions
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "users/GetAll")] HttpRequestMessage req,
             HttpRequest request, ILogger log, CancellationToken cancellationToken)
         {
-            var resultAuth = validAdmin(req, request, new List<string>() { "users.read" });
+            var resultAuth = validAdmin(req, request, new List<string>() { "users.list" });
             if (!resultAuth.Success)
             {
                 return new BadRequestObjectResult(resultAuth.Message);

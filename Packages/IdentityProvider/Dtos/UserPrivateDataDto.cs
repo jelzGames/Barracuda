@@ -13,5 +13,11 @@ namespace Barracuda.Indentity.Provider.Dtos
         public string RefreshToken { get; set; }
         public List<string> Scopes { get; set; }
         public List<string> Tenants { get; set; }
+
+        public UserPrivateDataDto()
+        {
+            Scopes = Scopes != null ? Scopes : new List<string>();
+            Tenants = Tenants != null ? Tenants : new List<string>();
+        }
     }
 }

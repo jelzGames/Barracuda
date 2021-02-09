@@ -73,11 +73,7 @@ export const LogIn = (model) => {
 
 const setUserAuth = async(result, dispatch) => {
     await tokenRefresh();
-    var userAuth = {...initialState.userAuth};
-    userAuth.id = result.id;
-    userAuth.email = result.email;
-    userAuth.validEmail= result.validEmail;
-    setAuht(userAuth, dispatch);
+    setAuht(result, dispatch);
 }
 
 const tokenRefresh = async() => {

@@ -10,6 +10,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import { withStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link"
+import { ValidScopes } from "../../helpers/scopesHelper";
 
 const useStyles = theme => ({
     nested: {
@@ -43,10 +44,15 @@ export class ListItems extends React.Component {
         return (
             <Collapse in={this.state[key]} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                    {item.map((item, idx) => 
-                        <ListItem key={"item"+idx} button className={classes.nested}>
+                    {item.map((item, idx) => {
+                        if(ValidScopes(item.scope)){
+                            return (
+                                <ListItem key={"item"+idx} button className={classes.nested}>
                             <Link href={item.path}><ListItemText primary={item.name} /></Link>                      
-                        </ListItem>
+                            </ListItem> 
+                            )                            
+                        }
+                    }       
                     )}
                 </List>
             </Collapse>
@@ -62,18 +68,21 @@ export class ListItems extends React.Component {
     renderModules = () => {
         const items = [];
         const {handleDrawerOpen} = this.props;
-        this.state.items.forEach((value, key) => items.push(
-            <Fragment key={key}>
-                <ListItem button onClick={() => this.handleClick(key)} >
-                    <ListItemIcon onClick={handleDrawerOpen}>
-                        {itemsFile.icons.find((e) => e.id === key).icon}
-                    </ListItemIcon>
-                    <ListItemText primary={key} />
-                    {this.state[key] ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
-                {this.renderItems(value, key)}
-            </Fragment>
-        ));
+        this.state.items.forEach((value, key) => {
+            items.push(
+                <Fragment key={key}>
+                    <ListItem button onClick={() => this.handleClick(key)} >
+                        <ListItemIcon onClick={handleDrawerOpen}>
+                            {itemsFile.icons.find((e) => e.id === key).icon}
+                        </ListItemIcon>
+                        <ListItemText primary={key} />
+                        {this.state[key] ? <ExpandLess /> : <ExpandMore />}
+                    </ListItem>
+                    {this.renderItems(value, key)}
+                </Fragment>
+            )
+        }  
+        );
         
         return items;
     }

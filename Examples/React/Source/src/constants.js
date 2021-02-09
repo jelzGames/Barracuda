@@ -7,6 +7,8 @@ export const Found = "Found";
 export const SecurityTokenExpired = "SecurityTokenExpired";
 export const NotValidEmailConfirmation = "NotValidEmailConfirmation"
 export const ValidateTokenConfirmEmailExpired = "ValidateTokenConfirmEmailExpired"
+export const BarracudaSesion = "BarracudaSesion"
+export const BOAAdmin = "BOAAdmin" //reserved word exclusive Barracuda for SuperAdmin Scope.
 
 export const permissionFile = {
     Read: "Read",

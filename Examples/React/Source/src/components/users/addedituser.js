@@ -56,19 +56,31 @@ export class AddUsers extends React.Component {
 
 
     componentDidMount(){
+        this.loadUser();
+    }
+
+    loadUser = async() => {
         if (this.state.id !== constant.add) {
-            usersApi.Get(this.state.userid)
+            this.setState({
+                isloading: true
+            });
+            await usersApi.Get(this.state.userid)
             .then((result) => {
                 this.setState({
                     userid: result.id,
                     name: result.name,
-                    username: result.username
+                    username: result.username,
+                    scopes: result.scopes,
+                    tenants: result.tenants
                 })
             })
             .catch((error) => {
                 console.log(error)
             }) 
-        }   
+            this.setState({
+                isloading: false
+            });
+        } 
     }
 
     handleChange = (e) => {
@@ -148,10 +160,10 @@ export class AddUsers extends React.Component {
                     id: id,
                     email: this.state.email,
                     validEmail: true,
-                    Scopes: this.state.scopes,
-                    tenants: this.state.tenants
+                    scopes: this.state.scopes.split(","),
+                    tenants: this.state.tenants.split(",")
                 }
-                await usersAuthApi.Scopes(modelScope)
+                await usersAuthApi.UpdateScopes(modelScope)
                 .then((result) => {
                 })
                 .catch((error) => {
@@ -160,7 +172,7 @@ export class AddUsers extends React.Component {
                 })
             }
             if(flag){
-                await usersAuthApi.Tenants(modelScope)
+                await usersAuthApi.UpdateTenants(modelScope)
                 .then((result) => {
                     alert("The user has been created");
                 })

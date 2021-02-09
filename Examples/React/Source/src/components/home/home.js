@@ -4,8 +4,10 @@ export class Home extends React.Component{
 
     render(){
         return(
-            <div>
-                hola
+            <div style={{alignItems: "center"}}>
+                <h2>
+                   Welcome to Barracuda Examples 
+                </h2>               
             </div>
         )
     }

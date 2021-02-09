@@ -122,14 +122,14 @@ export const ChangePasswordToUser = async(model, cancelToken) => {
         .catch(handleError);
 };
 
-export const Tenants = async(model, cancelToken) => {
+export const UpdateTenants = async(model, cancelToken) => {
     const options = getRequestOptions(cancelToken);
     return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/UpdateTenants`, model, options)
         .then(handleResponse)
         .catch(handleError);
 };
 
-export const Scopes = async(model, cancelToken) => {
+export const UpdateScopes = async(model, cancelToken) => {
     const options = getRequestOptions(cancelToken);
     return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/UpdateScopes`, model, options)
         .then(handleResponse)

@@ -145,14 +145,14 @@
       },
       "backendUri": "%Host_UserSecrets%/permissions/UpdateScopes"
     },
-    "UserSecretsTenants": {
+    "UserSecretsUpdateTenants": {
       "matchCondition": {
-        "route": "api/permissions/Tenants",
+        "route": "api/permissions/UpdateTenants",
         "methods": [
           "POST"
         ]
       },
-      "backendUri": "%Host_UserSecrets%/permissions/Tenants"
+      "backendUri": "%Host_UserSecrets%/permissions/UpdateTenants"
     },
     "UserSecretsChangePasswordToUser": {
       "matchCondition": {

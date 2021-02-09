@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom';
 import * as usersAction from "../../redux/actions/userAuthActions";
 import PostMessageHoc from "../../helpers/postMessageHelper";
-import initialState from "../../redux/reducers/initialState";
+import * as constants from "../../constants";
 
 const useStyles = theme => ({
   root: {
@@ -30,8 +30,8 @@ export class Layout extends React.Component {
   }
 
   componentDidUpdate(prevState){
-    if(prevState.communicationState !== this.props.communicationState){
-      this.props.actions.LoginSuccesfull(initialState.userAuth);
+    if(constants.BarracudaSesion === this.props.communicationState.lastMessage){
+      window.location.reload();
     }
   }
  

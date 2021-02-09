@@ -467,7 +467,7 @@ namespace UsersSecrets.Functions
             return new OkObjectResult(dataResult.Value);
         }
 
-        [FunctionName("Scopes")]
+        [FunctionName("UpdateScopes")]
         public async Task<IActionResult> UpdateScopes(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/UpdateScopes")] HttpRequestMessage req,
             ILogger log, HttpRequest request)
@@ -497,7 +497,7 @@ namespace UsersSecrets.Functions
             return new OkObjectResult(dataResult.Value);
         }
 
-        [FunctionName("Tenants")]
+        [FunctionName("UpdateTenants")]
         public async Task<IActionResult> UpdateTenants(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/UpdateTenants")] HttpRequestMessage req,
             ILogger log, HttpRequest request)

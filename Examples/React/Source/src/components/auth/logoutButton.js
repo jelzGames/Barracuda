@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import { bindActionCreators, compose } from "redux";
 import { connect } from "react-redux";
 import PostMessageHoc from "../../helpers/postMessageHelper";
+import * as constants from "../../constants";
 
 const useStyles = (theme) => ({
 
@@ -17,7 +18,7 @@ export class LogoutButton extends React.Component{
     let RemoveRefreshToken = this.props.actions.RemoveRefreshToken();
     return Promise.all([Logout, RemoveRefreshToken])
       .then((result) => {
-        this.props.postMessage("BarracudaLogout")
+        this.props.postMessage(constants.BarracudaSesion);
       })
       .catch((error) => {
         console.log(error)
