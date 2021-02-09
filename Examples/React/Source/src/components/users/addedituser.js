@@ -37,20 +37,10 @@ export class AddUsers extends React.Component {
             email: "",
             name: '',
             username: '',
-            country: "",
-            countryIdx: "",
             newPassword: "",
             isloading: false,
-            items: [
-                {
-                    id: "USA",
-                    name: "America"
-                },
-                {
-                    id: "MX",
-                    name: "Mexico"
-                },
-            ],
+            tenants: "",
+            scopes: "",
             validations: {
                 "password": {
                     validation: () =>  { return this.state.id === constant.add ? this.state.newPassword.trim() === "" : false},
@@ -97,7 +87,9 @@ export class AddUsers extends React.Component {
             "id": id,
             "name": this.state.name,
             "username": this.state.username,
-            "email": this.state.email
+            "email": this.state.email,
+            "tenants": this.state.tenants,
+            "scopes": this.state.scopes
         }
         if (this.state.id === constant.add) {
             var flag = false;
@@ -144,12 +136,38 @@ export class AddUsers extends React.Component {
                     }
                     await usersAuthApi.AddUser(Authmodel)
                     .then((result) => {
-                        alert("The user has been created");
                     })
                     .catch((error) => {
+                        flag = false;
                         console.log(error)
                     })
                 }
+            }
+            if(flag){
+                var modelScope = {
+                    id: id,
+                    email: this.state.email,
+                    validEmail: true,
+                    Scopes: this.state.scopes,
+                    tenants: this.state.tenants
+                }
+                await usersAuthApi.Scopes(modelScope)
+                .then((result) => {
+                })
+                .catch((error) => {
+                    flag = false;
+                    console.log(error);
+                })
+            }
+            if(flag){
+                await usersAuthApi.Tenants(modelScope)
+                .then((result) => {
+                    alert("The user has been created");
+                })
+                .catch((error) => {
+                    flag = false;
+                    console.log(error);
+                })
             }
         }
         else {
@@ -183,7 +201,7 @@ export class AddUsers extends React.Component {
     render() {
         const { handleChange, handleSave, validaData} = this;
         const { classes } = this.props;
-        const { name, username, userid, validations, newPassword, isloading, email } = this.state;
+        const { name, username, userid, validations, newPassword, isloading, email, tenants, scopes } = this.state;
         return(
             <Fragment>
                 {isloading && 
@@ -240,6 +258,20 @@ export class AddUsers extends React.Component {
                             id={"username"} 
                             value={username} 
                             label={"Username"} 
+                            handleChange={handleChange}
+                        />
+
+                        <CustomTextField 
+                            id={"tenants"} 
+                            value={tenants} 
+                            label={"Tenants"} 
+                            handleChange={handleChange}
+                        />
+
+                        <CustomTextField 
+                            id={"scopes"} 
+                            value={scopes} 
+                            label={"Scopes"} 
                             handleChange={handleChange}
                         />
 

@@ -517,7 +517,7 @@ namespace UsersSecrets.Functions
                 return new BadRequestObjectResult(_errors.ValuesNotValid);
             }
 
-            var dataResult = await _controller.UpdateScopes(data.Id, data.Tenants);
+            var dataResult = await _controller.UpdateTenants(data.Id, data.Tenants);
 
             if (!dataResult.Success)
             {
