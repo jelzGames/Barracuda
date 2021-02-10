@@ -61,7 +61,6 @@ export class CustomChangePassword extends React.Component {
             });
       }
       else if(userModel){
-        console.log(userModel)
         model = {
             id: userModel.id,
             email: userModel.email,

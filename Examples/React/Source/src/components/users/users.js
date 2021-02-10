@@ -16,6 +16,7 @@ import { Grid } from '@material-ui/core';
 import { CustomButton } from '../common/customButton';
 import CustomModal from '../common/customModal';
 import CustomChangePassword from '../common/customChangePassword';
+import {ValidScopes} from "../../helpers/scopesHelper";
 
 
 const useStyles = theme => ({
@@ -182,7 +183,7 @@ export class Users extends React.Component {
                                     <TableCell align="center">{element.name}</TableCell>
                                     <TableCell align="center">{element.username}</TableCell>
                                     <TableCell align="center">
-                                        <Button color="primary" variant="contained" onClick={(e) => this.handleOpen(element.id)}>Edit</Button>{"  "}
+                                        <Button disabled={!ValidScopes("users.edit")} color="primary" variant="contained" onClick={(e) => this.handleOpen(element.id)}>Edit</Button>{"  "}
                                         <Button color="secondary" variant="contained" onClick={(e) => this.handleModalDelete(element.id)}>Delete</Button>{" "}
                                         <Button variant="contained" onClick={(e) => this.handleModalPassword(element)}>Change Password</Button>
                                     </TableCell>

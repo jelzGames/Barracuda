@@ -559,6 +559,31 @@ namespace UsersSecrets.Functions
             return new OkObjectResult(dataResult.Value);
         }
 
+        [FunctionName("GetAdditional")]
+        public async Task<IActionResult> GetAdditional(
+           [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "permissions/GetAdditional/{id}")] HttpRequestMessage req,
+          string id, ILogger log, HttpRequest request)
+        {
+            var resultAuth = validAdmin(req, request, new List<string>() { "admin.update" });
+            if (!resultAuth.Success)
+            {
+                return new BadRequestObjectResult(resultAuth.Message);
+            }
+
+            if (String.IsNullOrEmpty(id))
+            {
+                return new BadRequestObjectResult(_errors.ValuesNotValid);
+            }
+
+            var dataResult = await _controller.GetAdditional(id);
+
+            if (!dataResult.Success)
+            {
+                return new BadRequestObjectResult(dataResult.Message);
+            }
+
+            return new OkObjectResult(dataResult.Value);
+        }
         /// <summary>
         /// end administrative
         /// </summary>

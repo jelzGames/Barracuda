@@ -523,5 +523,10 @@ namespace Barracuda.Indentity.Provider.Services
         {
             return await _services.CheckEmail(email);
         }
+
+        public async Task<Result<AdditionalModel>> GetAdditional(string id)
+        {
+            return await _services.GetAdditional(id);
+        }
     }
 }
