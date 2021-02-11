@@ -1,22 +1,17 @@
 import React from 'react';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/styles';
-import Button from '@material-ui/core/Button';
 import * as usersApi from "../../api/usersApi";
 import CustomSpinner from '../common/customSpinner';
 import { Fragment } from 'react';
 import * as usersAuthApi from "../../api/usersAuthApi";
 import { Grid } from '@material-ui/core';
-import { CustomButton } from '../common/customButton';
+import CustomButton from '../common/customButton';
 import CustomModal from '../common/customModal';
 import CustomChangePassword from '../common/customChangePassword';
 import {ValidScopes} from "../../helpers/scopesHelper";
+import CustomList from "../common/customList";
+import CustomIcon from '../common/customIcon';
+import * as icons from "../libraries/icons";
 
 
 const useStyles = theme => ({
@@ -27,7 +22,7 @@ const useStyles = theme => ({
         backgroundColor: "transparent",
         padding: theme.spacing(0, 0, 0),
         border: 'none'
-    }
+    },
   });
 
 export class Users extends React.Component {
@@ -154,8 +149,60 @@ export class Users extends React.Component {
         )
     }
 
+    renderHeadCells = (element) => {
+        const { classes } = this.props;
+        return(
+            <Grid className={classes.table} item xs={3} >
+                {element.title}
+            </Grid>
+        )
+    }
+
+    renderTableList = () => {
+        const { renderHeadCells, renderBodyCells } = this;
+        const { data } = this.state;
+        var headFile = [
+            {
+                title: "ID",
+                size: 1
+            },
+            {
+                title: "Name",
+                size: 2
+            },
+            {
+                title: "Username",
+                size: 3
+            },
+            {
+                title: "Actions",
+                size: 4
+            }
+        ]
+        return(
+            <CustomList headCell={renderHeadCells} bodyCells={renderBodyCells} files={data} headFile={headFile} />
+        )
+    }
+
+    renderBodyCells = (row) => {
+        const { classes } = this.props;
+        const { handleOpen, handleModalDelete, handleModalPassword, handleBlockUser } = this;
+        return(
+            <Fragment>
+                <Grid className={classes.table} item xs={3} >{row.id}</Grid>
+                <Grid className={classes.table} item xs={3} >{row.name}</Grid>
+                <Grid className={classes.table} item xs={3} >{row.username}</Grid>
+                <Grid className={classes.table} item xs={3} >
+                    <CustomIcon Icon={icons.icon.EditIcon} disabled={!ValidScopes("users.edit")} handleClick={(e) => handleOpen(row.id)}/>
+                    <CustomIcon Icon={icons.icon.DeleteIcon} disabled={!ValidScopes("users.delete")} color={"secondary"} handleClick={(e) => handleModalDelete(row.id)} />
+                    <CustomIcon Icon={icons.icon.VpnKeyIcon} disabled={!ValidScopes("users.changePassword")} handleClick={(e) => handleModalPassword(row)} />
+                </Grid>
+            </Fragment>
+        )
+    }
+
     render() {
-        const { data, isloading, openModalDelete, openModalPassword } = this.state;
+        const { isloading, openModalDelete, openModalPassword } = this.state;
         const { classes } = this.props;
         const {handleOpen } = this;
         return (
@@ -163,42 +210,20 @@ export class Users extends React.Component {
                 {isloading && 
                     <CustomSpinner open={true} paperClass={classes.spinnerPaper} />
                 }
-                <Button variant='contained' color='primary' onClick={(e) => handleOpen("new")}>
-                Add New User
-                </Button><br/><br/>
-                <TableContainer component={Paper}>
-                    <Table className={classes.table}>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center">ID</TableCell>
-                                <TableCell align="center">Name</TableCell>
-                                <TableCell align="center">Username</TableCell>
-                                <TableCell align="center">Actions</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>                       
-                            {data.map((element, idx) => (
-                                <TableRow key={"userlist" + idx}>
-                                    <TableCell align="center">{element.id}</TableCell>
-                                    <TableCell align="center">{element.name}</TableCell>
-                                    <TableCell align="center">{element.username}</TableCell>
-                                    <TableCell align="center">
-                                        <Button disabled={!ValidScopes("users.edit")} color="primary" variant="contained" onClick={(e) => this.handleOpen(element.id)}>Edit</Button>{"  "}
-                                        <Button color="secondary" variant="contained" onClick={(e) => this.handleModalDelete(element.id)}>Delete</Button>{" "}
-                                        <Button variant="contained" onClick={(e) => this.handleModalPassword(element)}>Change Password</Button>
-                                    </TableCell>
-                                </TableRow> 
-                            )) 
-                            }
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                <div style={{padding: "20px"}}>
+                   <CustomButton
+                        content={"Add New User"}
+                        color={"primary"}
+                        handleClick={(e) => handleOpen("new")}
+                    /> 
+                </div>                
+                {this.renderTableList()}
                 <CustomModal modal={openModalDelete}
                     item={this.renderModalDelete()}
                 />
                 <CustomModal modal={openModalPassword} handleCloseModal={this.handleModalClose} 
                         item={<CustomChangePassword userModel={this.state.usermodel} />}
-                    /> 
+                    />        
             </Fragment>
         )
     }

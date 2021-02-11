@@ -58,5 +58,10 @@ namespace Barracuda.Indentity.Provider.Services
         {
             return await _repository.GetAdditional(id);
         }
+
+        public async Task<Result<string>> BlockUser(UserPrivateDataModel model)
+        {
+            return await _repository.BlockUser(model);
+        }
     }
 }

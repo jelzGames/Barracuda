@@ -31,5 +31,6 @@ namespace Barracuda.Indentity.Provider.Interfaces
         Task<Result<string>> ValidateRegisterEmail(string email);
         Task<Result<string>> CheckEmail(string email);
         Task<Result<AdditionalModel>> GetAdditional(string id);
+        Task<Result<string>> BlockUser(string id, bool Block);
     }
 }

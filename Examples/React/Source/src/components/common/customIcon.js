@@ -21,15 +21,12 @@ export class CustomIcon extends React.Component{
     render(){
       const { Icon, color, fontSize, handleClick, disabled, classes, newClass } = this.props;
       return(
-        <div className={`${classes.root} ${newClass}`}>
           <IconButton onClick={handleClick} disabled={disabled} color={color === "inherit" ? color : "primary"} >
             <Icon
               color={color ? color : "primary"}
               fontSize={fontSize}
             />
-          </IconButton> 
-        </div>
-            
+          </IconButton>   
       )
     }
 }

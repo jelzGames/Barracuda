@@ -467,6 +467,7 @@ namespace Barracuda.Indentity.Provider.Services
                 {
                     result.Scopes = model.Scopes;
                     result.Tenants = model.Tenants;
+                    result.Block = model.Block;
                 }
                 ok = true;
             }
@@ -480,6 +481,33 @@ namespace Barracuda.Indentity.Provider.Services
             }
 
             return _result.Create(ok, message, result);
+        }
+
+        public async Task<Result<string>> BlockUser(UserPrivateDataModel model)
+        {
+            bool ok = false;
+            string message = "";
+
+            try
+            {
+                model.ExpirationBlock = DateTime.UtcNow.AddYears(100);
+                model.TimeModified = DateTime.Now;
+                var key = new PartitionKey(_partitionId);
+                await RepositoryContainer.ReplaceItemAsync<UserPrivateDataModel>(model, model.id, key,
+                    new ItemRequestOptions { });
+
+                ok = true;
+            }
+            catch (CosmosException ex)
+            {
+                message = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+
+            return _result.Create(ok, message, "");
         }
     }
 }

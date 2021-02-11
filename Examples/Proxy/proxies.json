@@ -172,6 +172,15 @@
       },
       "backendUri": "%Host_UserSecrets%/permissions/GetAdditional/{id}"
     },
+    "UserSecretsBlockUser": {
+      "matchCondition": {
+        "route": "api/permissions/BlockUser",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/BlockUser"
+    },
     "openApiDemosGetAll": {
       "matchCondition": {
         "route": "api/openApiDemos/GetAll",

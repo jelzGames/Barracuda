@@ -204,7 +204,7 @@ export class TopBar extends React.Component {
                   </IconButton>
                   
                   <Typography onClick={() => this.props.history.push("/")} style={{cursor: "pointer"}} component="h6" variant="h6" noWrap className={classes.title}>
-                      demo
+                      Home
                   </Typography>
                   <IconButton
                     aria-label="account of current user"
