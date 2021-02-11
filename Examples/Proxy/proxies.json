@@ -28,15 +28,6 @@
       },
       "backendUri": "%Host_UserSecrets%/permissions/Logout"
     },
-    "UserSecretsRemoveRefreshToken": {
-      "matchCondition": {
-        "route": "api/permissions/RemoveRefreshToken",
-        "methods": [
-          "GET"
-        ]
-      },
-      "backendUri": "%Host_UserSecrets%/permissions/RemoveRefreshToken"
-    },
     "UserSecretsChangePassword": {
       "matchCondition": {
         "route": "api/permissions/ChangePassword",

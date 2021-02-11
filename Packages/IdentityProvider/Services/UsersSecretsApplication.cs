@@ -89,11 +89,6 @@ namespace Barracuda.Indentity.Provider.Services
             return new LoginDto();
         }
 
-        public void RemoveRefreshToken(HttpRequest request)
-        {
-            EndToken(request, _settingsSecrets.CookieRefreshToken, _settingsSecrets.CookieRefreshTokenPath, new UserPrivateDataDto());
-        }
-
         public async Task<Result<LoginDto>> Refresh(string token, string refreshToken, HttpRequest request, bool remove = false)
         {
             var result = await ValidRefreshToken(token, refreshToken);

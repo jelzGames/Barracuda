@@ -16,7 +16,6 @@ namespace Barracuda.Indentity.Provider.Interfaces
         Task<Result<string>> UpdateTenants(string id, List<string> tenants);
         Task<Result<LoginDto>> Login(string email, string password, HttpRequest request);
         LoginDto Logout(HttpRequest request);
-        void RemoveRefreshToken(HttpRequest request);
         Task<Result<LoginDto>> Refresh(string token, string refreshToken, HttpRequest request, bool remove);
         Task<Result<LoginDto>> RefreshToken(string id, string email, HttpRequest request);
         Task<Result<LoginDto>> GoogleValidateToken(dynamic data, HttpRequest request);

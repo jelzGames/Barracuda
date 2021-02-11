@@ -133,23 +133,6 @@ namespace UsersSecrets.Functions
             return new OkObjectResult(logout);
         }
 
-        [FunctionName("RemoveRefreshToken")]
-        public IActionResult RemoveRefreshToken(
-           [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "permissions/RemoveRefreshToken")] HttpRequestMessage req,
-           HttpRequest request, ILogger log)
-        {
-            var resultAuth = validAuthorized(req, request);
-            if (!resultAuth.Success)
-            {
-                return new UnauthorizedResult();
-            }
-
-            _controller.RemoveRefreshToken(request);
-
-            return new OkObjectResult("ok");
-        }
-
-
         [FunctionName("RefreshToken")]
         public async Task<IActionResult> RefreshToken(
            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/RefreshToken")] HttpRequestMessage req,
