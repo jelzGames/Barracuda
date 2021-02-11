@@ -26,6 +26,7 @@ namespace Barracuda.Indentity.Provider.Services
         private readonly IErrorMessages _errors;
         private readonly ISettingsTokens _settingsTokens;
         private readonly ISettingsUserSecrests _settingsSecrets;
+        private readonly IUserInfo _userInfo;
 
         public UsersSecretsApplication(
             IUsersSecretsDomain services,
@@ -37,7 +38,8 @@ namespace Barracuda.Indentity.Provider.Services
             IResult result,
             IErrorMessages errors,
             ISettingsTokens settingsTokens,
-            ISettingsUserSecrests settingsSecrets
+            ISettingsUserSecrests settingsSecrets,
+            IUserInfo userInfo
         )
         {
             _services = services;
@@ -50,6 +52,7 @@ namespace Barracuda.Indentity.Provider.Services
             _errors = errors;
             _settingsSecrets = settingsSecrets;
             _settingsTokens = settingsTokens;
+            _userInfo = userInfo;
         }
 
         public async Task<Result<string>> Register(string userid, string email, string password, bool validEmail = false)
@@ -91,7 +94,7 @@ namespace Barracuda.Indentity.Provider.Services
             EndToken(request, _settingsSecrets.CookieRefreshToken, _settingsSecrets.CookieRefreshTokenPath, new UserPrivateDataDto());
         }
 
-        public async Task<Result<LoginDto>> Refresh(string token, string refreshToken, HttpRequest request)
+        public async Task<Result<LoginDto>> Refresh(string token, string refreshToken, HttpRequest request, bool remove = false)
         {
             var result = await ValidRefreshToken(token, refreshToken);
             if (!result.Success)
@@ -99,11 +102,56 @@ namespace Barracuda.Indentity.Provider.Services
                 return _result.Create<LoginDto>(false, _errors.NotAuthorized, null);
             }
 
-            var dataResult = GetToken(result.Value);
+            if (!remove)
+            {
+                var dataResult = GetToken(result.Value);
 
-            var login = EndToken(request, _settingsTokens.CookieToken, _settingsSecrets.CookieTokenPath, dataResult.Value);
+                var login = EndToken(request, _settingsTokens.CookieToken, _settingsSecrets.CookieTokenPath, dataResult.Value);
 
-            return _result.Create(true, "", login);
+                return _result.Create(true, "", login);
+            }
+
+            await DeleteRefreshToken(refreshToken);
+
+            EndToken(request, _settingsSecrets.CookieRefreshToken, _settingsSecrets.CookieRefreshTokenPath, new UserPrivateDataDto());
+
+            return _result.Create<LoginDto>(true, "", new LoginDto());
+        }
+
+        private async Task DeleteRefreshToken(string refreshToken)
+        {
+            var RefreshTokenHashed = _crypto.GetStringSha256Hash(refreshToken + _settings.SecretKey);
+
+            if (!_settings.RedisCacheSecurity)
+            {
+                var result = await _services.GetSecrets(_userInfo.UserId);
+
+                if (result.Success)
+                {
+                    var idx = result.Value.RefreshTokens.FindIndex((e) => e.Token == RefreshTokenHashed);
+                    if (idx > -1)
+                    {
+                        result.Value.RefreshTokens.RemoveAt(idx);
+                        await _services.Update(result.Value);
+                    }
+                }
+            }
+            else
+            {
+                List<RefreshTokensModel> queryTokens = new List<RefreshTokensModel>();
+                var tokens = await _redisCache.GetSringValue(_userInfo.UserId);
+                if (!String.IsNullOrEmpty(tokens))
+                {
+                    queryTokens = JsonConvert.DeserializeObject<List<RefreshTokensModel>>(tokens);
+                    var idx = queryTokens.FindIndex((e) => e.Token == RefreshTokenHashed);
+                    if (idx > -1)
+                    {
+                        queryTokens.RemoveAt(idx);
+                        var jsonString = JsonConvert.SerializeObject(queryTokens);
+                        await _redisCache.SetStringValue(_userInfo.UserId, jsonString);
+                    }
+                }
+            }
         }
 
         public async Task<Result<LoginDto>> RefreshToken(string id, string email, HttpRequest request)
@@ -267,7 +315,7 @@ namespace Barracuda.Indentity.Provider.Services
         {
             List<RefreshTokensModel> queryTokens = new List<RefreshTokensModel>();
             var tokens = await _redisCache.GetSringValue(id);
-            if (String.IsNullOrEmpty(tokens))
+            if (!String.IsNullOrEmpty(tokens))
             {
                 queryTokens = JsonConvert.DeserializeObject<List<RefreshTokensModel>>(tokens);
             }

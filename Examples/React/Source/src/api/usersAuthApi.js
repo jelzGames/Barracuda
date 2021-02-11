@@ -31,9 +31,9 @@ export const RemoveRefreshToken = async(cancelToken) => {
         .catch(handleError);
 };
 
-export const Refresh = async(model, cancelToken) => {
+export const Refresh = async(remove, cancelToken) => {
     const options = getRequestOptions(cancelToken);
-    return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/Refresh`, model, options)
+    return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/Refresh?remove=${remove}`, null, options)
         .then(handleResponse)
         .catch(handleError);
 };

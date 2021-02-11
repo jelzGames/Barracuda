@@ -182,7 +182,10 @@ namespace UsersSecrets.Functions
                 return new BadRequestObjectResult(_errors.NotAuthorized);
             }
 
-            var dataResult = await _controller.Refresh(validToken.Token, validToken.RefreshToken, request);
+            var remove = req.RequestUri.ParseQueryString().Get("remove");
+            var flag = remove == null ? false : Convert.ToBoolean(remove); 
+
+            var dataResult = await _controller.Refresh(validToken.Token, validToken.RefreshToken, request, flag);
 
             if (!dataResult.Success)
             {
