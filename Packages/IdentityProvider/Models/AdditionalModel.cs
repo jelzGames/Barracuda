@@ -8,6 +8,7 @@ namespace Barracuda.Indentity.Provider.Models
     {
        public List<string> Scopes { get; set; }
        public List<string> Tenants { get; set; }
+       public bool Block { get; set; }
 
         public AdditionalModel()
         {

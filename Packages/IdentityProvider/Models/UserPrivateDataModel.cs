@@ -1,4 +1,5 @@
 ﻿using Barracuda.Indentity.Provider.Models;
+using System;
 using System.Collections.Generic;
 
 namespace Barracuda.Indentity.Provide.Models
@@ -11,6 +12,8 @@ namespace Barracuda.Indentity.Provide.Models
         public bool ValidEmail { get; set; }
         public List<string> Scopes { get; set; }
         public List<string> Tenants { get; set; }
+        public bool Block { get; set; }
+        public DateTime ExpirationBlock { get; set; }
 
         public UserPrivateDataModel()
         {

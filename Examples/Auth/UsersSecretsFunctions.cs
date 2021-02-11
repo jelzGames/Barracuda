@@ -584,6 +584,36 @@ namespace UsersSecrets.Functions
 
             return new OkObjectResult(dataResult.Value);
         }
+
+        [FunctionName("BlockUser")]
+        public async Task<IActionResult> BlockUser(
+           [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/BlockUser")] HttpRequestMessage req,
+           ILogger log, HttpRequest request)
+        {
+            var resultAuth = validAdmin(req, request, new List<string>() { "admin.block" });
+            if (!resultAuth.Success)
+            {
+                return new BadRequestObjectResult(resultAuth.Message);
+            }
+
+            LoginDto data = await req.Content.ReadAsAsync<LoginDto>();
+
+            var id = data.Id == null ? "" : data.Id;
+
+            if (String.IsNullOrEmpty(id))
+            {
+                return new BadRequestObjectResult(_errors.ValuesNotValid);
+            }
+
+            var dataResult = await _controller.BlockUser(data.Id, data.Block);
+
+            if (!dataResult.Success)
+            {
+                return new BadRequestObjectResult(dataResult.Message);
+            }
+
+            return new OkObjectResult(dataResult.Value);
+        }
         /// <summary>
         /// end administrative
         /// </summary>

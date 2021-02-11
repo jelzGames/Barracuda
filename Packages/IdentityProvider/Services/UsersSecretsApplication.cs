@@ -375,14 +375,18 @@ namespace Barracuda.Indentity.Provider.Services
         public LoginDto EndToken(HttpRequest request, string cookie, string path, UserPrivateDataDto model)
         {
             SetCookie(request.HttpContext.Response.Cookies, cookie, model.Token, path);
-
+            if(model.Block && DateTime.Now >= model.ExpirationLock)
+            {
+                model.Block = false;
+            }
             return new LoginDto()
             {
                 Id = model.Id,
                 Email = model.Email,
                 ValidEmail = model.ValidEmail,
                 Scopes = model.Scopes,
-                Tenants = model.Tenants
+                Tenants = model.Tenants,
+                Block = model.Block
             };
         }
 
@@ -527,6 +531,25 @@ namespace Barracuda.Indentity.Provider.Services
         public async Task<Result<AdditionalModel>> GetAdditional(string id)
         {
             return await _services.GetAdditional(id);
+        }
+
+        public async Task<Result<string>> BlockUser(string id, bool Block)
+        {
+            var result = await _services.GetSecrets(id);
+            if (!result.Success)
+            {
+                return _result.Create<string>(false, result.Message, null);
+            }
+
+            result.Value.Block = Block;
+
+            var resultUpdate = await _services.BlockUser(result.Value);
+            if (!resultUpdate.Success)
+            {
+                return _result.Create<string>(false, resultUpdate.Message, null);
+            }
+
+            return _result.Create(true, "", "");
         }
     }
 }

@@ -143,6 +143,13 @@ export const GetAdditional = async(id, cancelToken) => {
         .catch(handleError);
 };
 
+export const BlockUser = async(model, cancelToken) => {
+    const options = getRequestOptions(cancelToken);
+    return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/BlockUser`, model, options)
+        .then(handleResponse)
+        .catch(handleError);
+};
+
 // End Administrative
 
 //Generic

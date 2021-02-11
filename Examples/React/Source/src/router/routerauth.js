@@ -13,7 +13,7 @@ const RequireUserComponent = ({ component, ...rest }) => {
     if (userAuth !== "undefined") {
       userAuth = JSON.parse(userAuth);
     }
-    if (Component && userAuth && userAuth.id  && userAuth.validEmail) {
+    if (Component && userAuth && userAuth.id  && userAuth.validEmail && !userAuth.block) {
       return <div>
               <Component {...props} />
              </div>;

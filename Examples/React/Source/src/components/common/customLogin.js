@@ -645,7 +645,7 @@ export class CustomLogin extends React.Component{
         const { isloading } = this.state;
         return(
             <Fragment>
-                    {(!userAuth || !userAuth.id || !userAuth.validEmail) && 
+                    {(!userAuth || !userAuth.id || !userAuth.validEmail || userAuth.block) && 
                         <Container >
                             {renderForm()} 
                             {isloading && 
