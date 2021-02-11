@@ -1,4 +1,5 @@
 ﻿using Barracuda.Indentity.Provider.Dtos;
+using Barracuda.Indentity.Provider.Models;
 using Barracuda.Indentity.Provider.Services;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
@@ -29,5 +30,6 @@ namespace Barracuda.Indentity.Provider.Interfaces
         string ForgotPasswordOrRegister(string email);
         Task<Result<string>> ValidateRegisterEmail(string email);
         Task<Result<string>> CheckEmail(string email);
+        Task<Result<AdditionalModel>> GetAdditional(string id);
     }
 }

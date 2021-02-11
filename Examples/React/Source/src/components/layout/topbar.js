@@ -104,7 +104,6 @@ export class TopBar extends React.Component {
     this.setState({
       anchorEl: false
     })
-    this.props.history.push(`/profile`)
   };
 
   handleModalPassword = () => {
@@ -131,7 +130,6 @@ export class TopBar extends React.Component {
   }
   await this.props.actions.ChangePassword(model)
   .then((result) => {
-      console.log(result)
   })
   .catch((error) => {
     console.log(error)
@@ -141,6 +139,13 @@ export class TopBar extends React.Component {
           isloading: false,
       });
   });
+  }
+
+  handleProfile = () => {
+    this.setState({
+      anchorEl: false
+    })
+    this.props.history.push(`/profile`)
   }
 
   renderModalPassword = () => {
@@ -176,7 +181,7 @@ export class TopBar extends React.Component {
 
   render() {
       const { classes, open, handleDrawerOpen } = this.props;   
-      const {handleMenu, handleClose, handleModalPassword, renderModalPassword, handleCloseModal} = this;   
+      const {handleMenu, handleClose, handleModalPassword, renderModalPassword, handleCloseModal, handleProfile} = this;   
       const {anchorEl, modalPassword } = this.state;
       return (
           <Fragment>
@@ -197,7 +202,8 @@ export class TopBar extends React.Component {
                   >
                       <MenuIcon />
                   </IconButton>
-                  <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+                  
+                  <Typography onClick={() => this.props.history.push("/")} style={{cursor: "pointer"}} component="h6" variant="h6" noWrap className={classes.title}>
                       demo
                   </Typography>
                   <IconButton
@@ -226,7 +232,7 @@ export class TopBar extends React.Component {
                   >
                     {this.props.userAuth.id &&
                       <div>
-                        <MenuItem onClick={handleClose}>Profile</MenuItem>
+                        <MenuItem onClick={handleProfile}>Profile</MenuItem>
                         <MenuItem onClick={handleClose}>My account</MenuItem>
                         <MenuItem onClick={handleModalPassword}>Change Password</MenuItem>
                         <MenuItem><LogoutButton></LogoutButton></MenuItem>

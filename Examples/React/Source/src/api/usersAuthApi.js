@@ -135,6 +135,14 @@ export const UpdateScopes = async(model, cancelToken) => {
         .then(handleResponse)
         .catch(handleError);
 };
+
+export const GetAdditional = async(id, cancelToken) => {
+    const options = getRequestOptions(cancelToken);
+    return await axios.get(getApiUrl(serviceKeys.api) + `/api/permissions/GetAdditional/${id}`, options)
+        .then(handleResponse)
+        .catch(handleError);
+};
+
 // End Administrative
 
 //Generic

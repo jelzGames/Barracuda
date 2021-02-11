@@ -1,5 +1,6 @@
 ﻿using Barracuda.Indentity.Provide.Models;
 using Barracuda.Indentity.Provider.Interfaces;
+using Barracuda.Indentity.Provider.Models;
 using System.Threading.Tasks;
 
 namespace Barracuda.Indentity.Provider.Services
@@ -52,6 +53,10 @@ namespace Barracuda.Indentity.Provider.Services
         public async Task<Result<string>> ValidateRegisterEmail(string email)
         {
             return await _repository.ValidateRegisterEmail(email);
+        }
+        public async Task<Result<AdditionalModel>> GetAdditional(string id)
+        {
+            return await _repository.GetAdditional(id);
         }
     }
 }

@@ -69,7 +69,15 @@ export class AddUsers extends React.Component {
                 this.setState({
                     userid: result.id,
                     name: result.name,
-                    username: result.username,
+                    username: result.username
+                })
+            })
+            .catch((error) => {
+                console.log(error)
+            }) 
+            await usersAuthApi.GetAdditional(this.state.userid)
+            .then((result) => {
+                this.setState({
                     scopes: result.scopes,
                     tenants: result.tenants
                 })
@@ -155,46 +163,59 @@ export class AddUsers extends React.Component {
                     })
                 }
             }
-            if(flag){
-                var modelScope = {
-                    id: id,
-                    email: this.state.email,
-                    validEmail: true,
-                    scopes: this.state.scopes.split(","),
-                    tenants: this.state.tenants.split(",")
-                }
-                await usersAuthApi.UpdateScopes(modelScope)
-                .then((result) => {
-                })
-                .catch((error) => {
-                    flag = false;
-                    console.log(error);
-                })
-            }
-            if(flag){
-                await usersAuthApi.UpdateTenants(modelScope)
-                .then((result) => {
-                    alert("The user has been created");
-                })
-                .catch((error) => {
-                    flag = false;
-                    console.log(error);
-                })
-            }
+            this.Additional(flag, id);
         }
         else {
             model.id = this.state.userid;
             await usersApi.Update(model)
             .then((result) => {
-                alert("The user has been updated");
             })
             .catch((error) => {
                 console.log(error)
             }) 
+
+            this.Additional(true, model.id);
         }
         this.setState({
             isloading: false
         });
+    }
+
+    Additional = async(flag, id) => {
+        if(flag){
+            var modelScope = {
+                id: id,
+                scopes: this.state.scopes.split(",")
+            }
+            console.log(modelScope)
+            await usersAuthApi.UpdateScopes(modelScope)
+            .then((result) => {
+            })
+            .catch((error) => {
+                flag = false;
+                console.log(error);
+            })
+        }
+        if(flag){
+            var modelTenants = {
+                id: id,
+                tenants: this.state.tenants.split(",")
+            }
+            console.log(modelTenants)
+            await usersAuthApi.UpdateTenants(modelTenants)
+            .then((result) => {
+                if (this.state.id === constant.add) {
+                    alert("The user has been created");
+                }
+                else{
+                    alert("The user has been updated");
+                }
+            })
+            .catch((error) => {
+                flag = false;
+                console.log(error);
+            })
+        }
     }
 
     validaData = () => {

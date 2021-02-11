@@ -1,6 +1,7 @@
 ﻿using Azure.Cosmos;
 using Barracuda.Indentity.Provide.Models;
 using Barracuda.Indentity.Provider.Interfaces;
+using Barracuda.Indentity.Provider.Models;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -442,6 +443,43 @@ namespace Barracuda.Indentity.Provider.Services
             }
 
             return _result.Create(ok, message, "");
+        }
+
+        public async Task<Result<AdditionalModel>> GetAdditional(string id)
+        {
+            bool ok = false;
+            string message = "";
+            AdditionalModel result = new AdditionalModel();
+
+            try
+            {
+
+                var queryOptions = new QueryRequestOptions
+                {
+                    PartitionKey = new PartitionKey(_partitionId),
+                    MaxItemCount = 1
+                };
+
+                var key = new PartitionKey(_partitionId);
+                UserPrivateDataModel model = await RepositoryContainer.ReadItemAsync<UserPrivateDataModel>(id, key,
+                    new ItemRequestOptions { });
+                if(model != null)
+                {
+                    result.Scopes = model.Scopes;
+                    result.Tenants = model.Tenants;
+                }
+                ok = true;
+            }
+            catch (CosmosException ex)
+            {
+                message = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+
+            return _result.Create(ok, message, result);
         }
     }
 }

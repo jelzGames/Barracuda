@@ -163,6 +163,15 @@
       },
       "backendUri": "%Host_UserSecrets%/permissions/CheckEmail/{email}"
     },
+    "UserSecretsGetAdditional": {
+      "matchCondition": {
+        "route": "api/permissions/GetAdditional/{id}",
+        "methods": [
+          "GET"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/GetAdditional/{id}"
+    },
     "openApiDemosGetAll": {
       "matchCondition": {
         "route": "api/openApiDemos/GetAll",

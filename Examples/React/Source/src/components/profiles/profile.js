@@ -54,7 +54,7 @@ const useStyles = theme => ({
 });
 
 export class Profile extends React.Component{
-
+    
     constructor(props){
         super(props);
         this.state = {
@@ -69,6 +69,10 @@ export class Profile extends React.Component{
             validations: {
                 "nameRequired": {
                     validation: () =>  { return this.state.user.name.trim() === "" },
+                    errorMessage: "Required"
+                },
+                "usernameRequired": {
+                    validation: () =>  { return this.state.user.username.trim() === "" },
                     errorMessage: "Required"
                 }
             },
@@ -422,7 +426,7 @@ export class Profile extends React.Component{
         return(
             <Grid item sm={6} className={classes.columns} style={{paddingRight: "50px"}}>
 
-                <CustomImage url={photoUrl} />
+               {/*  <CustomImage url={photoUrl} /> */}
 
                 <CustomTextField 
                     id={"id"} 
@@ -452,6 +456,11 @@ export class Profile extends React.Component{
                     value={username} 
                     label={"Username"}  
                     handleChange={handleChange}
+                    errorConditions={
+                        <Fragment>
+                            {validations["usernameRequired"].validation() && validations["usernameRequired"].errorMessage.concat("\n")} 
+                        </Fragment>
+                    } 
                 />
             </Grid>
         )

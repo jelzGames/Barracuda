@@ -180,7 +180,7 @@ export const RefreshToken = (user) => {
         var flag = true;
         await usersAuthApi.Refresh()
         .then((result) => {
-            user = setUserModel(result, user);
+            user = result;
         })
         .catch((error) => {
             flag = false;
@@ -189,13 +189,6 @@ export const RefreshToken = (user) => {
         
         return flag;
     }
-}
-
-const setUserModel = (result, user) => {
-    user.id = result.id;
-    user.email = result.email;
-    user.validEmail = result.validEmail;
-    return user;
 }
 
 export const ChangePassword = (model, token) => {
