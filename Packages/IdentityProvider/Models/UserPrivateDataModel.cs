@@ -18,6 +18,8 @@ namespace Barracuda.Indentity.Provide.Models
         public UserPrivateDataModel()
         {
             RefreshTokens = RefreshTokens == null ? new List<RefreshTokensModel>() : RefreshTokens;
+            Scopes = Scopes != null ? Scopes : new List<string>();
+            Tenants = Tenants != null ? Tenants : new List<string>();
         }
     }
 }

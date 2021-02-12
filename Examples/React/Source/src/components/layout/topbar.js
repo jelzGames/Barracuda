@@ -130,6 +130,8 @@ export class TopBar extends React.Component {
   }
   await this.props.actions.ChangePassword(model)
   .then((result) => {
+    alert("The password has been changed");
+    this.handleCloseModal();
   })
   .catch((error) => {
     console.log(error)
@@ -160,7 +162,8 @@ export class TopBar extends React.Component {
           <CustomTextField 
             id={"newPassword"} 
             value={newPassword} 
-            label={"password"}  
+            label={"password"}
+            isNumber={"password"}
             handleChange={handleChange}
           />
         </Grid>
