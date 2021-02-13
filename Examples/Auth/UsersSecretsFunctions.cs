@@ -185,8 +185,9 @@ namespace UsersSecrets.Functions
            HttpRequest request, ILogger log)
         {
             var data = await req.Content.ReadAsAsync<dynamic>();
-
-            
+            //opcional
+            data.Scopes = new List<string>() { "user.read" };
+            data.Tenants = new List<string>() { "mycompany/sucursal" };
 
             var dataResult = await _controller.GoogleValidateToken(data, request);
 
@@ -194,19 +195,7 @@ namespace UsersSecrets.Functions
             {
                 return new BadRequestObjectResult(_errors.NotAuthorized);
             }
-
-            // optional
-            var Scopes = new List<string> { "users.read" };
-            var dataScope = await _controller.UpdateScopes(dataResult.Value.Id, Scopes);
-
-            // optional
-            // tenants can be grouped by example: "mycompany/surcusals" group is first element and child second
-            // using * means all, if you are grouping that refrence to all with the same group by example "mycompany/*"  
-            var Tenants = new List<string>() { "mycompany/*", "mycompany/surcusals" };
-            var dataTenants = await _controller.UpdateTenants(dataResult.Value.Id, Tenants);
-            dataResult.Value.Scopes = Scopes;
-            dataResult.Value.Tenants = Tenants;
-
+      
             return new OkObjectResult(dataResult.Value);
         }
 

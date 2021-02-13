@@ -378,8 +378,10 @@ namespace Barracuda.Indentity.Provider.Services
                 model.ValidEmail = true;
                 model.Scopes = modelSocial.Scopes;
                 model.Tenants = modelSocial.Tenants;
-            }
 
+                await UpdateScopes(model.id, model.Scopes);
+                await UpdateTenants(model.id, model.Tenants);
+            }
 
             var dataResult = GetToken(model);
 
