@@ -403,6 +403,7 @@ export class CustomLogin extends React.Component{
     handleForgotPassword = async() => {
         await this.props.actions.ForgotPassword(this.state.recoverPassword)
         .then( (result) => {
+            alert("An email confirmation has been sent")
         })
         .catch((error) => { 
         });

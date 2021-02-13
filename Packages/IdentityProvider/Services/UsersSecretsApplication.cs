@@ -311,10 +311,10 @@ namespace Barracuda.Indentity.Provider.Services
             var result = await _social.FacebookValidateToken(data);
             if (!result.Success)
             {
-                return _result.Create<LoginDto>(false, result.Message, null);
+                return _result.Create<UserPrivateDataDto>(false, result.Message, null);
             }
 
-            var socialResult = SocialSave(result.Value, request);
+            var socialResult = await SocialSave(result.Value, request);
 
             if (!socialResult.Success)
             {
@@ -328,10 +328,10 @@ namespace Barracuda.Indentity.Provider.Services
             var result = await _social.MicrosoftValidateToken(data);
             if (!result.Success)
             {
-                return _result.Create<LoginDto>(false, result.Message, null);
+                return _result.Create<UserPrivateDataDto>(false, result.Message, null);
             }
 
-            var socialResult = SocialSave(result.Value, request);
+            var socialResult = await SocialSave(result.Value, request);
 
             if (!socialResult.Success)
             {

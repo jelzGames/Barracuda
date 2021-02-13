@@ -113,8 +113,21 @@ namespace Barracuda.Indentity.Provider.Services
                     model.Email = data.email;
                     model.Name = data.name;
                     model.Picture = data.picture.data.url;
-                    model.Scopes = data.Scopes;
-                    model.Tenants = data.Tenants;
+
+                    try
+                    {
+                        model.Scopes = JsonConvert.DeserializeObject<List<string>>(Convert.ToString(data.Scopes));
+                    }
+                    catch
+                    {
+                    }
+                    try
+                    {
+                        model.Tenants = JsonConvert.DeserializeObject<List<string>>(Convert.ToString(data.Tenants));
+                    }
+                    catch
+                    {
+                    }
                 }
                 else
                 {
@@ -146,8 +159,22 @@ namespace Barracuda.Indentity.Provider.Services
                     model.id = Guid.NewGuid().ToString();
                     model.Email = data.account.userName;
                     model.Name = data.account.name;
-                    model.Scopes = data.Scopes;
-                    model.Tenants = data.Tenants;
+
+                    try
+                    {
+                        model.Scopes = JsonConvert.DeserializeObject<List<string>>(Convert.ToString(data.Scopes));
+                    }
+                    catch
+                    {
+                    }
+                    try
+                    {
+                        model.Tenants = JsonConvert.DeserializeObject<List<string>>(Convert.ToString(data.Tenants));
+                    }
+                    catch
+                    {
+                    }
+
                 }
                 else
                 {
