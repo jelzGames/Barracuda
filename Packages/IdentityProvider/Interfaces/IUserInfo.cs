@@ -14,7 +14,8 @@ namespace Barracuda.Indentity.Provider.Interfaces
         Task<string> GetTokenAsync();
         List<string> Scopes { get; }
 
-        Result<ClaimsPrincipal> ValidateTokenAsync(HttpRequestHeaders value, IPAddress ipAddress);
+        Result<ClaimsPrincipal> ValidateTokenAsync(HttpRequestHeaders value, IPAddress ipAddress, List<string> scopes = null, List<string> tenants = null);
         Result<bool> validScopes(List<string> scopes);
+        Result<bool> validTenants(List<string> tenants);
     }
 }
