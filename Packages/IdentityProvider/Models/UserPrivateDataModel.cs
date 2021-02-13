@@ -14,6 +14,7 @@ namespace Barracuda.Indentity.Provide.Models
         public List<string> Tenants { get; set; }
         public bool Block { get; set; }
         public DateTime ExpirationBlock { get; set; }
+        public int TryCounter { get; set; }
 
         public UserPrivateDataModel()
         {

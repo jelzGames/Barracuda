@@ -37,7 +37,8 @@ namespace Barracuda.Indentity.Provider.Services
             _errors = errors;
         }
 
-        public Result<ClaimsPrincipal> ValidateTokenAsync(HttpRequestHeaders headers, IPAddress ipAddress)
+        public Result<ClaimsPrincipal> ValidateTokenAsync(HttpRequestHeaders headers, IPAddress ipAddress,
+            List<string> scopes = null, List<string> tenants = null)
         {
             var flag = false;
             var token = "";
@@ -66,6 +67,24 @@ namespace Barracuda.Indentity.Provider.Services
             try
             {
                 principal = _tokens.ValidateToken(token);
+
+                if (principal != null && scopes != null)
+                {
+                    var resultScopes = validScopes(scopes);
+                    if (!resultScopes.Success)
+                    {
+                        principal = null;
+                    }
+                }
+
+                if (principal != null &&  tenants != null)
+                {
+                    var resulttenants = validTenants(tenants);
+                    if (!resulttenants.Success)
+                    {
+                        principal = null;
+                    }
+                }
             }
             catch (SecurityTokenException ex)
             {
@@ -112,6 +131,20 @@ namespace Barracuda.Indentity.Provider.Services
                     {
                         return _result.Create(true, "", true);
                     }
+                }
+            }
+
+            return _result.Create(false, "", false);
+        }
+
+        public Result<bool> validTenants(List<string> tenants)
+        {
+            foreach (var tenant in this.Tenants)
+            {
+                var idx = tenants.FindIndex((e) => e == tenant);
+                if (idx > -1)
+                {
+                    return _result.Create(true, "", true);
                 }
             }
 

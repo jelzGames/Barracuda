@@ -134,23 +134,6 @@ namespace UsersSecrets.Functions
             return new OkObjectResult(logout);
         }
 
-        [FunctionName("RemoveRefreshToken")]
-        public IActionResult RemoveRefreshToken(
-           [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "permissions/RemoveRefreshToken")] HttpRequestMessage req,
-           HttpRequest request, ILogger log)
-        {
-            var resultAuth = validAuthorized(req, request);
-            if (!resultAuth.Success)
-            {
-                return new UnauthorizedResult();
-            }
-
-            _controller.RemoveRefreshToken(request);
-
-            return new OkObjectResult("ok");
-        }
-
-
         [FunctionName("RefreshToken")]
         public async Task<IActionResult> RefreshToken(
            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/RefreshToken")] HttpRequestMessage req,
@@ -183,7 +166,10 @@ namespace UsersSecrets.Functions
                 return new BadRequestObjectResult(_errors.NotAuthorized);
             }
 
-            var dataResult = await _controller.Refresh(validToken.Token, validToken.RefreshToken, request);
+            var remove = req.RequestUri.ParseQueryString().Get("remove");
+            var flag = remove == null ? false : Convert.ToBoolean(remove); 
+
+            var dataResult = await _controller.Refresh(validToken.Token, validToken.RefreshToken, request, flag);
 
             if (!dataResult.Success)
             {
@@ -199,25 +185,17 @@ namespace UsersSecrets.Functions
            HttpRequest request, ILogger log)
         {
             var data = await req.Content.ReadAsAsync<dynamic>();
+            //opcional
+            data.Scopes = new List<string>() { "user.read" };
+            data.Tenants = new List<string>() { "mycompany/sucursal" };
+
             var dataResult = await _controller.GoogleValidateToken(data, request);
 
             if (!dataResult.Success)
             {
                 return new BadRequestObjectResult(_errors.NotAuthorized);
             }
-
-            // optional
-            var Scopes = new List<string> { "users.read" };
-            var dataScope = await _controller.UpdateScopes(dataResult.Value.Id, Scopes);
-
-            // optional
-            // tenants can be grouped by example: "mycompany/surcusals" group is first element and child second
-            // using * means all, if you are grouping that refrence to all with the same group by example "mycompany/*"  
-            var Tenants = new List<string>() { "mycompany/*", "mycompany/surcusals" };
-            var dataTenants = await _controller.UpdateTenants(dataResult.Value.Id, Tenants);
-            dataResult.Value.Scopes = Scopes;
-            dataResult.Value.Tenants = Tenants;
-
+      
             return new OkObjectResult(dataResult.Value);
         }
 
@@ -680,25 +658,18 @@ namespace UsersSecrets.Functions
         /// <summary>
         /// Generic end
         /// </summary>
-        private Result<ClaimsPrincipal> validAuthorized(HttpRequestMessage req, HttpRequest request)
+        private Result<ClaimsPrincipal> validAuthorized(HttpRequestMessage req, HttpRequest request, List<string> scopes = null, List<string> tenants = null)
         {
-            return _userInfo.ValidateTokenAsync(req.Headers, request.HttpContext.Connection.RemoteIpAddress);
+            return _userInfo.ValidateTokenAsync(req.Headers, request.HttpContext.Connection.RemoteIpAddress, scopes, tenants);
         }
 
-        private Result<bool> validAdmin(HttpRequestMessage req, HttpRequest request, List<string> scopes)
+        private Result<bool> validAdmin(HttpRequestMessage req, HttpRequest request, List<string> scopes = null, List<string> tenants = null)
         {
-            var resultAuth = validAuthorized(req, request);
+            var resultAuth = validAuthorized(req, request, scopes, tenants);
             if (!resultAuth.Success)
             {
                 return _result.Create<bool>(false,resultAuth.Message,false);
             }
-
-            var resultScopes = _userInfo.validScopes(scopes);
-            if (!resultScopes.Success)
-            {
-                return _result.Create<bool>(false, resultAuth.Message, false);
-            }
-
 
             return _result.Create<bool>(true, "" , true);
         }

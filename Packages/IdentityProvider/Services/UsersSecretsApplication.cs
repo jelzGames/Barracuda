@@ -26,6 +26,7 @@ namespace Barracuda.Indentity.Provider.Services
         private readonly IErrorMessages _errors;
         private readonly ISettingsTokens _settingsTokens;
         private readonly ISettingsUserSecrests _settingsSecrets;
+        private readonly IUserInfo _userInfo;
 
         public UsersSecretsApplication(
             IUsersSecretsDomain services,
@@ -37,7 +38,8 @@ namespace Barracuda.Indentity.Provider.Services
             IResult result,
             IErrorMessages errors,
             ISettingsTokens settingsTokens,
-            ISettingsUserSecrests settingsSecrets
+            ISettingsUserSecrests settingsSecrets,
+            IUserInfo userInfo
         )
         {
             _services = services;
@@ -50,6 +52,7 @@ namespace Barracuda.Indentity.Provider.Services
             _errors = errors;
             _settingsSecrets = settingsSecrets;
             _settingsTokens = settingsTokens;
+            _userInfo = userInfo;
         }
 
         public async Task<Result<string>> Register(string userid, string email, string password, bool validEmail = false)
@@ -66,10 +69,62 @@ namespace Barracuda.Indentity.Provider.Services
                 return _result.Create<LoginDto>(false, result.Message, null);
             }
 
-            var secret = _crypto.GetStringSha256Hash(email + password + _settings.SecretKey);
-            if (result.Value.Password != secret)
+            if (result.Value.Block && DateTime.UtcNow < result.Value.ExpirationBlock)
             {
-                return _result.Create<LoginDto>(false, _errors.NotAuthorized, null);
+                return _result.Create<LoginDto>(false, _errors.Block + " " + result.Value.ExpirationBlock, null);
+            }
+            else
+            {
+                var secret = _crypto.GetStringSha256Hash(email + password + _settings.SecretKey);
+                if (result.Value.Password != secret)
+                {
+                    result.Value.TryCounter++;
+                    if (result.Value.TryCounter == 3)
+                    {
+                        DateTime expire = DateTime.UtcNow.AddSeconds(_settingsTokens.ExpiredTimeInSecondsToUserLocked);
+                        result.Value.Block = true;
+                        result.Value.ExpirationBlock = expire;
+
+                        if (_settings.RedisCacheSecurity)
+                        {
+                            var tokens = await _redisCache.GetSringValue(result.Value.id);
+                            if (!String.IsNullOrEmpty(tokens))
+                            {
+                                var modelRedis = JsonConvert.DeserializeObject<RedisSecurityModel>(tokens);
+                                modelRedis.Block = true;
+
+                                var jsonString = JsonConvert.SerializeObject(modelRedis);
+                                await _redisCache.SetStringValue(result.Value.id, jsonString);
+                            }
+                        }
+                    }
+                    await _services.Update(result.Value);
+                    
+                    return _result.Create<LoginDto>(false, _errors.NotAuthorized, null);
+                }
+                else
+                {
+                    if (result.Value.Block)
+                    {
+                        result.Value.Block = false;
+                        result.Value.TryCounter = 0;
+                        await _services.Update(result.Value);
+
+                        if (_settings.RedisCacheSecurity)
+                        {
+                            var tokens = await _redisCache.GetSringValue(result.Value.id);
+                            if (!String.IsNullOrEmpty(tokens))
+                            {
+                                var modelRedis = JsonConvert.DeserializeObject<RedisSecurityModel>(tokens);
+                                modelRedis.Block = false;
+
+                                var jsonString = JsonConvert.SerializeObject(modelRedis);
+                                await _redisCache.SetStringValue(result.Value.id, jsonString);
+                            }
+                        }
+
+                    }
+                }
             }
 
             var dataResult = GetToken(result.Value);
@@ -86,12 +141,7 @@ namespace Barracuda.Indentity.Provider.Services
             return new LoginDto();
         }
 
-        public void RemoveRefreshToken(HttpRequest request)
-        {
-            EndToken(request, _settingsSecrets.CookieRefreshToken, _settingsSecrets.CookieRefreshTokenPath, new UserPrivateDataDto());
-        }
-
-        public async Task<Result<LoginDto>> Refresh(string token, string refreshToken, HttpRequest request)
+        public async Task<Result<LoginDto>> Refresh(string token, string refreshToken, HttpRequest request, bool remove = false)
         {
             var result = await ValidRefreshToken(token, refreshToken);
             if (!result.Success)
@@ -99,11 +149,18 @@ namespace Barracuda.Indentity.Provider.Services
                 return _result.Create<LoginDto>(false, _errors.NotAuthorized, null);
             }
 
-            var dataResult = GetToken(result.Value);
+            if (!remove)
+            {
+                var dataResult = GetToken(result.Value);
 
-            var login = EndToken(request, _settingsTokens.CookieToken, _settingsSecrets.CookieTokenPath, dataResult.Value);
+                var login = EndToken(request, _settingsTokens.CookieToken, _settingsSecrets.CookieTokenPath, dataResult.Value);
 
-            return _result.Create(true, "", login);
+                return _result.Create(true, "", login);
+            }
+
+            EndToken(request, _settingsSecrets.CookieRefreshToken, _settingsSecrets.CookieRefreshTokenPath, new UserPrivateDataDto());
+
+            return _result.Create<LoginDto>(true, "", new LoginDto());
         }
 
         public async Task<Result<LoginDto>> RefreshToken(string id, string email, HttpRequest request)
@@ -116,6 +173,11 @@ namespace Barracuda.Indentity.Provider.Services
                 if (!result.Success)
                 {
                     return _result.Create<LoginDto>(false, result.Message, null);
+                }
+
+                if (result.Value.Block)
+                {
+                    return _result.Create<LoginDto>(false, _errors.NotAuthorized, null);
                 }
 
                 var dataResult = await UpdateSecrets(result.Value);
@@ -149,6 +211,8 @@ namespace Barracuda.Indentity.Provider.Services
 
             List<RefreshTokensModel> queryToken = null;
             UserPrivateDataModel model = null;
+            RedisSecurityModel modelRedis = null;
+            var block = false;
 
             if (!_settings.RedisCacheSecurity)
             {
@@ -159,6 +223,8 @@ namespace Barracuda.Indentity.Provider.Services
                     return _result.Create<UserPrivateDataModel>(false, result.Message, null);
                 }
 
+                block = result.Value.Block;
+                
                 queryToken = result.Value.RefreshTokens;
                 model = result.Value;
             }
@@ -171,7 +237,10 @@ namespace Barracuda.Indentity.Provider.Services
                     return _result.Create<UserPrivateDataModel>(false, _errors.NotAuthorized, null);
                 }
 
-                queryToken = JsonConvert.DeserializeObject<List<RefreshTokensModel>>(tokens);
+                modelRedis = JsonConvert.DeserializeObject<RedisSecurityModel>(tokens);
+
+                block = modelRedis.Block;
+                queryToken = modelRedis.Tokens;
 
                 model = new UserPrivateDataModel();
                 model.id = id;
@@ -194,11 +263,18 @@ namespace Barracuda.Indentity.Provider.Services
                 }
                 else
                 {
-                    var jsonString = JsonConvert.SerializeObject(queryToken);
+                    modelRedis.Tokens = queryToken;
+                    var jsonString = JsonConvert.SerializeObject(modelRedis);
                     await _redisCache.SetStringValue(model.id, jsonString);
                 }
             }
-            
+
+            if (block)
+            {
+                return _result.Create<UserPrivateDataModel>(false, _errors.NotAuthorized, null);
+            }
+
+
             return _result.Create(true, "", model);
         }
   
@@ -266,17 +342,25 @@ namespace Barracuda.Indentity.Provider.Services
         public async Task<Result<UserPrivateDataDto>> UpdateRedisCache(string id, string email)
         {
             List<RefreshTokensModel> queryTokens = new List<RefreshTokensModel>();
+            RedisSecurityModel model = null;
             var tokens = await _redisCache.GetSringValue(id);
-            if (String.IsNullOrEmpty(tokens))
+            if (!String.IsNullOrEmpty(tokens))
             {
-                queryTokens = JsonConvert.DeserializeObject<List<RefreshTokensModel>>(tokens);
+                model = JsonConvert.DeserializeObject<RedisSecurityModel>(tokens);
+                if (model.Block)
+                {
+                    return _result.Create<UserPrivateDataDto>(true, _errors.NotAuthorized, null);
+                }
+                
+                queryTokens = model.Tokens;
             }
 
             var refreshToken = _crypto.GetRandomNumber();
             var RefreshTokenHashed = _crypto.GetStringSha256Hash(refreshToken + _settings.SecretKey);
             createRefreshToken(id, queryTokens, RefreshTokenHashed);
 
-            var jsonString = JsonConvert.SerializeObject(queryTokens);
+            model.Tokens = queryTokens;
+            var jsonString = JsonConvert.SerializeObject(model);
 
             await _redisCache.SetStringValue(id, jsonString);
             
@@ -338,6 +422,7 @@ namespace Barracuda.Indentity.Provider.Services
                 return _result.Create<UserPrivateDataDto>(false, socialResult.Message, null);
             }
 
+
             return _result.Create(true, "", socialResult.Value);
         }
         private async Task<Result<LoginDto>> SocialSave(SocialModel modelSocial, HttpRequest request)
@@ -358,6 +443,11 @@ namespace Barracuda.Indentity.Provider.Services
                         return _result.Create<LoginDto>(false, found.Message, null);
                     }
 
+                    if (found.Value.Block)
+                    {
+                        return _result.Create<LoginDto>(true, _errors.NotAuthorized, null);
+                    }
+
                     model.id = found.Value.id;
                     model.Email = found.Value.Email;
                     model.ValidEmail = found.Value.ValidEmail;
@@ -373,8 +463,10 @@ namespace Barracuda.Indentity.Provider.Services
                 model.ValidEmail = true;
                 model.Scopes = modelSocial.Scopes;
                 model.Tenants = modelSocial.Tenants;
-            }
 
+                await UpdateScopes(model.id, model.Scopes);
+                await UpdateTenants(model.id, model.Tenants);
+            }
 
             var dataResult = GetToken(model);
 
@@ -404,7 +496,7 @@ namespace Barracuda.Indentity.Provider.Services
         {
             cookies.Append(
              name,
-             token,
+             token != null ?  token : "",
              new CookieOptions
              {
                  Path = path,
@@ -566,6 +658,7 @@ namespace Barracuda.Indentity.Provider.Services
             }
 
             result.Value.Block = Block;
+            result.Value.TryCounter = 0;
 
             var resultUpdate = await _services.BlockUser(result.Value);
             if (!resultUpdate.Success)

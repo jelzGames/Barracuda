@@ -23,6 +23,7 @@ export const GetUserAuth = () => {
 
 export const Logout = () => {
     return async function(dispatch) {
+        await usersAuthApi.Logout();
         localStorage.setItem(constants.UserAuth, JSON.stringify(initialState.userAuth));
         dispatch(LoginSuccesfull(initialState.userAuth));
         return true;
@@ -31,6 +32,7 @@ export const Logout = () => {
 
 export const RemoveRefreshToken = () => {
     return async function(dispatch) {
+        await usersAuthApi.Refresh(true);
         localStorage.setItem(constants.UserAuth, JSON.stringify(initialState.userAuth));
         dispatch(LoginSuccesfull(initialState.userAuth));
         return true;
