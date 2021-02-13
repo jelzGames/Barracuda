@@ -2,6 +2,7 @@
 using Barracuda.Indentity.Provider.Models;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -66,9 +67,24 @@ namespace Barracuda.Indentity.Provider.Services
                 }
 
                 model = new SocialModel();
+                model.id = Guid.NewGuid().ToString();
                 model.Email = payload.Email;
                 model.Name = payload.Name;
                 model.Picture = payload.Picture;
+                try
+                {
+                    model.Scopes = JsonConvert.DeserializeObject<List<string>>(Convert.ToString(data.Scopes));
+                }
+                catch
+                {
+                }
+                try
+                {
+                    model.Tenants = JsonConvert.DeserializeObject<List<string>>(Convert.ToString(data.Tenants));
+                }
+                catch
+                {
+                }
 
             }
             catch (Exception)
@@ -93,9 +109,12 @@ namespace Barracuda.Indentity.Provider.Services
                 if (String.IsNullOrEmpty(facebook.error))
                 {
                     model = new SocialModel();
+                    model.id = Guid.NewGuid().ToString();
                     model.Email = data.email;
                     model.Name = data.name;
                     model.Picture = data.picture.data.url;
+                    model.Scopes = data.Scopes;
+                    model.Tenants = data.Tenants;
                 }
                 else
                 {
@@ -124,8 +143,11 @@ namespace Barracuda.Indentity.Provider.Services
                 if (String.IsNullOrEmpty(microsoft.error))
                 {
                     model = new SocialModel();
+                    model.id = Guid.NewGuid().ToString();
                     model.Email = data.account.userName;
                     model.Name = data.account.name;
+                    model.Scopes = data.Scopes;
+                    model.Tenants = data.Tenants;
                 }
                 else
                 {

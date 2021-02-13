@@ -302,24 +302,14 @@ namespace Barracuda.Indentity.Provider.Services
                 return _result.Create<UserPrivateDataDto>(false, result.Message, null);
             }
 
-            var register = await _services.Register(result.Value.id, result.Value.Email, _crypto.GetRandomNumber(), true);
-            if (!register.Success)
+            var socialResult = await SocialSave(result.Value, request);
+
+            if (!socialResult.Success)
             {
-                if (register.Message != _errors.Found)
-                {
-                    return _result.Create<LoginDto>(false, register.Message, null);
-                }
+                return _result.Create<UserPrivateDataDto>(false, socialResult.Message, null);
             }
 
-            UserPrivateDataModel model = new UserPrivateDataModel();
-            model.id = register.Value;
-            model.Email = result.Value.Email;
-
-            var dataResult = GetToken(model);
-
-            var login = EndToken(request, _settingsTokens.CookieToken, _settingsSecrets.CookieTokenPath, dataResult.Value);
-
-            return _result.Create(true, "", login);
+            return _result.Create(true, "", socialResult.Value);
         }
         public async Task<Result<LoginDto>> FacebookValidateToken(dynamic data, HttpRequest request)
         {
@@ -329,26 +319,15 @@ namespace Barracuda.Indentity.Provider.Services
                 return _result.Create<LoginDto>(false, result.Message, null);
             }
 
-            var register = await _services.Register(result.Value.id, result.Value.Email, _crypto.GetRandomNumber(), true);
-            if (!register.Success)
+            var socialResult = SocialSave(result.Value, request);
+
+            if (!socialResult.Success)
             {
-                if (register.Message != _errors.Found)
-                {
-                    return _result.Create<LoginDto>(false, register.Message, null);
-                }
+                return _result.Create<UserPrivateDataDto>(false, socialResult.Message, null);
             }
 
-            UserPrivateDataModel model = new UserPrivateDataModel();
-            model.id = register.Value;
-            model.Email = result.Value.Email;
-
-            var dataResult = GetToken(model);
-
-            var login = EndToken(request, _settingsTokens.CookieToken, _settingsSecrets.CookieTokenPath, dataResult.Value);
-
-            return _result.Create(true, "", login);
+            return _result.Create(true, "", socialResult.Value);
         }
-
         public async Task<Result<LoginDto>> MicrosoftValidateToken(dynamic data, HttpRequest request)
         {
             var result = await _social.MicrosoftValidateToken(data);
@@ -357,26 +336,57 @@ namespace Barracuda.Indentity.Provider.Services
                 return _result.Create<LoginDto>(false, result.Message, null);
             }
 
-            var register = await _services.Register(result.Value.id, result.Value.Email, _crypto.GetRandomNumber(), true);
+            var socialResult = SocialSave(result.Value, request);
+
+            if (!socialResult.Success)
+            {
+                return _result.Create<UserPrivateDataDto>(false, socialResult.Message, null);
+            }
+
+            return _result.Create(true, "", socialResult.Value);
+        }
+        private async Task<Result<LoginDto>> SocialSave(SocialModel modelSocial, HttpRequest request)
+        {
+            UserPrivateDataModel model = new UserPrivateDataModel();
+            var register = await _services.Register(modelSocial.id, modelSocial.Email, _crypto.GetRandomNumber(), true);
             if (!register.Success)
             {
                 if (register.Message != _errors.Found)
                 {
                     return _result.Create<LoginDto>(false, register.Message, null);
                 }
+                else
+                {
+                    var found = await _services.GetSecrets(register.Value);
+                    if (!found.Success)
+                    {
+                        return _result.Create<LoginDto>(false, found.Message, null);
+                    }
+
+                    model.id = found.Value.id;
+                    model.Email = found.Value.Email;
+                    model.ValidEmail = found.Value.ValidEmail;
+                    model.Scopes = found.Value.Scopes;
+                    model.Tenants = found.Value.Tenants;
+                    model.Block = found.Value.Block;
+                }
+            }
+            else
+            {
+                model.id = register.Value;
+                model.Email = modelSocial.Email;
+                model.ValidEmail = true;
+                model.Scopes = modelSocial.Scopes;
+                model.Tenants = modelSocial.Tenants;
             }
 
-            UserPrivateDataModel model = new UserPrivateDataModel();
-            model.id = register.Value;
-            model.Email = result.Value.Email;
 
             var dataResult = GetToken(model);
 
             var login = EndToken(request, _settingsTokens.CookieToken, _settingsSecrets.CookieTokenPath, dataResult.Value);
 
-            return _result.Create(true, "", login);
+            return _result.Create<LoginDto>(true,"", login);
         }
-
         public LoginDto EndToken(HttpRequest request, string cookie, string path, UserPrivateDataDto model)
         {
             SetCookie(request.HttpContext.Response.Cookies, cookie, model.Token, path);
@@ -461,10 +471,17 @@ namespace Barracuda.Indentity.Provider.Services
         public string ValidateToken(string token)
         {
             var email = "";
-            var principal = _tokens.ValidateToken(token);
-            if (principal != null)
+            try
             {
-                email = principal.FindFirst(ClaimTypes.Email).Value;
+                var principal = _tokens.ValidateToken(token);
+                if (principal != null)
+                {
+                    email = principal.FindFirst(ClaimTypes.Email).Value;
+                }
+            }
+            catch
+            {
+
             }
 
             return email;
@@ -472,12 +489,19 @@ namespace Barracuda.Indentity.Provider.Services
         public string ValidateTokenConfirmEmail(string token)
         {
             var email = "";
-            var principal = _tokens.ValidateToken(token, false);
-            if (principal != null)
-            {
-                email = principal.FindFirst(ClaimTypes.Email).Value;
+            try
+            {              
+                var principal = _tokens.ValidateToken(token, false);
+                if (principal != null)
+                {
+                    email = principal.FindFirst(ClaimTypes.Email).Value;
+                }
             }
+            catch
+            {
 
+            }
+            
             return email;
         }
 

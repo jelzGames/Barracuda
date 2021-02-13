@@ -238,7 +238,8 @@ export class Profile extends React.Component{
 
             this.setState({
                 user: result,
-                showDocTab: false
+                showDocTab: false,
+                found: true
             })
             userModel.model = result;
         })
@@ -607,26 +608,44 @@ export class Profile extends React.Component{
     }
 
     createUser = async() =>{
-    this.setState({
-        isloading: true
-    });
-    await usersApi.Create(this.state.user)
-    .then((result) => {
-        alert("Se ha guardado")
-    })
-    .catch((error) => {
-        console.log(error)
-    })
-    .finally(() => {
         this.setState({
-            isloading: false
+            isloading: true
         });
-    });
+        await usersApi.Create(this.state.user)
+        .then((result) => {
+            alert("The user has been created")
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+        .finally(() => {
+            this.setState({
+                isloading: false
+            });
+        });
     }
+
+    updateUser = async() =>{
+        this.setState({
+            isloading: true
+        });
+        await usersApi.Update(this.state.user)
+        .then((result) => {
+            alert("The user has been updated")
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+        .finally(() => {
+            this.setState({
+                isloading: false
+            });
+        });
+        }
 
     render(){
         const { handleCloseModal, insertFile, bodyModalDelete, updateFile, createUser } = this;
-        const { modal, modalDeleteBlob, modalEditBlob, editfiles, isloading } = this.state;
+        const { modal, modalDeleteBlob, modalEditBlob, editfiles, isloading, found } = this.state;
         const { classes } = this.props;
         return(
             <Fragment>
@@ -645,7 +664,7 @@ export class Profile extends React.Component{
                 <CustomModal modal={modalEditBlob} paperClass={classes.newUserModalPaper}
                     item={<CustomDragAndDrop editFiles={editfiles} updateFile={updateFile} handleCloseModal={handleCloseModal}/>}
                 />
-                <BottomBar classes={classes} isNotValid={this.validaData()} clickAction={createUser} />
+                <BottomBar classes={classes} isNotValid={this.validaData()} clickAction={found ? this.updateUser : createUser } />
             </Fragment>
         )
     }
