@@ -15,6 +15,8 @@ namespace Barracuda.Indentity.Provider.Services
                 EnvironmentVariableTarget.Process));
             ExpiredTimeInSecondsToForgetPasword = Convert.ToInt32(System.Environment.GetEnvironmentVariable("ExpiredTimeInSecondsToForgetPasword",
                 EnvironmentVariableTarget.Process));
+            ExpiredTimeInSecondsToUserLocked = Convert.ToInt32(System.Environment.GetEnvironmentVariable("ExpiredTimeInSecondsToUserLocked",
+                EnvironmentVariableTarget.Process));
             CookieToken = System.Environment.GetEnvironmentVariable("CookieToken", EnvironmentVariableTarget.Process);
             GoogleClientId = System.Environment.GetEnvironmentVariable("GoogleClientId", EnvironmentVariableTarget.Process);
             GoogleISSUER = System.Environment.GetEnvironmentVariable("GoogleISSUER", EnvironmentVariableTarget.Process);
@@ -29,13 +31,13 @@ namespace Barracuda.Indentity.Provider.Services
         public string JWTKey { get; private set; }
         public int ExpiredTimeInSeconds { get; private set; }
         public int ExpiredTimeInSecondsToForgetPasword { get; private set; }
+        public int ExpiredTimeInSecondsToUserLocked { get; private set; }
         public string CookieToken { get; private set; }
         public string GoogleClientId { get; private set; }
         public string GoogleISSUER { get; private set; }
         public string GraphMicrosoft { get; private set; }
         public string GraphFacebook { get; private set; }
         public string[] BarracudaSuperAdmins { get; private set; }
-
         public int SessionsNumber { get; private set; }
     }
 }

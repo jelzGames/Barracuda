@@ -12,5 +12,6 @@ namespace Barracuda.Indentity.Provider.Interfaces
         public string ValuesNotValid { get; }
         public string SecurityTokenExpired { get; }
         public string ValidateTokenConfirmEmailExpired { get; }
+        public string Block { get; }
     }
 }

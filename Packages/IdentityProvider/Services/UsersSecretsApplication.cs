@@ -69,10 +69,26 @@ namespace Barracuda.Indentity.Provider.Services
                 return _result.Create<LoginDto>(false, result.Message, null);
             }
 
-            var secret = _crypto.GetStringSha256Hash(email + password + _settings.SecretKey);
-            if (result.Value.Password != secret)
+            if (result.Value.Block)
             {
-                return _result.Create<LoginDto>(false, _errors.NotAuthorized, null);
+                return _result.Create<LoginDto>(false, _errors.Block + " " + result.Value.ExpirationBlock, null);
+            }
+            else
+            {
+                var secret = _crypto.GetStringSha256Hash(email + password + _settings.SecretKey);
+                if (result.Value.Password != secret)
+                {
+                    result.Value.TryCounter++;
+                    if (result.Value.TryCounter == 3)
+                    {
+                        DateTime expire = DateTime.UtcNow.AddSeconds(_settingsTokens.ExpiredTimeInSecondsToUserLocked);
+                        result.Value.Block = true;
+                        result.Value.ExpirationBlock = expire;
+                    }
+                    await _services.Update(result.Value);
+
+                    return _result.Create<LoginDto>(false, _errors.NotAuthorized, null);
+                }
             }
 
             var dataResult = GetToken(result.Value);
@@ -573,6 +589,7 @@ namespace Barracuda.Indentity.Provider.Services
             }
 
             result.Value.Block = Block;
+            result.Value.TryCounter = 0;
 
             var resultUpdate = await _services.BlockUser(result.Value);
             if (!resultUpdate.Success)

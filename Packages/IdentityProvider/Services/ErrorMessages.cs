@@ -15,5 +15,7 @@ namespace Barracuda.Indentity.Provider.Services
         public string SecurityTokenExpired { get => "SecurityTokenExpired"; }
 
         public string ValidateTokenConfirmEmailExpired { get => "ValidateTokenConfirmEmailExpired"; }
+
+        public string Block { get => "Block"; }
     }
 }

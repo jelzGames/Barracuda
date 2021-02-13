@@ -12,6 +12,7 @@ namespace Barracuda.Indentity.Provider.Interfaces
         int SessionsNumber { get; }
         int ExpiredTimeInSeconds { get; }
         int ExpiredTimeInSecondsToForgetPasword { get; }
+        int ExpiredTimeInSecondsToUserLocked { get; }
         string CookieToken { get; }
         string GoogleClientId { get; }
         string GoogleISSUER { get; }
