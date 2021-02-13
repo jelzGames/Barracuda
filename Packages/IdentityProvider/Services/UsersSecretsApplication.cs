@@ -71,7 +71,7 @@ namespace Barracuda.Indentity.Provider.Services
 
             if (result.Value.Block && DateTime.UtcNow < result.Value.ExpirationBlock)
             {
-                return _result.Create<LoginDto>(false, _errors.Block + " " + result.Value.ExpirationBlock, null);
+                return _result.Create<LoginDto>(false, _errors.Block + " " + result.Value.ExpirationBlock.ToString("s"), null);
             }
             else
             {

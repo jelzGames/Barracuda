@@ -306,9 +306,11 @@ export class CustomLogin extends React.Component{
             this.props.history.push("/");
         })
         .catch( async(error) => {
+            console.log(error)
             if (error.includes(constants.Block)) {
                 var data = error.split(" ");
-                alert("Your are blocked, try after " + new Date(data[0]))
+                console.log(data)
+                alert("Your are blocked, try after " + new Date(data[1]))
             }
             else if(error === constants.NotValidEmailConfirmation){
                 this.setState({

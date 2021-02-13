@@ -190,22 +190,38 @@ export class AddUsers extends React.Component {
             .catch((error) => {
                 console.log(error)
             })
+           
             
-            var modelBlock = {
-                id: model.id,
-                block: !this.state.blockUser
-            }
-            await usersAuthApi.BlockUser(modelBlock)
-            .then((result) => {
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-            this.setState({
-                blockUser: !this.state.blockUser
-            });
             await this.Additional(true, model.id);
         }
+        this.setState({
+            isloading: false
+        });
+    }
+
+    blockUser = async() => {
+        this.setState({
+            isloading: true
+        });
+        var modelBlock = {
+            id: this.state.userid,
+            block: !this.state.blockUser
+        }
+        await usersAuthApi.BlockUser(modelBlock)
+        .then((result) => {
+            if(this.state.blockUser){
+                alert("The user has been unblocked")
+            }
+            else{
+                alert("The user has been blocked")
+            }            
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+        this.setState({
+            blockUser: !this.state.blockUser
+        });
         this.setState({
             isloading: false
         });
@@ -259,13 +275,8 @@ export class AddUsers extends React.Component {
         return flag;
     }
 
-    handleSaveBlock = () => {
-        
-    }
-
     render() {
-        console.log(this.state.blockUser)
-        const { handleChange, handleSave, validaData, handleSaveBlock} = this;
+        const { handleChange, handleSave, validaData, blockUser} = this;
         const { classes } = this.props;
         const { name, username, userid, validations, newPassword, isloading, email, tenants, scopes } = this.state;
         return(
@@ -367,7 +378,7 @@ export class AddUsers extends React.Component {
                             <CustomIcon
                                 color="primary" 
                                 Icon={!this.state.blockUser ? icon.LockOpenIcon : icon.LockIcon}                        
-                                handleClick={handleSave}                                
+                                handleClick={blockUser}                                
                             />
                         }                   
                     </Grid>

@@ -112,6 +112,10 @@ namespace UsersSecrets.Functions
 
             if (!dataResult.Success)
             {
+                if (dataResult.Message.Contains("Block"))
+                {
+                    return new BadRequestObjectResult(dataResult.Message);
+                }
                 return new BadRequestObjectResult(_errors.NotAuthorized);
             }
 
