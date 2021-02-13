@@ -57,7 +57,7 @@ namespace Barracuda.Indentity.Provider.Services
                     MaxItemCount = 1
                 };
                 
-                var query = $"select * from Delivers d where d.Email = '{email}'";
+                var query = "select * from " + _contextCosmosDB.DatabaseId + $" d where d.Email = '{email}'";
                 await foreach (var page in RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
                     query, null, queryOptions, new CancellationToken()).AsPages())
                 {
@@ -106,7 +106,7 @@ namespace Barracuda.Indentity.Provider.Services
                 };
 
                 var isFound = false;
-                var query = $"select d.id, d.Email from Delivers d where d.Email = '{email}'";
+                var query = "select d.id, d.Email from " + _contextCosmosDB.DatabaseId + $" d where d.Email = '{email}'";
                 await foreach (var page in RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
                     query, null, queryOptions, new CancellationToken()).AsPages())
                 {
@@ -204,7 +204,7 @@ namespace Barracuda.Indentity.Provider.Services
                 };
 
                 var isFound = false;
-                var query = $"select * from Delivers d where d.Email = '{email}'";
+                var query = "select * from " + _contextCosmosDB.DatabaseId + $" d where d.Email = '{email}'";
                 await foreach (var page in RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
                     query, null, queryOptions, new CancellationToken()).AsPages())
                 {
@@ -261,7 +261,7 @@ namespace Barracuda.Indentity.Provider.Services
 
                 UserPrivateDataModel model = null;
                 var isFound = false;
-                var query = $"select * from Delivers d where d.Email = '{email}'";
+                var query = "select * from " + _contextCosmosDB.DatabaseId + $" d where d.Email = '{email}'";
                 await foreach (var page in RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
                     query, null, queryOptions, new CancellationToken()).AsPages())
                 {
@@ -339,7 +339,7 @@ namespace Barracuda.Indentity.Provider.Services
                 };
 
                 var isFound = false;
-                var query = $"select * from Delivers d where d.id = '{id}'";
+                var query = "select * from " + _contextCosmosDB.DatabaseId + $" d where d.id = '{id}'";
                 await foreach (var page in RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
                     query, null, queryOptions, new CancellationToken()).AsPages())
                 {
@@ -412,7 +412,7 @@ namespace Barracuda.Indentity.Provider.Services
                     MaxItemCount = 1
                 };
 
-                var query = $"select * from Delivers d where d.Email = '{email}'";
+                var query = "select * from " + _contextCosmosDB.DatabaseId + $" d where d.Email = '{email}'";
                 await foreach (var page in RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
                     query, null, queryOptions, new CancellationToken()).AsPages())
                 {
