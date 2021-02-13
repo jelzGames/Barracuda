@@ -311,10 +311,13 @@ export class CustomLogin extends React.Component{
                     openModal: true
                 })
             }
+            this.setState({
+                isloading: false,
+            });
         })  
         .finally(() => {
             this.setState({
-                isloading: false,
+                //isloading: false,
             });
         });
     }

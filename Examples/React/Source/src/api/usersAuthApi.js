@@ -32,6 +32,7 @@ export const RemoveRefreshToken = async(cancelToken) => {
 };
 
 export const Refresh = async(remove, cancelToken) => {
+    remove = remove ? remove : false;
     const options = getRequestOptions(cancelToken);
     return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/Refresh?remove=${remove}`, null, options)
         .then(handleResponse)
