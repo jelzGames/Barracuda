@@ -130,7 +130,7 @@ namespace Barracuda.Indentity.Provider.Services
                     }
                 }
             }
-
+            
             var dataResult = GetToken(result.Value);
 
             var login = EndToken(request, _settingsTokens.CookieToken, _settingsSecrets.CookieTokenPath, dataResult.Value);
@@ -236,7 +236,7 @@ namespace Barracuda.Indentity.Provider.Services
             {
                 var email = principal.FindFirst(ClaimTypes.Email).Value;
                 var tokens = await _redisCache.GetSringValue(id);
-                if (String.IsNullOrEmpty(tokens))
+                if (!String.IsNullOrEmpty(tokens))
                 {
                     return _result.Create<UserPrivateDataModel>(false, _errors.NotAuthorized, null);
                 }
@@ -357,6 +357,11 @@ namespace Barracuda.Indentity.Provider.Services
                 }
                 
                 queryTokens = model.Tokens;
+            }
+            else
+            {
+                model = new RedisSecurityModel();
+                model.Tokens = new List<RefreshTokensModel>();
             }
 
             var refreshToken = _crypto.GetRandomNumber();

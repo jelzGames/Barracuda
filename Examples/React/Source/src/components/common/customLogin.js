@@ -303,10 +303,11 @@ export class CustomLogin extends React.Component{
         }
         await this.props.actions.LogIn(model)
         .then((result) => {
+            console.log("login")
             this.props.history.push("/");
         })
         .catch( async(error) => {
-            if (error.includes(constants.Block)) {
+            if (error && error.includes(constants.Block)) {
                 var data = error.split(" ");
                 alert("Your are blocked, try after " + new Date(data[1]))
             }

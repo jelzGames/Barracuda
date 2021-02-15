@@ -33,11 +33,13 @@ export class LogoutButton extends React.Component{
     let RemoveRefreshToken = this.props.actions.RemoveRefreshToken();
     await Promise.all([Logout, RemoveRefreshToken])
       .then((result) => {
-        this.props.postMessage(constants.BarracudaSesion);
       })
       .catch((error) => {
-        console.log(error)
-    });
+      })
+      .finally(() => {
+        this.props.actions.clean();
+        this.props.postMessage(constants.BarracudaSesion);
+      })
     this.setState({
       isloading: false
     })
@@ -72,7 +74,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     actions: {
       Logout: bindActionCreators(usersAction.Logout, dispatch),
-      RemoveRefreshToken: bindActionCreators(usersAction.RemoveRefreshToken, dispatch)
+      RemoveRefreshToken: bindActionCreators(usersAction.RemoveRefreshToken, dispatch),
+      clean: bindActionCreators(usersAction.clean, dispatch)
     }
   };
 };

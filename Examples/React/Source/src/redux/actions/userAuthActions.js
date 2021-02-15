@@ -24,17 +24,20 @@ export const GetUserAuth = () => {
 export const Logout = () => {
     return async function(dispatch) {
         await usersAuthApi.Logout();
+        return true;
+    }
+}
+
+export const clean = () => {
+    return async function(dispatch) {
         localStorage.setItem(constants.UserAuth, JSON.stringify(initialState.userAuth));
         dispatch(LoginSuccesfull(initialState.userAuth));
-        return true;
     }
 }
 
 export const RemoveRefreshToken = () => {
     return async function(dispatch) {
         await usersAuthApi.Refresh(true);
-        localStorage.setItem(constants.UserAuth, JSON.stringify(initialState.userAuth));
-        dispatch(LoginSuccesfull(initialState.userAuth));
         return true;
     }
 }
