@@ -134,7 +134,7 @@ export class TopBar extends React.Component {
     this.handleCloseModal();
   })
   .catch((error) => {
-    console.log(error)
+    alert(error)
   })
   .finally(() => {
       this.setState({

@@ -177,24 +177,18 @@ namespace Users.Functions
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
         }
 
-        private Result<ClaimsPrincipal> validAuthorized(HttpRequestMessage req, HttpRequest request)
+        private Result<ClaimsPrincipal> validAuthorized(HttpRequestMessage req, HttpRequest request, List<string> scopes = null, List<string> tenants = null)
         {
-            return _userInfo.ValidateTokenAsync(req.Headers, request.HttpContext.Connection.RemoteIpAddress);
+            return _userInfo.ValidateTokenAsync(req.Headers, request.HttpContext.Connection.RemoteIpAddress, scopes, tenants);
         }
-        private Result<bool> validAdmin(HttpRequestMessage req, HttpRequest request, List<string> scopes)
+
+        private Result<bool> validAdmin(HttpRequestMessage req, HttpRequest request, List<string> scopes = null, List<string> tenants = null)
         {
-            var resultAuth = validAuthorized(req, request);
+            var resultAuth = validAuthorized(req, request, scopes, tenants);
             if (!resultAuth.Success)
             {
                 return _result.Create<bool>(false, resultAuth.Message, false);
             }
-
-            var resultScopes = _userInfo.validScopes(scopes);
-            if (!resultScopes.Success)
-            {
-                return _result.Create<bool>(false, resultAuth.Message, false);
-            }
-
 
             return _result.Create<bool>(true, "", true);
         }

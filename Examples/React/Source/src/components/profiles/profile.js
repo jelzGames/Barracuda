@@ -106,7 +106,7 @@ export class Profile extends React.Component{
             })
         })
         .catch((error) => {
-            console.log(error)
+            alert(error)
         })
     }
 
@@ -208,7 +208,7 @@ export class Profile extends React.Component{
             flag = true;
         })
         .catch((error) => {
-            console.log(error)
+            alert(error)
         })
         if (flag) {
             for (let index = 0; index < this.state.files.length; index++) {
@@ -248,7 +248,7 @@ export class Profile extends React.Component{
                 showDocTab: false
             })
             if (error !== constants.NotFound) {
-                console.log(error)
+                alert(error)
             }
         })
         .finally(() => {
@@ -266,7 +266,7 @@ export class Profile extends React.Component{
             return result;
         })
         .catch((error) => {
-            console.log(error)
+            alert(error)
         })
         if (flagToken) {
             this.state.files[index].url = modelToken.uri
@@ -616,7 +616,7 @@ export class Profile extends React.Component{
             alert("The user has been created")
         })
         .catch((error) => {
-            console.log(error)
+            alert(error)
         })
         .finally(() => {
             this.setState({
@@ -634,7 +634,7 @@ export class Profile extends React.Component{
             alert("The user has been updated")
         })
         .catch((error) => {
-            console.log(error)
+            alert(error)
         })
         .finally(() => {
             this.setState({

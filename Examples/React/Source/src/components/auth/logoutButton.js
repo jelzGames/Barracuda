@@ -18,6 +18,12 @@ const useStyles = (theme) => ({
 });
 
 export class LogoutButton extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      isloading: false
+    }
+  }
   
   logout = async() => {
     this.setState({
@@ -39,7 +45,8 @@ export class LogoutButton extends React.Component{
   
   render() {
     const { classes } = this.props;
-    const { logout, isloading } = this;
+    const { logout } = this;
+    const { isloading } = this.state;
     return (
       <Fragment>
         {isloading && 

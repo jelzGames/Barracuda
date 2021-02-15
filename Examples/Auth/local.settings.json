@@ -16,7 +16,7 @@
     "SessionsNumber": 5,
     "ExpiredTimeInSeconds": "60",
     "ExpiredTimeInSecondsToForgetPasword": "3600", //used in email expiration valid as well
-    "ExpiredTimeInSecondsToUserLocked": "3600", 
+    "ExpiredTimeInSecondsToUserLocked": "20", 
     "IUsser": "Delivers",
     "Audencie": "AllUsers",
     "CookieToken": "X-Access-Token",

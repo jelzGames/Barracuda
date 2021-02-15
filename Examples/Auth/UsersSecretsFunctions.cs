@@ -190,8 +190,8 @@ namespace UsersSecrets.Functions
         {
             var data = await req.Content.ReadAsAsync<dynamic>();
             //opcional
-            data.Scopes = new List<string>() { "user.read" };
-            data.Tenants = new List<string>() { "mycompany/sucursal" };
+            data.Scopes = JsonConvert.SerializeObject(new List<string>() { "user.read" });
+            data.Tenants = JsonConvert.SerializeObject(new List<string>() { "mycompany/sucursal" });
 
             var dataResult = await _controller.GoogleValidateToken(data, request);
 
@@ -210,8 +210,8 @@ namespace UsersSecrets.Functions
         {
             var data = await req.Content.ReadAsAsync<dynamic>();
             //opcional
-            data.Scopes = new List<string>() { "user.read" };
-            data.Tenants = new List<string>() { "mycompany/sucursal" };
+            data.Scopes = JsonConvert.SerializeObject(new List<string>() { "user.read" });
+            data.Tenants = JsonConvert.SerializeObject(new List<string>() { "mycompany/sucursal" });
 
             var dataResult = await _controller.FacebookValidateToken(data, request);
 
@@ -232,8 +232,8 @@ namespace UsersSecrets.Functions
         {
             var data = await req.Content.ReadAsAsync<dynamic>();
             //opcional
-            data.Scopes = new List<string>() { "user.read" };
-            data.Tenants = new List<string>() { "mycompany/sucursal" };
+            data.Scopes = JsonConvert.SerializeObject(new List<string>() { "user.read" });
+            data.Tenants = JsonConvert.SerializeObject(new List<string>() { "mycompany/sucursal" });
 
             var dataResult = await _controller.MicrosoftValidateToken(data, request);
 

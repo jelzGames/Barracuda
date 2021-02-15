@@ -225,7 +225,7 @@ export class CustomLogin extends React.Component{
             this.props.history.push("/");
         })
         .catch((error) => {
-            console.log(error)
+            alert(error)
         })
         .finally(() => {
             this.setState({
@@ -245,7 +245,7 @@ export class CustomLogin extends React.Component{
             this.props.history.push("/");
         })
         .catch((error) => {
-            console.log(error)
+            alert(error)
         })
         .finally(() => {
             this.setState({
@@ -306,10 +306,8 @@ export class CustomLogin extends React.Component{
             this.props.history.push("/");
         })
         .catch( async(error) => {
-            console.log(error)
             if (error.includes(constants.Block)) {
                 var data = error.split(" ");
-                console.log(data)
                 alert("Your are blocked, try after " + new Date(data[1]))
             }
             else if(error === constants.NotValidEmailConfirmation){
@@ -317,6 +315,9 @@ export class CustomLogin extends React.Component{
                     openModal: true
                 })
             }
+            else{
+                alert(error)
+            }         
             this.setState({
                 isloading: false,
             });
@@ -363,36 +364,48 @@ export class CustomLogin extends React.Component{
 
     successGoogle = async(response) => {
         if (response && response.tokenId) {
+            this.setState({
+                isloading: true
+            })
             await this.props.actions.SocialGoogle(response)
             .then( (result) => {
                 this.props.history.push("/"); 
             })
             .catch((error) => {
+                this.setState({
+                    isloading: false
+                })
             });
         }
     }
 
     failureGoogle = (error) => {
-        console.log(error);     
+        alert(error);     
     }
 
     failureFacebook = (error) => {
-        console.log(error)
+        alert(error)
     }
 
     responseFacebook = async(response) => {
         if (response && response.id) {
+            this.setState({
+                isloading: true
+            })
             await this.props.actions.SocialFacebook(response)
             .then( (result) => {
                 this.props.history.push("/"); 
             })
             .catch((error) => {
+                this.setState({
+                    isloading: false
+                })
             });
         }
     }
 
     failureLinkedIn = (error) => {
-        console.log(error)
+        alert(error)
     }
 
     successLinkedIn = (data) => {
@@ -401,10 +414,16 @@ export class CustomLogin extends React.Component{
 
     responseMicrosoft = async(error, data, msall) => {
         if (data && data.account.accountIdentifier) {
+            this.setState({
+                isloading: true
+            })
             await this.props.actions.SocialMicrosoft(data)
             .then( (result) => {
             })
             .catch((error) => { 
+                this.setState({
+                    isloading: false
+                })
             });
         }
     }
@@ -413,6 +432,7 @@ export class CustomLogin extends React.Component{
         await this.props.actions.ForgotPassword(this.state.recoverPassword)
         .then( (result) => {
             alert("An email confirmation has been sent")
+            this.props.history.push("/")
         })
         .catch((error) => { 
         });

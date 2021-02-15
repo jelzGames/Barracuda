@@ -86,11 +86,10 @@ export class AddUsers extends React.Component {
                 })
             })
             .catch((error) => {
-                console.log(error)
+                alert(error)
             }) 
             await usersAuthApi.GetAdditional(this.state.userid)
             .then((result) => {
-                console.log(result)
                 this.setState({
                     scopes: result.scopes.toString(),
                     tenants: result.tenants.toString(),
@@ -98,7 +97,7 @@ export class AddUsers extends React.Component {
                 })
             })
             .catch((error) => {
-                console.log(error)
+                alert(error)
             }) 
             this.setState({
                 isloading: false
@@ -137,7 +136,7 @@ export class AddUsers extends React.Component {
                         alert("The email already exist");
                     }
                     else{
-                        console.log(error)
+                        alert(error)
                     }
                 })
             if(flag){
@@ -151,7 +150,7 @@ export class AddUsers extends React.Component {
                     }
                     else{
                         flag = false;
-                        console.log(error)
+                        alert(error)
                     }
                 })
             }
@@ -161,7 +160,7 @@ export class AddUsers extends React.Component {
                 })
                 .catch((error) => {
                     flag = false
-                    console.log(error)
+                    alert(error)
                 })
                 if(flag){
                     var Authmodel = {
@@ -174,7 +173,7 @@ export class AddUsers extends React.Component {
                     })
                     .catch((error) => {
                         flag = false;
-                        console.log(error)
+                        alert(error)
                     })
                 }
             }
@@ -183,12 +182,11 @@ export class AddUsers extends React.Component {
         }
         else {
             model.id = this.state.userid;
-            console.log(model)
             await usersApi.Update(model)
             .then((result) => {
             })
             .catch((error) => {
-                console.log(error)
+                alert(error)
             })
            
             
@@ -217,7 +215,7 @@ export class AddUsers extends React.Component {
             }            
         })
         .catch((error) => {
-            console.log(error)
+            alert(error)
         })
         this.setState({
             blockUser: !this.state.blockUser
@@ -238,7 +236,7 @@ export class AddUsers extends React.Component {
             })
             .catch((error) => {
                 flag = false;
-                console.log(error);
+                alert(error);
             })
         }
         if(flag){
@@ -257,7 +255,7 @@ export class AddUsers extends React.Component {
             })
             .catch((error) => {
                 flag = false;
-                console.log(error);
+                alert(error);
             })
         }
     }

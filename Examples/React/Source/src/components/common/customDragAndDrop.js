@@ -138,7 +138,7 @@ export class CustomDragAndDrop extends React.Component{
     }
 
     errorReader = (error) => {
-        console.log(error)
+        alert(error)
     }
 
     abortReader = (abort) => {
@@ -156,11 +156,11 @@ export class CustomDragAndDrop extends React.Component{
         this.setState({
             fileProgress: true
         });
-        console.log(error)
+        alert(error)
     }
 
     abort = (abort) => {
-        console.log(abort)
+        alert(abort)
         this.setState({
             fileProgress: true,
             percent: 0
@@ -249,7 +249,7 @@ export class CustomDragAndDrop extends React.Component{
             return result;
         })
         .catch((error) => {
-            console.log(error)
+            alert(error)
         })
         return {
             flag: flag,
@@ -326,7 +326,7 @@ export class CustomDragAndDrop extends React.Component{
                 flag = true
             })
             .catch((error) => {
-                console.log(error)
+                alert(error)
             })
             if(flag) {
                 insertFile(item);   
@@ -340,7 +340,7 @@ export class CustomDragAndDrop extends React.Component{
                 item.id = this.state.editFiles.id;
             })
             .catch((error) => {
-                console.log(error)
+                alert(error)
             })
             if(flag) {
                 updateFile(item);  

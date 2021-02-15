@@ -48,11 +48,12 @@ export class CustomChangePassword extends React.Component {
         await this.props.actions.ChangePassword(model, token)
             .then((result) => {
                 if(token) {
+                    alert("The password has been updated")
                     this.props.history.push("/");
                 }
             })
             .catch((error) => {
-                console.log(error)
+                alert(error)
             })
             .finally(() => {
                 this.setState({
@@ -71,7 +72,7 @@ export class CustomChangePassword extends React.Component {
             alert("The password has been updated")
         })
         .catch((error) => {
-            console.log(error)
+            alert(error)
         })
         .finally(() => {
             this.setState({

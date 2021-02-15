@@ -54,7 +54,7 @@ export class Users extends React.Component {
             })
         })
         .catch((error) => {
-            console.log(error)
+            alert(error)
         })
         .finally(() => {
             this.setState({
@@ -85,14 +85,14 @@ export class Users extends React.Component {
             }
         })
         .catch((error) => {
-            console.log(error)
+            alert(error)
         })
         if(flag){
             await usersAuthApi.DeleteUser(this.state.id)
             .then((result) => {
             })
             .catch((error) => {
-                console.log(error)
+                alert(error)
             })
             .finally(() => {
             })

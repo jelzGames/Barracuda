@@ -37,7 +37,7 @@ export class verifyTokens extends React.Component {
         .then((result) => {
         })
         .catch((error) => {
-            console.log(error)
+            alert(error)
         })
         .finally(() => {
             this.setState({
@@ -94,7 +94,7 @@ export class verifyTokens extends React.Component {
                 })
             }
             else{
-                console.log(error)
+                alert(error)
             }    
         })
         .finally(() => {
