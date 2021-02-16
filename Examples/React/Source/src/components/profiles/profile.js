@@ -247,7 +247,7 @@ export class Profile extends React.Component{
             this.setState({
                 showDocTab: false
             })
-            if (error !== constants.NotFound) {
+            if (error !== constants.NotFound && error !== constants.NotAuthorized)  {
                 alert(error)
             }
         })

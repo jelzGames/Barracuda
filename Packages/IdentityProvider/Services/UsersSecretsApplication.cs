@@ -120,6 +120,9 @@ namespace Barracuda.Indentity.Provider.Services
                             if (!String.IsNullOrEmpty(tokens))
                             {
                                 var modelRedis = JsonConvert.DeserializeObject<RedisSecurityModel>(tokens);
+                                modelRedis.Scopes = result.Value.Scopes;
+                                modelRedis.Scopes = result.Value.Tenants;
+                                modelRedis.ValidEmail = result.Value.ValidEmail;
                                 modelRedis.Block = false;
 
                                 var jsonString = JsonConvert.SerializeObject(modelRedis);
@@ -236,7 +239,7 @@ namespace Barracuda.Indentity.Provider.Services
             {
                 var email = principal.FindFirst(ClaimTypes.Email).Value;
                 var tokens = await _redisCache.GetSringValue(id);
-                if (!String.IsNullOrEmpty(tokens))
+                if (String.IsNullOrEmpty(tokens))
                 {
                     return _result.Create<UserPrivateDataModel>(false, _errors.NotAuthorized, null);
                 }
@@ -249,6 +252,9 @@ namespace Barracuda.Indentity.Provider.Services
                 model = new UserPrivateDataModel();
                 model.id = id;
                 model.Email = email;
+                model.Scopes = modelRedis.Scopes;
+                model.Tenants = modelRedis.Tenants;
+                model.ValidEmail = modelRedis.ValidEmail;
             }
 
             var coderefreshToken = _crypto.GetStringSha256Hash(refreshToken + _settings.SecretKey);
@@ -270,6 +276,7 @@ namespace Barracuda.Indentity.Provider.Services
                     modelRedis.Tokens = queryToken;
                     var jsonString = JsonConvert.SerializeObject(modelRedis);
                     await _redisCache.SetStringValue(model.id, jsonString);
+                    model.RefreshTokens = queryToken;
                 }
             }
 
@@ -361,7 +368,6 @@ namespace Barracuda.Indentity.Provider.Services
             else
             {
                 model = new RedisSecurityModel();
-                model.Tokens = new List<RefreshTokensModel>();
             }
 
             var refreshToken = _crypto.GetRandomNumber();
@@ -377,6 +383,9 @@ namespace Barracuda.Indentity.Provider.Services
             dto.Id = id;
             dto.Email = email;
             dto.Token = refreshToken;
+            dto.Scopes = model.Scopes;
+            dto.Tenants = model.Tenants;
+            dto.ValidEmail = model.ValidEmail;
 
             return _result.Create(true, "", dto);
 
