@@ -686,5 +686,10 @@ namespace Barracuda.Indentity.Provider.Services
 
             return _result.Create(true, "", "");
         }
+
+        public async Task<Result<List<AdditionalModel>>> GetBatchAdditional(List<string> ids)
+        {
+            return await _services.GetBatchAdditional(ids);
+        }
     }
 }
