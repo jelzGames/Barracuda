@@ -52,7 +52,7 @@ namespace Users.Infrastructure
                     MaxItemCount = 1
                 };
 
-                var query = $"select * from Delivers d where d.Username = '{username}'";
+                var query = $"select * from d where d.Username = '{username}'";
                 await foreach (var page in RepositoryContainer.GetItemQueryIterator<UserModel>(
                     query, null, queryOptions, new CancellationToken()).AsPages())
                 {

@@ -1,6 +1,7 @@
 ﻿using Barracuda.Indentity.Provide.Models;
 using Barracuda.Indentity.Provider.Models;
 using Barracuda.Indentity.Provider.Services;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Barracuda.Indentity.Provider.Interfaces
@@ -17,5 +18,6 @@ namespace Barracuda.Indentity.Provider.Interfaces
         Task<Result<string>> CheckEmail(string email);
         Task<Result<AdditionalModel>> GetAdditional(string id);
         Task<Result<string>> BlockUser(UserPrivateDataModel model);
+        Task<Result<List<AdditionalModel>>> GetBatchAdditional(List<string> ids);
     }
 }
