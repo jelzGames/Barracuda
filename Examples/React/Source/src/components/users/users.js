@@ -47,10 +47,35 @@ export class Users extends React.Component {
         var model = {
             query: "select * from Users"
         }
+        var batch = [];
         await usersApi.GetAll(model)
         .then((result) => {
             this.setState({
                 data: result.models
+            }, () => {                
+                for(var x = 0; x < result.models.length; x++){
+                    batch.push(result.models[x].id);
+                }
+            })
+
+        })
+        .catch((error) => {
+            alert(error)
+        })
+        var modelBatch = {
+            batch: batch
+        };
+        await usersAuthApi.GetBatchAdditional(modelBatch)
+        .then((result) => {
+            var data = [...this.state.data];
+            for(var x = 0; x < result.length; x++){
+                var idx = data.findIndex((e) => e.id === result[x].id)
+                if(idx > -1 ){
+                    data[idx].block = result[x].block;
+                }
+            }
+            this.setState({
+                data: data
             })
         })
         .catch((error) => {
@@ -161,6 +186,7 @@ export class Users extends React.Component {
     renderTableList = () => {
         const { renderHeadCells, renderBodyCells } = this;
         const { data } = this.state;
+        console.log(data)
         var headFile = [
             {
                 title: "ID",
@@ -196,6 +222,7 @@ export class Users extends React.Component {
                     <CustomIcon Icon={icons.icon.EditIcon} disabled={!ValidScopes("users.edit")} handleClick={(e) => handleOpen(row.id)}/>
                     <CustomIcon Icon={icons.icon.DeleteIcon} disabled={!ValidScopes("users.delete")} color={"secondary"} handleClick={(e) => handleModalDelete(row.id)} />
                     <CustomIcon Icon={icons.icon.VpnKeyIcon} disabled={!ValidScopes("users.changePassword")} handleClick={(e) => handleModalPassword(row)} />
+                    <CustomIcon Icon={row.block ? icons.icon.LockIcon : icons.icon.LockOpenIcon} disabled={true} />
                 </Grid>
             </Fragment>
         )

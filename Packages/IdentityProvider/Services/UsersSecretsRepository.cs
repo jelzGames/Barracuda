@@ -2,6 +2,7 @@
 using Barracuda.Indentity.Provide.Models;
 using Barracuda.Indentity.Provider.Interfaces;
 using Barracuda.Indentity.Provider.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -524,10 +525,15 @@ namespace Barracuda.Indentity.Provider.Services
                 var queryOptions = new QueryRequestOptions
                 {
                     PartitionKey = new PartitionKey(_partitionId),
-                    MaxItemCount = 1
+                    MaxItemCount = ids.Count
                 };
-
-                var query = $"select * from d where ARRAY_CONTAINS(" + ids.ToArray() +  ", d.id)";
+                var change = "";
+                foreach(var item in ids)
+                {
+                    change += "'" + item + "',";
+                }
+                change = change.Remove(change.Length - 1);
+                var query = $"select * from d where ARRAY_CONTAINS([" + change +  "], d.id)";
 
                 await foreach (var page in RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
                   query, null, queryOptions, new CancellationToken()).AsPages())
@@ -537,11 +543,14 @@ namespace Barracuda.Indentity.Provider.Services
                         foreach (var item in page.Values)
                         {
                             AdditionalModel modelAdd = new AdditionalModel();
+                            modelAdd.Id = item.id;
                             modelAdd.Scopes = item.Scopes;
                             modelAdd.Tenants = item.Tenants;
                             modelAdd.Block = item.Block;
                             modelAdd.ValidEmail = item.ValidEmail;
+                            result.Add(modelAdd);
                         }
+
                     }
 
                     break;

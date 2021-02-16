@@ -592,7 +592,7 @@ namespace UsersSecrets.Functions
         [FunctionName("GetBatchAdditional")]
         public async Task<IActionResult> GetBatchAdditional(
            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/GetBatchAdditional")] HttpRequestMessage req,
-          string id, ILogger log, HttpRequest request)
+           ILogger log, HttpRequest request)
         {
             var resultAuth = validAdmin(req, request, new List<string>() { "admin.update" });
             if (!resultAuth.Success)
