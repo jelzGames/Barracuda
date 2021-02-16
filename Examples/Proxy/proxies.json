@@ -172,6 +172,15 @@
       },
       "backendUri": "%Host_UserSecrets%/permissions/GetAdditional/{id}"
     },
+    "GetBatchAdditional": {
+      "matchCondition": {
+        "route": "api/permissions/GetBatchAdditional",
+        "methods": [
+          "POST"
+        ]
+      },
+      "backendUri": "%Host_UserSecrets%/permissions/GetBatchAdditional"
+    },
     "UserSecretsBlockUser": {
       "matchCondition": {
         "route": "api/permissions/BlockUser",

@@ -151,6 +151,13 @@ export const BlockUser = async(model, cancelToken) => {
         .catch(handleError);
 };
 
+export const GetBatchAdditional = async(batch, cancelToken) => {
+    const options = getRequestOptions(cancelToken);
+    return await axios.post(getApiUrl(serviceKeys.api) + `/api/permissions/GetBatchAdditional`, batch, options)
+        .then(handleResponse)
+        .catch(handleError);
+};
+
 // End Administrative
 
 //Generic

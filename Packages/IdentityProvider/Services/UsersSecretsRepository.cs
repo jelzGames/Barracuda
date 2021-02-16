@@ -3,6 +3,7 @@ using Barracuda.Indentity.Provide.Models;
 using Barracuda.Indentity.Provider.Interfaces;
 using Barracuda.Indentity.Provider.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -467,6 +468,7 @@ namespace Barracuda.Indentity.Provider.Services
                 {
                     result.Scopes = model.Scopes;
                     result.Tenants = model.Tenants;
+                    result.ValidEmail = model.ValidEmail;
                     result.Block = model.Block;
                 }
                 ok = true;
@@ -508,6 +510,55 @@ namespace Barracuda.Indentity.Provider.Services
             }
 
             return _result.Create(ok, message, "");
+        }
+
+        public async Task<Result<List<AdditionalModel>>> GetAdditional(List<string> ids)
+        {
+            bool ok = false;
+            string message = "";
+            List<AdditionalModel> result = new List<AdditionalModel>();
+
+            try
+            {
+
+                var queryOptions = new QueryRequestOptions
+                {
+                    PartitionKey = new PartitionKey(_partitionId),
+                    MaxItemCount = 1
+                };
+
+                var query = $"select * from d where ARRAY_CONTAINS(" + ids.ToArray() +  ", d.id)";
+
+                await foreach (var page in RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
+                  query, null, queryOptions, new CancellationToken()).AsPages())
+                {
+                    if (page.Values.Count > 0)
+                    {
+                        foreach (var item in page.Values)
+                        {
+                            AdditionalModel modelAdd = new AdditionalModel();
+                            modelAdd.Scopes = item.Scopes;
+                            modelAdd.Tenants = item.Tenants;
+                            modelAdd.Block = item.Block;
+                            modelAdd.ValidEmail = item.ValidEmail;
+                        }
+                    }
+
+                    break;
+                }
+
+                ok = true;
+            }
+            catch (CosmosException ex)
+            {
+                message = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+
+            return _result.Create(ok, message, result);
         }
     }
 }

@@ -589,6 +589,29 @@ namespace UsersSecrets.Functions
             return new OkObjectResult(dataResult.Value);
         }
 
+        [FunctionName("GetBatchAdditional")]
+        public async Task<IActionResult> GetBatchAdditional(
+           [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/GetBatchAdditional")] HttpRequestMessage req,
+          string id, ILogger log, HttpRequest request)
+        {
+            var resultAuth = validAdmin(req, request, new List<string>() { "admin.update" });
+            if (!resultAuth.Success)
+            {
+                return new BadRequestObjectResult(resultAuth.Message);
+            }
+
+            AdditionaltBatchDto data = await req.Content.ReadAsAsync<AdditionaltBatchDto>();
+            
+            var dataResult = await _controller.GetBatchAdditional(data.Batch);
+
+            if (!dataResult.Success)
+            {
+                return new BadRequestObjectResult(dataResult.Message);
+            }
+
+            return new OkObjectResult(dataResult.Value);
+        }
+
         [FunctionName("BlockUser")]
         public async Task<IActionResult> BlockUser(
            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "permissions/BlockUser")] HttpRequestMessage req,
