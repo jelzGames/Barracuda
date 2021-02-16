@@ -79,7 +79,7 @@ namespace Barracuda.OpenApi.Services
                 content = content.Remove(i, "clientSecret: ''".Length);
                 content = content.Insert(i, "clientSecret: '" + _settings.OAuthClientSecret + "'");
             }
-            /*
+
             i = content.IndexOf("BarracudaAuthUrl");
             if (i >= 0)
             {
@@ -99,7 +99,7 @@ namespace Barracuda.OpenApi.Services
             {
                 content = content.Remove(i, "BarracudaRefreshUrl".Length);
                 content = content.Insert(i, _settings.BarracudaRefreshUrl);
-            }*/
+            }
 
             return content;
         }

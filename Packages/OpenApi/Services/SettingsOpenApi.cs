@@ -14,7 +14,7 @@ namespace Barracuda.OpenApi.Services
             Scope = System.Environment.GetEnvironmentVariable("Scope", EnvironmentVariableTarget.Process);
             BOAUrlJson = System.Environment.GetEnvironmentVariable("BOAUrlJson", EnvironmentVariableTarget.Process);
             BOARedirectAuthUrl = System.Environment.GetEnvironmentVariable("BOARedirectAuthUrl", EnvironmentVariableTarget.Process);
-            /*
+
             BarracudaAuthUrl = System.Environment.GetEnvironmentVariable("BarracudaAuthUrl", EnvironmentVariableTarget.Process);
             BarracudaRefreshTokenUrl = System.Environment.GetEnvironmentVariable("BarracudaRefreshTokenUrl", EnvironmentVariableTarget.Process);
             BarracudaRefreshUrl = System.Environment.GetEnvironmentVariable("BarracudaRefreshUrl", EnvironmentVariableTarget.Process);
@@ -22,7 +22,7 @@ namespace Barracuda.OpenApi.Services
             CookieTokenPath = System.Environment.GetEnvironmentVariable("CookieTokenPath", EnvironmentVariableTarget.Process);
             CookieRefreshToken = System.Environment.GetEnvironmentVariable("CookieRefreshToken", EnvironmentVariableTarget.Process);
             CookieRefreshTokenPath = System.Environment.GetEnvironmentVariable("CookieRefreshTokenPath", EnvironmentVariableTarget.Process);
-       */
+
         }
 
         public string OAuthUrl { get; private set; }
@@ -32,14 +32,14 @@ namespace Barracuda.OpenApi.Services
         public string Scope { get; private set; }
         public string BOAUrlJson { get; private set; }
         public string BOARedirectAuthUrl { get; private set; }
-        /*
+
         public string BarracudaRefreshTokenUrl { get; private set; }
         public string BarracudaRefreshUrl { get; private set; }
         public string CookieToken { get; private set; }
         public string CookieTokenPath { get; private set; }
         public string CookieRefreshToken { get; private set; }
         public string CookieRefreshTokenPath { get; private set; }
-        public string Scope { get; private set; }*/
-        
+        public string BarracudaAuthUrl { get; private set; }
+
     }
 }

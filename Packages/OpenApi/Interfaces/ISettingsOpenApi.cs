@@ -13,13 +13,13 @@ namespace Barracuda.OpenApi.Interfaces
         public string Scope { get; }
         public string BOAUrlJson { get; }
         public string BOARedirectAuthUrl { get; }
-       /*
+
         public string BarracudaAuthUrl { get; }
         public string BarracudaRefreshTokenUrl { get; }
         public string BarracudaRefreshUrl { get; }
         public string CookieToken { get; }
         public string CookieTokenPath { get; }
         public string CookieRefreshToken { get; }
-        public string CookieRefreshTokenPath { get; }*/
+        public string CookieRefreshTokenPath { get; }
     }
 }
