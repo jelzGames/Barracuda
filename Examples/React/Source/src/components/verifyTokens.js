@@ -9,6 +9,15 @@ import { connect } from "react-redux";
 import * as constants from "../constants";
 import { Grid } from '@material-ui/core';
 import { CustomButton } from './common/customButton';
+import CustomSpinner from "../components/common/customSpinner";
+
+const useStyles = theme => ({
+    spinnerPaper: {
+        backgroundColor: "transparent",
+        padding: theme.spacing(0, 0, 0),
+        border: 'none'
+    }
+});
 
 export class verifyTokens extends React.Component {
     constructor(props){
@@ -106,7 +115,8 @@ export class verifyTokens extends React.Component {
     }
 
     render() {
-        const { changePasswordToken, validEmailToken } = this.state;
+        const { changePasswordToken, validEmailToken, isloading } = this.state;
+        const { classes } = this.props;
         return(
             <Fragment>
                 {!validEmailToken && changePasswordToken ? (
@@ -121,6 +131,9 @@ export class verifyTokens extends React.Component {
                 <CustomModal modal={this.state.openModal}
                     item={this.bodyModalResendEmail()}
                 />
+                {isloading && 
+                    <CustomSpinner open={true} paperClass={classes.spinnerPaper} />
+                }
             </Fragment>
         )
     }
