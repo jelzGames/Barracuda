@@ -1,6 +1,7 @@
 ﻿using Barracuda.Indentity.Provide.Models;
 using Barracuda.Indentity.Provider.Interfaces;
 using Barracuda.Indentity.Provider.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Barracuda.Indentity.Provider.Services
@@ -62,6 +63,11 @@ namespace Barracuda.Indentity.Provider.Services
         public async Task<Result<string>> BlockUser(UserPrivateDataModel model)
         {
             return await _repository.BlockUser(model);
+        }
+
+        public async Task<Result<List<AdditionalModel>>> GetBatchAdditional(List<string> ids)
+        {
+            return await _repository.GetBatchAdditional(ids);
         }
     }
 }

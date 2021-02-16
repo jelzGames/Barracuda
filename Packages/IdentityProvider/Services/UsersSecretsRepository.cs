@@ -512,7 +512,7 @@ namespace Barracuda.Indentity.Provider.Services
             return _result.Create(ok, message, "");
         }
 
-        public async Task<Result<List<AdditionalModel>>> GetAdditional(List<string> ids)
+        public async Task<Result<List<AdditionalModel>>> GetBatchAdditional(List<string> ids)
         {
             bool ok = false;
             string message = "";
@@ -560,5 +560,7 @@ namespace Barracuda.Indentity.Provider.Services
 
             return _result.Create(ok, message, result);
         }
+
+       
     }
 }
