@@ -1,5 +1,6 @@
-﻿using Azure.Cosmos;
+﻿
 using Barracuda.Indentity.Provider.Interfaces;
+using Microsoft.Azure.Cosmos;
 using System;
 
 namespace Barracuda.Indentity.Provider.Services
