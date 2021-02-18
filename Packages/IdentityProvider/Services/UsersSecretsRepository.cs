@@ -1,7 +1,7 @@
-﻿using Azure.Cosmos;
-using Barracuda.Indentity.Provide.Models;
+﻿using Barracuda.Indentity.Provide.Models;
 using Barracuda.Indentity.Provider.Interfaces;
 using Barracuda.Indentity.Provider.Models;
+using Microsoft.Azure.Cosmos;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -60,15 +60,19 @@ namespace Barracuda.Indentity.Provider.Services
                 };
                 
                 var query = $"select * from d where d.Email = '{email}'";
-                await foreach (var page in RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
-                    query, null, queryOptions, new CancellationToken()).AsPages())
+                using (FeedIterator<UserPrivateDataModel> feedIterator = RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
+                    query,
+                    null,
+                    queryOptions))
                 {
-                    if (page.Values.Count > 0)
+                    while (feedIterator.HasMoreResults)
                     {
-                        model = page.Values[0];
+                        foreach (var item in await feedIterator.ReadNextAsync())
+                        {
+                            model = item;
+                            break;
+                        }
                     }
-                   
-                    break;
                 }
 
                 if (model == null)
@@ -109,15 +113,20 @@ namespace Barracuda.Indentity.Provider.Services
 
                 var isFound = false;
                 var query = $"select d.id, d.Email from d where d.Email = '{email}'";
-                await foreach (var page in RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
-                    query, null, queryOptions, new CancellationToken()).AsPages())
+                using (FeedIterator<UserPrivateDataModel> feedIterator = RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
+                    query,
+                    null,
+                    queryOptions))
                 {
-                    isFound = page.Values.Count > 0 ? true : false;
-                    if (isFound)
+                    while (feedIterator.HasMoreResults)
                     {
-                        id = page.Values[0].id;
+                        foreach (var item in await feedIterator.ReadNextAsync())
+                        {
+                            id = item.id;
+                            isFound = true;
+                            break;
+                        }
                     }
-                    break;
                 }
 
                 if (isFound)
@@ -207,15 +216,21 @@ namespace Barracuda.Indentity.Provider.Services
 
                 var isFound = false;
                 var query = $"select * from d where d.Email = '{email}'";
-                await foreach (var page in RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
-                    query, null, queryOptions, new CancellationToken()).AsPages())
+
+                using (FeedIterator<UserPrivateDataModel> feedIterator = RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
+                    query,
+                    null,
+                    queryOptions))
                 {
-                    isFound = page.Values.Count > 0 ? true : false;
-                    if (isFound)
+                    while (feedIterator.HasMoreResults)
                     {
-                        item = page.Values[0];
+                        foreach (var itemBack in await feedIterator.ReadNextAsync())
+                        {
+                            item = itemBack;
+                            isFound = true;
+                            break;
+                        }
                     }
-                    break;
                 }
 
                 if (!isFound)
@@ -264,15 +279,20 @@ namespace Barracuda.Indentity.Provider.Services
                 UserPrivateDataModel model = null;
                 var isFound = false;
                 var query = $"select * from d where d.Email = '{email}'";
-                await foreach (var page in RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
-                    query, null, queryOptions, new CancellationToken()).AsPages())
+                using (FeedIterator<UserPrivateDataModel> feedIterator = RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
+                   query,
+                   null,
+                   queryOptions))
                 {
-                    isFound = page.Values.Count > 0 ? true : false;
-                    if (isFound)
+                    while (feedIterator.HasMoreResults)
                     {
-                        model = page.Values[0];
+                        foreach (var itemBack in await feedIterator.ReadNextAsync())
+                        {
+                            model = itemBack;
+                            isFound = true;
+                            break;
+                        }
                     }
-                    break;
                 }
 
                 if (!isFound)
@@ -342,15 +362,21 @@ namespace Barracuda.Indentity.Provider.Services
 
                 var isFound = false;
                 var query = $"select * from d where d.id = '{id}'";
-                await foreach (var page in RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
-                    query, null, queryOptions, new CancellationToken()).AsPages())
+
+                using (FeedIterator<UserPrivateDataModel> feedIterator = RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
+                   query,
+                   null,
+                   queryOptions))
                 {
-                    if (page.Values.Count > 0)
+                    while (feedIterator.HasMoreResults)
                     {
-                        model = page.Values[0];
-                        isFound = true;
+                        foreach (var itemBack in await feedIterator.ReadNextAsync())
+                        {
+                            model = itemBack;
+                            isFound = true;
+                            break;
+                        }
                     }
-                    break;
                 }
 
                 if (!isFound)
@@ -415,17 +441,22 @@ namespace Barracuda.Indentity.Provider.Services
                 };
 
                 var query = $"select * from d where d.Email = '{email}'";
-                await foreach (var page in RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
-                    query, null, queryOptions, new CancellationToken()).AsPages())
+
+                using (FeedIterator<UserPrivateDataModel> feedIterator = RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
+                   query,
+                   null,
+                   queryOptions))
                 {
-                    if (page.Values.Count > 0)
+                    while (feedIterator.HasMoreResults)
                     {
-                        find = true;
+                        foreach (var itemBack in await feedIterator.ReadNextAsync())
+                        {
+                            find = true;
+                            break;
+                        }
                     }
-
-                    break;
                 }
-
+                
                 if (find)
                 {
                     message = _errors.Found;
@@ -535,12 +566,14 @@ namespace Barracuda.Indentity.Provider.Services
                 change = change.Remove(change.Length - 1);
                 var query = $"select * from d where ARRAY_CONTAINS([" + change +  "], d.id)";
 
-                await foreach (var page in RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
-                  query, null, queryOptions, new CancellationToken()).AsPages())
+                using (FeedIterator<UserPrivateDataModel> feedIterator = RepositoryContainer.GetItemQueryIterator<UserPrivateDataModel>(
+                   query,
+                   null,
+                   queryOptions))
                 {
-                    if (page.Values.Count > 0)
+                    while (feedIterator.HasMoreResults)
                     {
-                        foreach (var item in page.Values)
+                        foreach (var item in await feedIterator.ReadNextAsync())
                         {
                             AdditionalModel modelAdd = new AdditionalModel();
                             modelAdd.Id = item.id;
@@ -550,10 +583,7 @@ namespace Barracuda.Indentity.Provider.Services
                             modelAdd.ValidEmail = item.ValidEmail;
                             result.Add(modelAdd);
                         }
-
                     }
-
-                    break;
                 }
 
                 ok = true;

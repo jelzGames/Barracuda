@@ -1,4 +1,4 @@
-﻿using Azure.Cosmos;
+﻿
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -12,6 +12,7 @@ using CosmosDatabase.Interfaces;
 using Bases.Services;
 using Bases.Interfaces;
 using Users.Domain.Models;
+using Microsoft.Azure.Cosmos;
 
 namespace Users.Infrastructure
 {
@@ -53,15 +54,20 @@ namespace Users.Infrastructure
                 };
 
                 var query = $"select * from d where d.Username = '{username}'";
-                await foreach (var page in RepositoryContainer.GetItemQueryIterator<UserModel>(
-                    query, null, queryOptions, new CancellationToken()).AsPages())
-                {
-                    if (page.Values.Count > 0)
-                    {
-                        find = true;
-                    }
 
-                    break;
+                using (FeedIterator<UserModel> feedIterator = RepositoryContainer.GetItemQueryIterator<UserModel>(
+                   query,
+                   null,
+                   queryOptions))
+                {
+                    while (feedIterator.HasMoreResults)
+                    {
+                        foreach (var item in await feedIterator.ReadNextAsync())
+                        {
+                            find = true;
+                            break;
+                        }
+                    }
                 }
 
                 if (find)
@@ -173,7 +179,7 @@ namespace Users.Infrastructure
         {
             bool ok = false;
             string message = "";
-            IEnumerable<UserModel> models = null;
+            List<UserModel> models = new List<UserModel>();
             UserQueryModel model = new UserQueryModel();
             string newContinuationToken = null;
 
@@ -185,11 +191,20 @@ namespace Users.Infrastructure
                     MaxItemCount = _contextCosmosDB.MaxItemCount
                 };
 
-                await foreach (var page in RepositoryContainer.GetItemQueryIterator<UserModel>(query.Query, query.ContinuationToken, queryOptions, token).AsPages())
+                using (FeedIterator<UserModel> feedIterator = RepositoryContainer.GetItemQueryIterator<UserModel>(
+                   query.Query,
+                   query.ContinuationToken,
+                   queryOptions))
                 {
-                    models = page.Values;
-                    newContinuationToken = page.ContinuationToken;
-                    break;
+                    while (feedIterator.HasMoreResults)
+                    {
+                        FeedResponse<UserModel> response = await feedIterator.ReadNextAsync();
+                        newContinuationToken = response.ContinuationToken;
+                        foreach (var item in response.Resource)
+                        {
+                            models.Add(item);
+                        }
+                    }
                 }
 
                 model.ContinuationToken = newContinuationToken;
