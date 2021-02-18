@@ -334,7 +334,7 @@ namespace Barracuda.Indentity.Provider.Services
 
             if (refreshTokens.Count >= _settingsTokens.SessionsNumber)
             {
-                var list = refreshTokens.OrderByDescending((e) => e.CreatedTime).ToList();
+                var list = refreshTokens.OrderBy((e) => e.CreatedTime).ToList();
                 list[0].Token = RefreshTokenHashed;
                 list[0].CreatedTime = DateTime.UtcNow;
                 refreshTokens = list;

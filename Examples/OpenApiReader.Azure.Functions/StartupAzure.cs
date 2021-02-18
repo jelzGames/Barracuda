@@ -1,4 +1,6 @@
-﻿using Barracuda.OpenApi.Interfaces;
+﻿using Barracuda.Indentity.Provider.Interfaces;
+using Barracuda.Indentity.Provider.Services;
+using Barracuda.OpenApi.Interfaces;
 using Barracuda.OpenApi.Services;
 using Demo.Azure.Functions;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
@@ -17,7 +19,22 @@ namespace Demo.Azure.Functions
             builder.Services.AddScoped<IOpenApiBuilder, OpenApiBuilder>();
             builder.Services.AddScoped<IOpenApiReader, OpenApiReader>();
             builder.Services.AddScoped<ISettingsOpenApi, SettingsOpenApi>();
-
+            //This section below is from Barracuda Identity Provider Package
+            builder.Services.AddScoped<IUsersSecretsApplication, UsersSecretsApplication>();
+            builder.Services.AddScoped<IUsersSecretsRepository, UsersSecretsRepository>();
+            builder.Services.AddScoped<IUsersSecretsDomain, UsersSecretsDomain>();
+            builder.Services.AddScoped<IUserInfo, OpenIdUserInfo>();
+            builder.Services.AddScoped<ISettingsUserSecrests, SettingsUserSecrets>();
+            builder.Services.AddScoped<ITokens, Tokens>();
+            builder.Services.AddScoped<ISocial, Social>();
+            builder.Services.AddScoped<IRedisCache, RedisCache>();
+            builder.Services.AddScoped<ICryptograhic, Cryptograhic>();
+            builder.Services.AddScoped<IResult, Result>();
+            builder.Services.AddScoped<IErrorMessages, ErrorMessages>();
+            builder.Services.AddScoped<ISettingsRedis, SettingsRedis>();
+            builder.Services.AddScoped<ISettingsTokens, SettingsTokens>();
+            builder.Services.AddScoped<ISettingsCosmos, SettingsCosmos>();
+            builder.Services.AddScoped<ICosmosDB, CosmosDB>();
         }
     }
 }

@@ -22,7 +22,15 @@ namespace Barracuda.Indentity.Provider.Services
             GoogleISSUER = System.Environment.GetEnvironmentVariable("GoogleISSUER", EnvironmentVariableTarget.Process);
             GraphFacebook = System.Environment.GetEnvironmentVariable("GraphFacebook", EnvironmentVariableTarget.Process);
             GraphMicrosoft = System.Environment.GetEnvironmentVariable("GraphMicrosoft", EnvironmentVariableTarget.Process);
-            BarracudaSuperAdmins = System.Environment.GetEnvironmentVariable("BarracudaSuperAdmins", EnvironmentVariableTarget.Process).Split(",");
+            var admins = System.Environment.GetEnvironmentVariable("BarracudaSuperAdmins", EnvironmentVariableTarget.Process);
+            if (admins != null) 
+            {
+                BarracudaSuperAdmins = admins.Split(",");
+            }
+            else
+            {
+                BarracudaSuperAdmins = new string[0];
+            }
             SessionsNumber = Convert.ToInt32(System.Environment.GetEnvironmentVariable("SessionsNumber", EnvironmentVariableTarget.Process));
         }
 

@@ -22,14 +22,14 @@
     "CookieRefreshToken": "X-Refresh-Token",
     "CookieTokenPath": "/api",
     "CookieRefreshTokenPath": "/api/permissions/Refresh",
-    "BarracudaAuthUrl": "https://www.mysite.dev:7070/api/permissions/Auth",
+    "BarracudaAuthUrl": "https://www.mysite.dev:7070/api/permissions/Login",
     "BarracudaRefreshTokenUrl": "https://www.mysite.dev:7070/api/permissions/RefreshToken",
     "BarracudaRefreshUrl": "https://www.mysite.dev:7070/api/permissions/Refresh"
   },
 
   "Host": {
-    "LocalHttpPort": 3000,
-    "CORS": "*",
-    "CORSCredentials": false
+    "LocalHttpPort": 7070,
+    "CORS": "https://www.mysite.dev:7070,https://www.mysite.dev:7075",
+    "CORSCredentials": true
   }
 }

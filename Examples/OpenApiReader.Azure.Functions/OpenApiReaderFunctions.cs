@@ -12,6 +12,9 @@ using Barracuda.OpenApi.Interfaces;
 using Barracuda.OpenApi.Attributes;
 using Demo.Azure.Functions.Models;
 using System.Net;
+using Barracuda.Indentity.Provider.Services;
+using System.Security.Claims;
+using Barracuda.Indentity.Provider.Interfaces;
 
 namespace Demo.Azure.Functions
 {
@@ -21,12 +24,18 @@ namespace Demo.Azure.Functions
     public class OpenApiReaderFunctions
     {
         public readonly IOpenApiBuilder _builder;
-      
+        private readonly IResult _result;
+        private readonly IUserInfo _userInfo;
+
         public OpenApiReaderFunctions(
-            IOpenApiBuilder builder
+            IOpenApiBuilder builder,
+            IUserInfo userInfo,
+            IResult result
             )
         {
             _builder = builder;
+            _userInfo = userInfo;
+            _result = result;
         }
 
         [FunctionName("GetAll")]
@@ -47,9 +56,15 @@ namespace Demo.Azure.Functions
         [BOARoute("/api/openApiDemos/GetAll")]
         [BOAHttpGet]
         public async Task<IActionResult> GetAll(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "openApiDemos/GetAll")] HttpRequest req,
-            ILogger log)
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "openApiDemos/GetAll")] HttpRequestMessage req,
+            HttpRequest request, ILogger log)
         {
+            var resultAuth = validAdmin(req, request, new List<string>() { "users.read" });
+            if (!resultAuth.Success)
+            {
+                return new BadRequestObjectResult(resultAuth.Message);
+            }
+
             return await Task.FromResult(new OkObjectResult(new List<DemoModels>()));
         }
 
@@ -84,7 +99,7 @@ namespace Demo.Azure.Functions
          [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "openApiDemos/POST")] HttpRequestMessage req,
          HttpRequest request)
         {
-           
+
             DemoModels data = await req.Content.ReadAsAsync<DemoModels>();
 
             return await Task.FromResult(new OkObjectResult("demo post"));
@@ -120,6 +135,19 @@ namespace Demo.Azure.Functions
                 Content = await Task.FromResult(_builder.OpenAPIAuth())
             };
         }
+        private Result<bool> validAdmin(HttpRequestMessage req, HttpRequest request, List<string> scopes = null, List<string> tenants = null)
+        {
+            var resultAuth = validAuthorized(req, request, scopes, tenants);
+            if (!resultAuth.Success)
+            {
+                return _result.Create<bool>(false, resultAuth.Message, false);
+            }
 
+            return _result.Create<bool>(true, "", true);
+        }
+        private Result<ClaimsPrincipal> validAuthorized(HttpRequestMessage req, HttpRequest request, List<string> scopes = null, List<string> tenants = null)
+        {
+            return _userInfo.ValidateTokenAsync(req.Headers, request.HttpContext.Connection.RemoteIpAddress, scopes, tenants);
+        }
     }
 }
