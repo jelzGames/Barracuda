@@ -15,21 +15,35 @@
 
     /* Client Credentials Grant Flow */
     /* Barracuda */
+
+    /* tokens */
+    "SecretKey": "letssecret",
     "JWTKey": "401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b3727429090fb337591abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1",
+    "SessionsNumber": 5,
+    "ExpiredTimeInSeconds": "20",
     "IUsser": "Delivers",
     "Audencie": "AllUsers",
     "CookieToken": "X-Access-Token",
     "CookieRefreshToken": "X-Refresh-Token",
     "CookieTokenPath": "/api",
     "CookieRefreshTokenPath": "/api/permissions/Refresh",
+
+    //admins
+    "BarracudaSuperAdmins": "demo2@demo.com,qwer,demo1@demo.com",
+
+    /* functions */
     "BarracudaAuthUrl": "https://www.mysite.dev:7070/api/permissions/Login",
     "BarracudaRefreshTokenUrl": "https://www.mysite.dev:7070/api/permissions/RefreshToken",
-    "BarracudaRefreshUrl": "https://www.mysite.dev:7070/api/permissions/Refresh"
+    "BarracudaRefreshUrl": "https://www.mysite.dev:7070/api/permissions/Refresh",
+    "BarracudaFunctionsUrlRoot": "https://www.mysite.dev:7070",
+    "BarracudaLogouthUrl": "https://www.mysite.dev:7070/api/permissions/Logout",
+    "BarracudaRemoveRefreshTokenhUrl": "https://www.mysite.dev:7070/api/permissions/Refresh?remove=true",
+    "BarracudaPostMessages": "BarracudaSesion"
   },
 
   "Host": {
-    "LocalHttpPort": 7070,
-    "CORS": "https://www.mysite.dev:7070,https://www.mysite.dev:7075",
+    "LocalHttpPort": 7075,
+    "CORS": "https://www.mysite.dev:7070",
     "CORSCredentials": true
   }
 }
