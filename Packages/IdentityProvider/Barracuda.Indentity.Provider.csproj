@@ -2,14 +2,48 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <PackageId>Barracuda.Indentity.Provider</PackageId>
+    <PackageId>Identity.Provider.Barracuda</PackageId>
     <Authors>Jesús Lopez, César Rodríguez</Authors>
     <Company>Jesús López</Company>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Description>This package contains azure functions in order to Authenticate users through token validations even from external accounts like Google, Facebook and Microsoft.</Description>
+    <Description>This package contains azure functions in order to Authenticate users through token validations even from external accounts like Google, Facebook and Microsoft.
+
+Barracuda Identity Provider
+OAuth 2.0 and OpenID with Client Grant Flow Type and Azure Functions.
+
+Single Sign On (SSO)
+Login.
+Register.
+Valid Email with expired time token.
+Resend Email to valid email with expired time token.
+Change Password with expired time token.
+Forgot Password.
+Social Networks with delegate barracuda authorization.
+Logout.
+Block Users with expired time.
+Refresh
+Refresh token.
+
+Admin Users
+Edit. 
+Add.
+Delete.
+Block User with no expiration time.
+Change password.
+List Users.
+
+Permissions
+Scopes and Tenants</Description>
     <Product>Barracuda.Indentity.Provider</Product>
     <RootNamespace>Barracuda.Indentity.Provider</RootNamespace>
     <AssemblyName>Barracuda.Indentity.Provider</AssemblyName>
+    <Version>1.0.0</Version>
+    <PackageIcon>barracuda 150x150 (1).png</PackageIcon>
+    <RepositoryUrl>https://github.com/jelzGames/Barracuda</RepositoryUrl>
+    <PackageTags>Identity Provider,Identity,Provider,OAuth 2.0,OpenID,OAuth,Users,Managment,Users Managment,OpenApi,OpenApi 3.0,NET Core 3.1,Azure Functions,Azure,Swagger,Microservices,Clean Architecture,dependency injection,Serverless,Open Source,C#,CSharp,Visual Studio</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>OAuth 2.0 and OpenID with Client Grant Flow Type and Azure Functions.</PackageReleaseNotes>
+    <PackageProjectUrl>https://www.chambapatodos.com/</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +53,13 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="StackExchange.Redis" Version="2.2.4" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\Logo\barracuda 150x150 (1).png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

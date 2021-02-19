@@ -9,14 +9,17 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Product>Barracuda.OpenApi</Product>
     <PackageId>Barracuda.OpenApi</PackageId>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Description>Baracuda OpenAPI Azure Functions NET Core 3.1
-Generate the json file openAPI 3.0 and the front end view to interact with the API’s calls based on the setting defined in the json file openAPI 3.0.</Description>
+Generate the json file openAPI 3.0 and the front end view to interact with the API’s calls based on the setting defined in the json file openAPI 3.0.
+
+newest:
+Connection with Barracuda Identity Provider Package</Description>
     <PackageProjectUrl>https://www.chambapatodos.com/</PackageProjectUrl>
     <PackageIcon>barracuda 150x150 (1).png</PackageIcon>
     <RepositoryUrl>https://github.com/jelzGames/Barracuda</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>OpenApi,OpenApi 3.0,NET Core 3.1,Azure Functions,Azure,Swagger,Microservices,Clean Architecture,dependency injection,Serverless,Open Source,C#,CSharp,Visual Studio</PackageTags>
+    <PackageTags>Identity Provider,Identity,Provider,OAuth 2.0,OpenID,OAuth,Users,Managment,Users Managment,OpenApi,OpenApi 3.0,NET Core 3.1,Azure Functions,Azure,Swagger,Microservices,Clean Architecture,dependency injection,Serverless,Open Source,C#,CSharp,Visual Studio</PackageTags>
     <NeutralLanguage />
     <PackageReleaseNotes>Generate the json file openAPI 3.0 and the front end view to interact with the API’s calls based on the setting defined in the json file openAPI 3.0.</PackageReleaseNotes>
   </PropertyGroup>
