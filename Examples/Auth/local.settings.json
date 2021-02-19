@@ -34,7 +34,7 @@
     "GraphMicrosoft": "https://graph.microsoft.com/v1.0/users",
 
     //Memory Cache
-    "RedisCacheSecurity": true,
+    "RedisCacheSecurity": false,
     "RedisCacheConnection": "127.0.0.1:6379"
   },
   "Host": {

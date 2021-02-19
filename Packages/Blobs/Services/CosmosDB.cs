@@ -1,5 +1,5 @@
-﻿using Azure.Cosmos;
-using CosmosDatabase.Interfaces;
+﻿using CosmosDatabase.Interfaces;
+using Microsoft.Azure.Cosmos;
 using System;
 using System.Collections.Generic;
 using System.Text;

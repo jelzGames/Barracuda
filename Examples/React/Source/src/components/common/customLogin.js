@@ -303,7 +303,6 @@ export class CustomLogin extends React.Component{
         }
         await this.props.actions.LogIn(model)
         .then((result) => {
-            console.log("login")
             this.props.history.push("/");
         })
         .catch( async(error) => {
@@ -325,7 +324,7 @@ export class CustomLogin extends React.Component{
         })  
         .finally(() => {
             this.setState({
-                //isloading: false,
+                /* isloading: false */
             });
         });
     }

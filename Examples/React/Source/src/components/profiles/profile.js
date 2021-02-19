@@ -620,7 +620,8 @@ export class Profile extends React.Component{
         })
         .finally(() => {
             this.setState({
-                isloading: false
+                isloading: false,
+                found: true
             });
         });
     }
