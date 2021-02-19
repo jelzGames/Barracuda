@@ -20,9 +20,9 @@ namespace Barracuda.OpenApi.Services
             _settings = settings;
         }
 
-        public string Build(Assembly assembly, string typeName, HttpRequestMessage request)
+        public string Build(Assembly assembly, string typeName)
         {
-            var serverPath = request.RequestUri.Scheme + "://" + request.RequestUri.Authority;
+            var serverPath = _settings.BarracudaFunctionsUrlRoot;
 
             var json = _reader.Read(assembly, typeName, serverPath, _settings.OAuthUrl, _settings.OAuthTokenUrl);
 
@@ -100,6 +100,29 @@ namespace Barracuda.OpenApi.Services
                 content = content.Remove(i, "BarracudaRefreshUrl".Length);
                 content = content.Insert(i, _settings.BarracudaRefreshUrl);
             }
+
+            i = content.IndexOf("BarracudaLogouthUrl");
+            if (i >= 0)
+            {
+                content = content.Remove(i, "BarracudaLogouthUrl".Length);
+                content = content.Insert(i, _settings.BarracudaLogouthUrl);
+            }
+
+            i = content.IndexOf("BarracudaRemoveRefreshTokenhUrl");
+            if (i >= 0)
+            {
+                content = content.Remove(i, "BarracudaRemoveRefreshTokenhUrl".Length);
+                content = content.Insert(i, _settings.BarracudaRemoveRefreshTokenhUrl);
+            }
+
+            i = content.IndexOf("BarracudaPostMessages");
+            if (i >= 0)
+            {
+                content = content.Remove(i, "BarracudaPostMessages".Length);
+                content = content.Insert(i, _settings.BarracudaPostMessages);
+            }
+
+            
 
             return content;
         }

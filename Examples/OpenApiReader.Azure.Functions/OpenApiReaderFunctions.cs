@@ -65,7 +65,7 @@ namespace Demo.Azure.Functions
                 return new BadRequestObjectResult(resultAuth.Message);
             }
 
-            return await Task.FromResult(new OkObjectResult(new List<DemoModels>()));
+            return await Task.FromResult(new OkObjectResult(new List<DemoModels>() { new DemoModels() }));
         }
 
         [FunctionName("GetWithId")]
@@ -109,7 +109,7 @@ namespace Demo.Azure.Functions
         public async Task<IActionResult> OpenAPI([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "openApiDemos/openapi/v1")] HttpRequestMessage request)
         {
             return new OkObjectResult(await Task.FromResult(
-                _builder.Build(Assembly.GetExecutingAssembly(), this.GetType().Name, request)
+                _builder.Build(Assembly.GetExecutingAssembly(), this.GetType().Name)
                 ));
         }
 

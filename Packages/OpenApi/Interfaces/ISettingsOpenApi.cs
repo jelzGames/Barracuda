@@ -21,5 +21,10 @@ namespace Barracuda.OpenApi.Interfaces
         public string CookieTokenPath { get; }
         public string CookieRefreshToken { get; }
         public string CookieRefreshTokenPath { get; }
+        public string BarracudaFunctionsUrlRoot { get; }
+        public string BarracudaLogouthUrl { get; }
+        public string BarracudaRemoveRefreshTokenhUrl { get; }
+        public string BarracudaPostMessages { get; }
+
     }
 }

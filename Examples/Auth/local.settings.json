@@ -16,7 +16,7 @@
     "SessionsNumber": 5,
     "ExpiredTimeInSeconds": "20",
     "ExpiredTimeInSecondsToForgetPasword": "3600", //used in email expiration valid as well
-    "ExpiredTimeInSecondsToUserLocked": "20", 
+    "ExpiredTimeInSecondsToUserLocked": "20",
     "IUsser": "Delivers",
     "Audencie": "AllUsers",
     "CookieToken": "X-Access-Token",
@@ -25,7 +25,7 @@
     "CookieRefreshTokenPath": "/api/permissions/Refresh",
 
     //admins
-    "BarracudaSuperAdmins": "demo2@demo.com,qwer",
+    "BarracudaSuperAdmins": "demo2@demo.com,qwer,demo1@demo.com",
 
     //social 
     "GoogleClientId": "860374859932-268aj3d6ir5nt7s2frmjig1kjuga6e89.apps.googleusercontent.com",

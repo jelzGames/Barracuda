@@ -7,8 +7,23 @@
     <script src="https://unpkg.com/swagger-ui-dist@3/swagger-ui-bundle.js" charset="UTF-8"></script>
     <script>
         var elementClicked;
-
+      
         function render() {
+            var x = document.getElementById("idSpinner");
+            x.style.display = "none";
+            var x = document.getElementById("idLogoutButton");
+            x.style.display = "none";
+
+            var value = window.localStorage.getItem("BOA");
+            if (value) {
+                var x = document.getElementById("idLogoutButton");
+                x.style.display = "block";
+                var x = document.getElementById("idLoginButton");
+                x.style.display = "none";
+                var x = document.getElementById("dataUser");
+                x.style.display = "none";
+            }
+
             var ui = SwaggerUIBundle({
                 url: '',
                 oauth2RedirectUrl: '',
@@ -23,7 +38,7 @@
                     return request;
                 },
                 responseInterceptor: async function (resp) {
-                    if (resp.status === 401 && resp.text === "SecurityTokenExpired") {
+                    if (resp.text === "SecurityTokenExpired") {
                         await RefreshAll();
                     }
                     
@@ -49,6 +64,9 @@
         
         async function postLogin() {
             var flag = true;
+
+            hideLoginButton();
+
             await Auth()
                 .then(async (res) => {
                 })
@@ -57,6 +75,81 @@
                 })
 
             await GetRefreshToken(flag);
+
+            showLoginButton();
+
+        }
+
+        function showLoginButton() {
+            var value = window.localStorage.getItem("BOA");
+            if (value) {
+                var x = document.getElementById("idLogoutButton");
+                x.style.display = "block";
+                var x = document.getElementById("dataUser");
+                x.style.display = "none";
+
+            }
+            else {
+                var x = document.getElementById("idLoginButton");
+                x.style.display = "block";
+                var x = document.getElementById("dataUser");
+                x.style.display = "block";
+            }
+            var x = document.getElementById("idSpinner");
+            x.style.display = "none";
+        } 
+
+        function hideLoginButton() {
+            var x = document.getElementById("idLoginButton");
+            x.style.display = "none";
+            var x = document.getElementById("dataUser");
+            x.style.display = "none";
+            var x = document.getElementById("idSpinner");
+            x.style.display = "block";
+        } 
+
+        window.addEventListener("message", (event) => {
+            if (event.data !== "BarracudaPostMessages") {
+                var x = document.getElementById("idLogoutButton");
+                x.style.display = "none";
+                var x = document.getElementById("idSpinner");
+                x.style.display = "none";
+                var x = document.getElementById("idLoginButton");
+                x.style.display = "block";
+                var x = document.getElementById("dataUser");
+                x.style.display = "block";
+            }
+        }, false);
+
+        closeSession = async() => {
+            var x = document.getElementById("idSpinner");
+            x.style.display = "block";
+            var x = document.getElementById("idLogoutButton");
+            x.style.display = "none";
+            await logoutall();
+
+            window.localStorage.removeItem("BOA");
+            var x = document.getElementById("idLoginButton");
+            x.style.display = "block";
+            var x = document.getElementById("dataUser");
+            x.style.display = "block";
+            var x = document.getElementById("idSpinner");
+            x.style.display = "none";
+            
+            window.postMessage("BarracudaPostMessages");
+        }
+
+
+
+        async function logoutall() {
+            var promise1 = Logout();
+            var promise2 = RemoveRefreshToken();
+          
+            Promise.all([promise1, promise2])
+                .then((values) => {
+                })
+                .catch((error) => {
+                });
         }
 
         async function RefreshAll() {
@@ -78,6 +171,9 @@
                     })
                     .catch((err) => {
                     })
+            }
+            else {
+                alert("No authorized");
             }
         }
 
@@ -113,10 +209,11 @@
                 xhttpRefreshToken.onreadystatechange = function () {
                     if (this.readyState == 4) {
                         if (this.status == 200) {
-                            var x = document.getElementById("BarracudaModal");
+                            //var x = document.getElementById("BarracudaModal");
+                            //x.style.display = "none";
                             document.getElementById("password").value = "";
-                            x.style.display = "none";
                             if (!fromRefreshAll) {
+                                window.localStorage.setItem("BOA", true);
                                 alert("Barracuda sign in sucessful");
                             }
                             else {
@@ -160,6 +257,48 @@
             })
         }
 
+        function Logout() {
+            return new Promise((resolve, reject) => {
+                var xhttpRefresh = new XMLHttpRequest();
+                xhttpRefresh.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        if (this.status == 200) {
+                            resolve();
+                        }
+                        else {
+                            reject();
+                        }
+                    }
+                };
+
+                xhttpRefresh.open("GET", "BarracudaLogouthUrl", true);
+                xhttpRefresh.setRequestHeader("Content-type", "application/json");
+                xhttpRefresh.withCredentials = true;
+                xhttpRefresh.send();
+            })
+        }
+
+        function RemoveRefreshToken() {
+            return new Promise((resolve, reject) => {
+                var xhttpRefresh = new XMLHttpRequest();
+                xhttpRefresh.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        if (this.status == 200) {
+                             resolve();
+                        }
+                        else {
+                            reject();
+                        }
+                    }
+                };
+
+                xhttpRefresh.open("POST", "BarracudaRemoveRefreshTokenhUrl", true);
+                xhttpRefresh.setRequestHeader("Content-type", "application/json");
+                xhttpRefresh.withCredentials = true;
+                xhttpRefresh.send();
+            })
+        }
+
     </script>
     <style>
         .container {
@@ -197,13 +336,32 @@
             border: 3px solid green;
             padding: 10px;
         }
+
+        .loader {
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
     <title></title>
 </head>
 <body onload="render()">
     <div id="LoginBarracuda">
         <section class="swagger-ui schemes">
-            <div id="Barracuda" class="swagger-ui auth-wrapper">
+            <!--<div id="Barracuda" class="swagger-ui auth-wrapper">
                 <button class="btn authorize unlocked" onclick="ModalLogin()" style="margin-right:10px;">
                     <span>Barracuda</span>
                     <svg width="20" height="20">
@@ -211,14 +369,18 @@
                         </use>
                     </svg>
                 </button>
-            </div>
+            </div>-->
             <div id="BarracudaModal" style="width:30%" class="center">
                 <div class="container">
-                    <label>Email : </label>
-                    <input id="email" type="text" placeholder="Enter Username" name="username" required>
-                    <label>Password : </label>
-                    <input id="password" type="password" placeholder="Enter Password" name="password" required>
-                    <button class="mybutton" style="margin-top:10px" onclick="postLogin()">Login Barracuda</button>
+                    <div id="dataUser">
+                        <label>Email : </label>
+                        <input id="email" type="text" placeholder="Enter Username" name="username" required>
+                        <label>Password : </label>
+                        <input id="password" type="password" placeholder="Enter Password" name="password" required>
+                    </div>
+                    <button id="idLoginButton" class="mybutton" style="margin-top:10px" onclick="postLogin()">Login Barracuda</button>
+                    <button id="idLogoutButton" class="mybutton" style="margin-top:10px" onclick="closeSession()">Logout Barracuda</button>
+                    <div id="idSpinner" class="loader"></div>
                 </div>
             </div>
         </section>
