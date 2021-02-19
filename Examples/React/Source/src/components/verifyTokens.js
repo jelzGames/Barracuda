@@ -10,6 +10,7 @@ import * as constants from "../constants";
 import { Grid } from '@material-ui/core';
 import { CustomButton } from './common/customButton';
 import CustomSpinner from "../components/common/customSpinner";
+import { withStyles } from '@material-ui/styles';
 
 const useStyles = theme => ({
     spinnerPaper: {
@@ -156,5 +157,6 @@ const mapDispatchToProps = (dispatch) => {
 
 export default compose(
     withRouter,
+    withStyles(useStyles, { withTheme: true }),
     connect(mapStateToProps, mapDispatchToProps)
     )(verifyTokens);

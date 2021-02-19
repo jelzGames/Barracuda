@@ -1,11 +1,11 @@
 ﻿using AuthOpenId.Interfaces;
-using Azure.Cosmos;
 using Bases.Interfaces;
 using Bases.Services;
 using Blobs.Domain.Interfaces;
 using Blobs.Domain.Models;
 using Common.Models;
 using CosmosDatabase.Interfaces;
+using Microsoft.Azure.Cosmos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -140,12 +140,12 @@ namespace Blobs.Infrastructure
                     MaxItemCount = _contextCosmosDB.MaxItemCount
                 };
 
-                await foreach (var page in RepositoryContainer.GetItemQueryIterator<BlobModel>(query.Query, query.ContinuationToken, queryOptions, token).AsPages())
-                {
-                    models = page.Values;
-                    newContinuationToken = page.ContinuationToken;
-                    break;
-                }
+                //await foreach (var page in RepositoryContainer.GetItemQueryIterator<BlobModel>(query.Query, query.ContinuationToken, queryOptions, token).AsPages())
+                //{
+                //    models = page.Values;
+                //    newContinuationToken = page.ContinuationToken;
+                //    break;
+                //}
 
                 model.ContinuationToken = newContinuationToken;
                 model.models = models;
