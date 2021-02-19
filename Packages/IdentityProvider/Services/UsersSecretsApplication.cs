@@ -71,10 +71,6 @@ namespace Barracuda.Indentity.Provider.Services
 
             if (result.Value.Block && DateTime.UtcNow < result.Value.ExpirationBlock)
             {
-                result.Value.Block = false;
-                result.Value.TryCounter = 0;
-                await _services.Update(result.Value);
-
                 return _result.Create<LoginDto>(false, _errors.Block + " " + result.Value.ExpirationBlock.ToString("s"), null);
             }
             else
@@ -108,28 +104,24 @@ namespace Barracuda.Indentity.Provider.Services
                 }
                 else
                 {
-                    if (!result.Value.Block)
+                    result.Value.Block = false;
+                    result.Value.TryCounter = 0;
+                    await _services.Update(result.Value);
+
+                    if (_settings.RedisCacheSecurity)
                     {
-                        result.Value.Block = false;
-                        result.Value.TryCounter = 0;
-                        await _services.Update(result.Value);
-
-                        if (_settings.RedisCacheSecurity)
+                        var tokens = await _redisCache.GetSringValue(result.Value.id);
+                        if (!String.IsNullOrEmpty(tokens))
                         {
-                            var tokens = await _redisCache.GetSringValue(result.Value.id);
-                            if (!String.IsNullOrEmpty(tokens))
-                            {
-                                var modelRedis = JsonConvert.DeserializeObject<RedisSecurityModel>(tokens);
-                                modelRedis.Scopes = result.Value.Scopes;
-                                modelRedis.Scopes = result.Value.Tenants;
-                                modelRedis.ValidEmail = result.Value.ValidEmail;
-                                modelRedis.Block = false;
+                            var modelRedis = JsonConvert.DeserializeObject<RedisSecurityModel>(tokens);
+                            modelRedis.Scopes = result.Value.Scopes;
+                            modelRedis.Scopes = result.Value.Tenants;
+                            modelRedis.ValidEmail = result.Value.ValidEmail;
+                            modelRedis.Block = false;
 
-                                var jsonString = JsonConvert.SerializeObject(modelRedis);
-                                await _redisCache.SetStringValue(result.Value.id, jsonString);
-                            }
+                            var jsonString = JsonConvert.SerializeObject(modelRedis);
+                            await _redisCache.SetStringValue(result.Value.id, jsonString);
                         }
-
                     }
                 }
             }
