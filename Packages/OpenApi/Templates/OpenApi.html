@@ -108,7 +108,9 @@
             x.style.display = "block";
         } 
 
-        window.addEventListener("message", (event) => {
+        const channel = new BroadcastChannel('barracuda-channel-name');
+
+        channel.onmessage = function (e) {
             if (event.data !== "BarracudaPostMessages") {
                 var x = document.getElementById("idLogoutButton");
                 x.style.display = "none";
@@ -119,7 +121,7 @@
                 var x = document.getElementById("dataUser");
                 x.style.display = "block";
             }
-        }, false);
+        };
 
         closeSession = async() => {
             var x = document.getElementById("idSpinner");
@@ -135,8 +137,7 @@
             x.style.display = "block";
             var x = document.getElementById("idSpinner");
             x.style.display = "none";
-            
-            window.postMessage("BarracudaPostMessages");
+            channel.postMessage("BarracudaPostMessages");
         }
 
 

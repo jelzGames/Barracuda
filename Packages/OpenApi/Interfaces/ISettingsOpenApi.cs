@@ -25,6 +25,9 @@ namespace Barracuda.OpenApi.Interfaces
         public string BarracudaLogouthUrl { get; }
         public string BarracudaRemoveRefreshTokenhUrl { get; }
         public string BarracudaPostMessages { get; }
-
+        public string SecretKey { get; }
+        public int SessionsNumber { get; }
+        public int ExpiredTimeInSeconds { get; }
+        public string[] BarracudaSuperAdmins { get; }
     }
 }

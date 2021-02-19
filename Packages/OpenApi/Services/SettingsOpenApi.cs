@@ -15,6 +15,19 @@ namespace Barracuda.OpenApi.Services
             BOAUrlJson = System.Environment.GetEnvironmentVariable("BOAUrlJson", EnvironmentVariableTarget.Process);
             BOARedirectAuthUrl = System.Environment.GetEnvironmentVariable("BOARedirectAuthUrl", EnvironmentVariableTarget.Process);
 
+            var admins = System.Environment.GetEnvironmentVariable("BarracudaSuperAdmins", EnvironmentVariableTarget.Process);
+            if (admins != null)
+            {
+                BarracudaSuperAdmins = admins.Split(",");
+            }
+            else
+            {
+                BarracudaSuperAdmins = new string[0];
+            }
+            SecretKey = System.Environment.GetEnvironmentVariable("SecretKey", EnvironmentVariableTarget.Process);
+            SessionsNumber = Convert.ToInt32(System.Environment.GetEnvironmentVariable("SessionsNumber", EnvironmentVariableTarget.Process));
+            ExpiredTimeInSeconds = Convert.ToInt32(System.Environment.GetEnvironmentVariable("ExpiredTimeInSeconds",
+               EnvironmentVariableTarget.Process));
             BarracudaAuthUrl = System.Environment.GetEnvironmentVariable("BarracudaAuthUrl", EnvironmentVariableTarget.Process);
             BarracudaRefreshTokenUrl = System.Environment.GetEnvironmentVariable("BarracudaRefreshTokenUrl", EnvironmentVariableTarget.Process);
             BarracudaRefreshUrl = System.Environment.GetEnvironmentVariable("BarracudaRefreshUrl", EnvironmentVariableTarget.Process);
@@ -47,5 +60,9 @@ namespace Barracuda.OpenApi.Services
         public string BarracudaLogouthUrl { get; private set; }
         public string BarracudaRemoveRefreshTokenhUrl { get; private set; }
         public string BarracudaPostMessages { get; private set; }
+        public string SecretKey { get; private set; }
+        public int SessionsNumber { get; private set; }
+        public int ExpiredTimeInSeconds { get; private set; }
+        public string[] BarracudaSuperAdmins { get; private set; }
     }
 }
